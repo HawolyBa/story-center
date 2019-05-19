@@ -1,0 +1,140 @@
+.flex {
+  display: flex;
+}
+
+.spb {
+  justify-content: space-between;
+}
+
+.spa {
+  justify-content: space-around;
+}
+
+.fs {
+  justify-content: flex-start;
+}
+
+.fe {
+  justify-content: flex-end;
+}
+
+.jc {
+  justify-content: center;
+}
+
+.frn {
+  flex-flow: row nowrap;
+}
+
+.frw {
+  flex-flow: row wrap;
+}
+
+.fc {
+  flex-flow: column;
+}
+
+.ac {
+  align-items: center;
+}
+
+.afs {
+  align-items: flex-start;
+}
+
+.afe {
+  align-items: flex-end;
+}
+
+.ase {
+  align-self: flex-end;
+}
+
+// .grid-item {
+//   width: 200px;
+//   background: white;
+// }
+
+// .grid-item--width2 {
+//   width: 400px;
+// }
+
+// .masonry {
+//   display: grid;
+//   height: auto;
+//   flex-flow: row wrap;
+//   grid-gap: 10px;
+//   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+//   grid-auto-rows: 20px;
+// }
+
+// .grid-item {
+//   margin-right: 10px;
+//   padding: 1rem;
+//   height: auto;
+//   text-align: center;
+//   font-size: 14px;
+//   font-weight: bold;
+//   color: $ecru;
+//   background-color: #fff;
+//   border-radius: 5px;
+//   margin-bottom: 15px;
+//   box-shadow: 0 0 5px #d8d8d8;
+//   box-shadow: 0 0px 10px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22);
+//   background-size: cover;
+//   background-position: center;
+//   position: relative;
+//   overflow: hidden;
+//   &:nth-child(odd) {
+//     background-color: $black;
+//   }
+//   a {
+//     color: $ecru;
+//   }
+//   h3 {
+//     font-size: 25px;
+//     font-weight: bold;
+//   }
+//   .ratings {
+//     display: flex;
+//     flex-flow: row nowrap;
+//     justify-content: center;
+//     align-items: flex-end;
+//     margin-top: 10px;
+//     small {
+//       color: #27bab0;
+//       margin-left: 10px;
+//     }
+//   }
+// }
+
+// @media screen and (max-width: 1200px) {
+//   .masonry {
+//     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+//   }
+// }
+
+// @media screen and (max-width: 1024px) {
+//   .masonry {
+//     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+//   }
+// }
+
+// @media screen and (max-width: 800px) {
+//   .masonry {
+//     display: flex;
+//     flex-flow: row wrap;
+//     justify-content: space-between;
+//     .grid-item {
+//       width: 45%;
+//     }
+//   }
+// }
+
+// @media screen and (max-width: 600px) {
+//   .masonry {
+//     .grid-item {
+//       width: 100%;
+//     }
+//   }
+// }

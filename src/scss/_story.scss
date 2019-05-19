@@ -1,0 +1,704 @@
+// .nightmode {
+//   .story {
+//     .inner-main { background-color: #1d1d1d; color: $ecru }
+//     a { color: $ecru }
+//   }
+//   .chapter .ratings .average { color: $ecru }
+// }
+
+// .story {
+//   overflow: hidden;
+//   position: relative;
+
+//   .inner-main {
+//     background-color: white;
+//     padding: 0;
+//     overflow-y: scroll;
+//     overflow-x: hidden; 
+//     position: relative;
+//     height: calc(100vh - 140px);
+//     &::-webkit-scrollbar { 
+//       display: none; 
+//     }
+//   }
+  
+//   .inner-main-moz {
+//     background-color: white;
+//     height: calc(100vh - 140px);
+//     &::-webkit-scrollbar { 
+//       display: block; 
+//     }
+//   }
+
+//   .hide-scrollbar {
+//     position: absolute;
+//     height: 100%;
+//     width: 24px;
+//     background: blue;
+//     right: 24px;
+//     z-index: 100000;
+//   }
+
+//   section.story-banner {
+//     width: 230px;
+//     background-color: black;
+//     position: fixed;
+//     @include background();
+//     height: calc(100vh - 140px);
+//     border-radius: 10px 0 0 10px;
+
+//     .inner {
+//       position: absolute;
+//       bottom: 50px;
+//       left: 50%;
+//       width: 90%;
+//       transform: translate(-50%);
+//       color: white;
+//       text-shadow: 0 0 5px black
+//     }
+
+//     .content {
+//       bottom: 0;
+//       z-index: 10;
+//       color: $ecru;
+//       text-align: center;
+
+//       a { color: white; text-decoration: underline }
+  
+//       h2 {
+//         font-size: 2rem;
+//         margin-bottom: 30px;
+//         text-decoration: none;
+//       }
+
+//       .banner-rating {
+//         margin-top: 10px;
+//         small {
+//           margin-left: 10px;
+//           font-size: 20px
+//         }
+//       }
+//     }
+
+//     .counters {
+//       width: 100%;
+//       margin: 30px auto 0 auto;
+
+//       .counter:first-child {
+//         margin-right: 20px
+//       }
+//       .counter-num { font-weight: bold }
+//     }
+//   }
+
+//   section.story-details {
+//     width: 75%;
+//     padding: 30px;
+//     margin-left: 250px;
+
+//     .delete { cursor: pointer; }
+//     .body {
+//       text-align: justify
+//     }
+
+//     .chapters-list {
+//       width: 50%;
+//       margin: auto;
+//       hr {
+//         border: 1px dashed $black;
+//         flex: 1;
+//         margin: 10px;
+//       }
+//       .chapter-el {
+//         display: flex;
+//         flex-flow: row nowrap;
+//         justify-content: space-between;
+//         align-items: first baseline;
+//         margin-bottom: 30px
+//       }
+    
+//       .chapter-link {
+//         text-decoration: underline;
+//         margin-right: 10px
+//       }
+//       .delete {
+//         color: $red
+//       }
+//       .edit {
+//         color: #17a2b8
+//       }
+//     }
+
+//     p.summary {
+//       font-size: 14px;
+//       margin: 30px 0 50px 0;
+//       span {
+//         font-weight: bold;
+//         text-decoration: underline
+//       }
+//     }
+//     h2 { text-align: center }
+//     h3 { margin-bottom: 20px; font-size: 16px }
+//     h3.chapter-heading {
+//       font-family: 'Lato', sans-serif;
+//       font-size: 1.2rem;
+//       text-align: center;
+//       font-weight: bold;
+//       font-style: normal;
+//       text-decoration: underline;
+//       text-decoration-color: $teal;
+//       margin: 15px 0
+//     }
+
+//     .chara-story {
+//       .item {
+//         width: 12%;
+//         cursor: pointer;
+//         .grid-image {
+//           height: 100px;
+//         }
+
+//         h4 {
+//           font-size: 12px;
+//           margin: 0
+//         }
+//       }
+      
+//     }
+
+//     .comments {
+//       .comment-details {
+//         display: flex;
+//         align-items: flex-start;
+//         .comment-pic {
+//           width: 50px;
+//           height: 50px;
+//           background-size: cover;
+//           background-position: center;
+//           margin-right: 10px;
+//           border: 5px solid white
+//         }
+//       }
+
+//       .username { font-weight: bold }
+    
+//       .answer, .delete {
+//         font-size: 11px;
+//         text-decoration: underline;
+//         cursor: pointer;
+//       }
+    
+//       .delete { margin-left: 10px }
+    
+//       .answer-form.toggle {
+//         display: block
+//       }
+    
+//       .answer-form.nottoggle {
+//         display: none
+//       }
+    
+//       .comment {
+//         padding: 20px 0;
+//         border-bottom: 1px solid #eaeaea;
+//         p {
+//           margin: 0
+//         }
+        
+//       }
+    
+//       .comment-answer {
+//         margin-left: 20px;
+//         margin-top: 20px
+//       }
+    
+//     }
+//   }
+
+  
+// }
+
+// .add-story {
+//   .inner-main { background-color: white; width: 800px }
+// }
+
+// .add-chapter, .add-story, .edit-story {
+//   h2 {
+//     text-align: center
+//   }
+// }
+
+// .add-story, .edit-story {
+//   .banner {
+//     width: 100%;
+//     height: 150px;
+//     background-size: cover;
+//     background-position: center;
+//     margin-bottom: 15px;
+//     display: block;
+//     cursor: pointer;
+//     transition: all 0.5s ease;
+//   }
+
+//   .greyscale {
+//     filter: grayscale(90%);
+//   }
+
+//   .scale {
+//     transform: scale(1.1)
+//   }
+
+//   .tooltip-closed { opacity: 0; visibility: hidden; }
+//   .custom-tooltip {
+//     position: absolute;
+//     opacity: 1;
+//     visibility: visible;
+//     transition: opacity 0.5s ease;
+//     top: 50%;
+//     left: 50%;
+//     transform: translate(-50%, -90%);
+//     z-index: 2000;
+//     max-width: 600px;
+//     height: auto;
+//     border: 3px solid white;
+//   }
+
+//   button[type="submit"] {
+//     padding: 10px 30px
+//   }
+
+//   #addImage {
+//     display: none
+//   }
+
+//   nav.chap-nav {
+//     margin: 30px 0;
+//     .hidden {
+//       opacity: 0
+//     }
+//   }
+// }
+
+// .add-chapter, .edit-story {
+//   .edit-form {
+//     width: 75%;
+//     margin-left: 25%;
+//     padding: 25px
+//   }
+//   .button {
+//     float: right;
+//     margin-top: 20px
+//   }
+
+//   .body-input {
+//     min-height: 400px
+//   }
+  
+// }
+
+// .add-chapter {
+//   .selected li {
+//     list-style: disc;
+//     cursor: pointer;
+
+//     .circle {
+//       margin-left: 10px;
+//       @include circle(15px, red, white)
+//     }
+//   }
+// }
+
+// .chapter {
+//   .inner-main { 
+//     &::-webkit-scrollbar { 
+//     display: none; 
+//   } }
+//   .chapter-details {
+//     .meta-responsive { display: none}
+//   }
+//   .ratings {
+//     margin-top: 15px;
+//     .average {
+//       margin-left: 10px;
+//       @include circle(32px, transparent, $black);
+//       border: 1px solid #27bab0;
+//       font-size: 0.9rem
+//     }
+//   }
+//   nav.chap-nav {
+//     margin-top: 30px;
+//     .hidden {
+//       opacity: 0
+//     }
+//   }
+
+//   .chap-notfound {
+//     height: calc(100vh - 170px);
+//     display: flex;
+//     flex-flow: column;
+//     align-items: center;
+//     justify-content: center;
+//     .inner {
+//       display: flex;
+//       flex-flow: column;
+//       align-items: center;
+//       justify-content: center;
+//     }
+//     h2 { font-size: 4rem}
+//     h3 { font-size: 2.5rem}
+//   }
+//   h4 { font-size: 0.7rem; margin: 0 }
+//   .character {
+//     .image { 
+//       height: 90px;
+//       color: white
+//     } 
+//   }
+  
+//   .locations {
+//     .location-image {
+//       height: 90px;
+//       background-position: center;
+//       background-size: cover
+//     }
+//   }
+  
+// }
+
+
+// @media screen and (max-width: 800px) {
+//   .chapter {
+//     .chapter-details {
+//       .meta-responsive { display: block}
+//     }
+//   }
+//   .story {
+//     .inner-main {
+//       padding: 0;
+//       overflow-y: hidden;
+//       overflow-x: hidden; 
+//       position: relative;
+//       height: 100%
+//     }
+//     section.story-banner {
+//       width: 100%;
+//       padding: 20px 0;
+//       height: auto;
+//       border-radius: 0;
+//       position: static;
+
+//       .banner-rating {
+//         order: 3;
+//         align-items: center;
+//         small {
+//           margin-left: 10px;
+//           font-size: 20px
+//         }
+//       }
+
+//       .inner {
+//         position: static;
+//         width: 100%;
+//         transform: translate(0);
+//         color: white;
+//         text-align: center;
+//         text-shadow: 0 0 5px black;
+//         .content {
+//           font-size: 12px;
+      
+//           h2 {
+//             font-size: 35px;
+//             margin-bottom: 30px;
+//           }
+//         }
+//         .content-details { 
+//           display: none
+//         }
+//       }
+//       .counters { margin: 0 0 20px 0; font-size: 16px}
+//     }
+//     section.story-details {
+//       width: 100%;
+//       margin: 0;
+//       .chapters-list { width: 80%}
+//     }
+//   }
+  
+// }
+
+// @media screen and (max-width: 600px) {
+//   .story {
+//     section.story-details {
+//       .chara-story {
+//         .item {
+//           flex: 1;
+//           min-width: 80px;
+//           max-width: 100px;
+//         }
+//       }
+//     }
+//   }
+// }
+
+.story {
+  position: relative;
+  overflow-x: hidden;
+  height: 80vh;
+  .responsive { display: none }
+  section.story-banner {
+    width: 230px;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    //background: linear-gradient(336deg, rgba($black,.6), rgba($black,0.5) 70.71%), url('../img/banners//pexels-photo-2096700.jpeg') no-repeat left top;
+    background-position: center;
+    background-size: cover;
+    border-radius: 10px 0 0 10px;
+    text-shadow: 0 0 3px black;
+
+    h2.storyTitle {
+      font-size: 2rem;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: lighter;
+      text-decoration: underline;
+      a, a:hover { color: $secondary }
+    }
+
+    .banner-rating {
+      margin-top: 10px;
+      .note {
+        margin-left: 10px;
+        font-size: 20px
+      }
+    }
+
+    .story-info {
+      position: absolute;
+      bottom: 5%;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      padding: 10px;
+      color: $secondary;
+      width: 100%;
+      background-color: rgba($black, 0.7);
+      width: 90%;
+      margin: auto;
+
+      .details {
+        a { color: $secondary; text-decoration: underline }
+        a:hover { color: $primary }
+      }
+
+      small { font-size: 0.7rem }
+    }
+
+    .sub-info { line-height: 16px }
+
+    // .story-stats {
+    //   .stat:first-child { margin-right: 20px }
+    // }
+  }
+
+  section.story-details {
+    padding-left: 20px;
+    padding-right: 40px;
+    margin-left: 230px;
+    overflow-x: hidden;
+    .upper-band { font-size: 0.7rem }
+
+    .summary { font-size: 0.85rem; font-weight: lighter }
+
+    .square-btn {  max-height: 32px; }
+
+    .chapters-list {
+      width: 60%;
+      margin: auto;
+      hr {
+        border: 1px dashed lighten($black, 30%);
+        flex: 1;
+        margin: 10px;
+      }
+      .chapter-el {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        align-items: first baseline;
+        margin-bottom: 20px
+      }
+    
+      .chapter-link {
+        text-decoration: underline;
+        margin-right: 10px
+      }
+    }
+
+    .chapter-content {
+      h3 { font-size: 1.8rem }
+      p { text-align: justify; margin-bottom: 10px; font-family: 'Georgia', sans-serif; font-size: 15px }
+    }
+
+    nav.chapter-nav {
+      .square-btn { 
+        color: $black;
+        border: 1px solid $black;
+        font-size: 0.7rem;
+        &:hover { transform: scale(1); background: transparent }
+      }
+    }
+  }
+}
+
+.chapter {
+  .rate {
+    float: left;
+    height: 40px;
+  }
+  .rate:not(:checked) > label {
+      font-size:1.7em;
+  }
+
+  .note {
+    @include circle(1.8rem, transparent, $primary);
+    font-size: 1rem;
+    border: 1px solid $primary;
+    margin-left: 5px
+  }
+
+
+  section.comments {
+    .custom-btn { padding: 5px 15px }
+    h3 { font-size: 1.2rem }
+
+    .comment-details {
+        display: flex;
+        align-items: flex-start;
+        .comment-pic {
+          width: 50px;
+          height: 50px;
+          margin-right: 10px;
+          border: 5px solid white;
+          span {
+            display: block;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+          }
+        }
+      }
+
+      p { font-size: 0.8rem }
+
+      .username { font-weight: bold }
+    
+      .answer, .delete {
+        font-size: 11px;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    
+      .delete { margin-left: 10px }
+    
+      .answer-form.toggle {
+        display: block
+      }
+    
+      .answer-form.nottoggle {
+        display: none
+      }
+    
+      .comment {
+        padding: 20px 0;
+        border-bottom: 1px solid #eaeaea;
+        p {
+          margin: 0
+        }
+        
+      }
+    
+      .comment-answer {
+        margin-left: 20px;
+        margin-top: 20px
+      }
+  }
+}
+
+.add-story {
+  padding: 30px;
+
+  h2 { font-size: 2rem }
+
+  .banner {
+    width: 100%;
+    height: 150px;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: all 0.5s ease;
+  }
+
+  .gallery {
+    .tooltip-inner {
+      max-width: 600px;
+      width: 600px; 
+    }
+  }
+}
+
+nav.chap-nav {
+  margin: 30px 0;
+}
+
+.edit-story {
+  margin-left: 230px;
+  height: 80vh;
+  overflow-x: hidden
+}
+
+.add-chapter {
+  
+  .quill { 
+    border: none;
+    background: darken($secondary, 3%);
+    border-radius: 5px
+  }
+
+  .ql-editor {
+    height: 300px;  
+  }
+
+  .ql-toolbar.ql-snow {
+    border: none;
+    border-bottom: 1px solid $separator
+  }
+
+  .ql-container.ql-snow { 
+    border: none;
+  }
+
+  table.chosen {
+    width: 75%;
+    border-collapse: collapse; 
+    tr {
+      border-bottom: 1pt solid $separator;
+    }
+
+    td {
+      padding: 5px 0;
+      &:last-child { text-align: right }
+    }
+
+    .delete {
+      font-size: 0.6rem;
+      cursor: pointer;
+      text-transform: uppercase;
+      @include circle(20px, $red, $secondary)
+    }
+  }
+}
+
+main.inner-main-add-story { width: 800px }

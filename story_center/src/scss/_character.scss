@@ -1,0 +1,460 @@
+// .nightmode {
+//   .character .character-description .relatives .item { background-color: #1d1d1d; color: $ecru; hr { border-top: 1px solid rgba(156, 156, 156, 0.1); } }
+//   .character .character-description .chara-stories .rel-story { border-bottom: 3px solid #212121; }
+//   hr {
+//     border-top: 1px solid rgb(56, 56, 56);
+//   }
+// }
+
+// .character-form {
+//   margin: 50px 0;
+//   .inner-main {
+//     background-color: white;
+//     padding: 30px 50px
+//   }
+
+//   h2 {
+//     text-align: center;
+//     margin-bottom: 30px
+//   }
+
+//   .image-upload { margin-bottom: 20px }
+//     .image-upload > input {
+//       display: none;
+//     }
+
+//     .change-image-tag {
+//       position: absolute;
+//       cursor: pointer;
+//       font-weight: lighter;
+//       font-size: 10px;
+//       color: $black;
+//       text-align: center;
+//       z-index: 2;
+//       top: 85px
+//     }
+
+//     .avatar {
+//       cursor: pointer;
+//       position: relative;
+//       width: 80px;
+//       height: 80px;
+//       background-position: center;
+//       background-size: cover;
+//       margin-bottom: 30px
+//     }
+
+//     .relatives {
+//       align-items: flex-end
+//     }
+// }
+
+// .character {
+//   .relatives-grid a { 
+//     display: inline-block;
+//     width: 18%;
+//     margin-right: 15px; 
+//   }
+//   .inner-main { background: white; padding: 0 }
+//   .inner { padding: 30px }
+//   .character-details{
+//     border-radius: 10px 0 0 10px;
+//     .author-name { color: $ecru; text-decoration: underline }
+//     //height: calc(100vh - 140px);
+//     background: #171717;;
+//     color: $ecru;
+//     width: 25%;
+//     a:hover { color: inherit }
+//     hr { height: 1px; background-color: #2f2f2f }
+//     img {
+//       max-width: 100%;
+//       height: auto;
+//       border-radius: 10px 0 0 0
+//     }
+//     p, ul {
+//       color: #adadad;
+//       margin: 20px 0
+//     }
+
+//     ul, li { font-size: 12px; letter-spacing: 2px }
+
+//     h2 {
+//       line-height: 25px;
+//       span {
+//         font-size: 14px
+//       }
+//     }
+//     .bio { 
+//       margin-bottom: 30px; 
+//       font-size: 12px;
+
+//       span { text-decoration: underline }
+//     }
+//   }
+
+//   .character-description {
+//     width: 75%;
+//     position: relative;
+
+//     .edit-character-btn { 
+//       position: absolute;
+//       top: 20px;
+//       right: 30px;
+//       font-size: 12px
+//     }
+
+//     h3 { margin-bottom: 15px;  font-weight: lighter }
+
+//     .relatives {
+//       margin-bottom: 30px;
+//       .item {
+//         width: 100%;
+//         height: 100%;
+//         cursor: pointer;
+//       }
+//       .image {
+//         background-size: cover;
+//         background-position: center;
+//         width: 100%;
+//         height: 150px
+//       }
+
+//       .blur { filter: blur(15px) }
+
+//       .item {
+//         width: 100%;
+//         background-color: white;
+//         display: block;
+//         margin-right: 15px;
+//         cursor: pointer;
+//         .grid-image {
+//           height: 150px;
+//           background-size: cover;
+//           background-position: center
+//         }
+  
+//         a { color: $black }
+//         figcaption {
+//           padding: 10px;
+//           text-align: center;
+
+//           span { font-size: 12px }
+//         }
+
+//         hr { margin: 0 }
+  
+//         h4 {
+//           font-weight: lighter;
+//           font-size: 16px
+//         }
+//       }
+//     }
+
+//     .chara-stories {
+//       .circle {
+//         @include circle(15px, red, white);
+//         margin-right: 10px
+//       }
+//       .story-status {
+//         font-size: 11px;
+//         font-weight: lighter;
+//         text-align: left
+//       }
+    
+//       .rel-story {
+//         margin-bottom: 40px;
+//         border-bottom: 3px solid $black;
+//       }
+    
+//       .story-title { font-size: 18px; line-height: 20px; }
+//       .story-details {
+//         display: flex;
+//         flex-flow: row nowrap;
+//         justify-content: space-between;
+//         align-items: center
+//       }
+    
+//       .chapter {
+//         display: flex;
+//         flex-flow: row nowrap;
+//         justify-content: space-between;
+//         align-items: center;
+//         margin-bottom: 10px;
+    
+//         hr { border: 1px dashed rgba(0,0,0,.1); flex: 1; margin: 0 15px }
+//       }
+    
+//       .button {
+//         background-color: $black;
+//         padding: 10px 20px;
+//         color: $ecru
+//       }
+    
+//       .button-read {
+//         padding: 5px 10px;
+//         font-size: 12px
+//       }
+//     }
+    
+//     .add-character {
+//       .description {
+//         width: calc(100% - 480px);
+//         margin-left: 420px;
+//         padding: 30px;
+//         padding-top: 130px
+//       }
+//     }
+//   }
+  
+// }
+
+.character {
+  
+  section.character-details {
+    height: 80vh;
+    width: 25%;
+    background: #171717;
+    color: $secondary;
+    border-radius: 10px 0 0 10px;
+    a:hover { color:inherit }
+    .image {
+      width: 100%;
+      height: 300px;
+      border-radius: 10px 0 0 0;
+      overflow: hidden;
+      img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px 0 0 0
+      }
+    }
+
+    .info { padding: 15px }
+    hr { border: 1px solid rgba(158, 158, 158, 0.1) }
+
+    p, ul {
+      color: #adadad;
+      margin: 20px 0
+    }
+
+    ul, li { font-size: 12px; letter-spacing: 2px }
+
+    h2 {
+      font-size: 1.5rem;
+      font-weight: lighter;
+      font-style: normal;
+      line-height: 25px;
+      span {
+        font-size: 14px
+      }
+    }
+    .bio { 
+      margin-bottom: 30px; 
+      font-size: 12px;
+
+      span { text-decoration: underline }
+    }
+
+    strong { font-weight: bolder; color: white }
+  }
+
+  section.character-description {
+    height: 80vh;
+    width: 75%;
+    position: relative;
+
+    h3 { font-size: 1.8rem; margin-bottom: 15px;  font-weight: lighter }
+
+
+    .relatives {
+      small { font-size: 0.9rem }
+    }
+
+    .chara-stories {
+      padding: 30px;
+      .circle {
+        @include circle(15px, $red, white);
+        margin-right: 10px
+      }
+      .story-status {
+        font-size: 11px;
+        font-weight: lighter;
+        text-align: left
+      }
+    
+      .rel-story {
+        margin-bottom: 40px;
+        border-bottom: 3px solid $black;
+      }
+    
+      .story-title { 
+        h4 { font-size: 1.1rem; font-weight: bold; font-style: italic }
+        font-size: 18px; 
+        line-height: 0rem; 
+      }
+      .story-details {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        align-items: center
+      }
+    
+      .chapter {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    
+        hr { border: 1px dashed rgba(0,0,0,.1); flex: 1; margin: 0 15px }
+      }
+    
+      .button {
+        background-color: $black;
+        padding: 10px 20px;
+        color: $secondary
+      }
+    
+      .button-read {
+        padding: 5px 10px;
+        font-size: 12px
+      }
+    }
+  }
+
+  
+}
+
+.character-responsive {
+  display: none;
+  section.r-character-details {
+    color: #adadad;
+    
+    header {
+      padding: 30px 15px 20px 15px;
+      text-align: center;
+      color: $secondary;
+      position: relative;
+      background: #171717;
+      .outlined { font-size: 0.7rem }
+
+      h2 {
+        font-size: 1.5rem;
+        font-weight: lighter;
+        font-style: normal;
+        line-height: 25px;
+        span {
+          font-size: 14px
+        }
+      }
+      .title p { font-size: 0.7rem }
+      .image {
+        height: 150px;
+        width: 150px;
+        border-radius: 50%;
+        overflow: hidden;
+        img { width: 100% }
+      }
+
+      .favorite {
+        font-size: 0.6rem;
+        padding: 5px 15px;
+      }
+      .r-favorite { small { font-size: 0.6rem } }
+    }
+
+    .info { padding: 20px 15px; }
+
+    ul { 
+      color: $secondary;
+      padding: 10px; 
+      background-color: #202f2e;
+      color: #b1b0b0;
+      border-radius: 5px;
+      box-shadow: 0 0 10px black;
+      font-size: 0.9rem;
+
+      li {
+        padding: 5px 0;
+        border-bottom: 1px solid #344443
+      }
+    }
+
+    strong { font-weight: bolder; color: #d4d3d3 }
+
+    hr { border: 1px solid rgba(158, 158, 158, 0.1) }
+    .bio { 
+      font-size: 12px;
+      color: $black;
+      span { text-decoration: underline }
+      hr { margin: 5px 0 }
+    }
+  }
+  section.character-description {
+    position: relative;
+    padding: 15px;
+
+    h3 { font-size: 1.8rem; margin-bottom: 15px;  font-weight: lighter }
+
+
+    .relatives {
+      small { font-size: 0.9rem }
+    }
+
+    .chara-stories {
+      .circle {
+        @include circle(15px, $red, white);
+        margin-right: 10px
+      }
+      .story-status {
+        font-size: 11px;
+        font-weight: lighter;
+        text-align: left
+      }
+    
+      .rel-story {
+        margin-bottom: 40px;
+        border-bottom: 3px solid $black;
+      }
+    
+      .story-title { 
+        h4 { font-size: 1.1rem; font-weight: bold; font-style: italic }
+        font-size: 18px; 
+        line-height: 0rem; 
+      }
+      .story-details {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        align-items: center
+      }
+    
+      .chapter {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    
+        hr { border: 1px dashed rgba(0,0,0,.1); flex: 1; margin: 0 15px }
+      }
+    
+      .button {
+        background-color: $black;
+        padding: 10px 20px;
+        color: $secondary
+      }
+    
+      .button-read {
+        padding: 5px 10px;
+        font-size: 12px
+      }
+    }
+  }
+}
+
+main.inner-main-character { height: 80vh; }
+
+.add-character {
+  padding: 30px;
+}

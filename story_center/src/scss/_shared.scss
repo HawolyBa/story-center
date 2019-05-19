@@ -1,0 +1,718 @@
+// h2,
+// h3 {
+//   font-family: 'Playfair Display', serif;
+//   font-style: italic;
+//   font-weight: lighter
+// }
+
+// .main-content {
+//   position: relative;
+// }
+
+// .card {
+//   cursor: pointer;
+//   background-color: white;
+//   .image {
+//     max-width: 100%;
+//     background-size: cover;
+//     background-position: center
+//   }
+//   figcaption {
+//     text-align: center;
+//     padding: 10px
+//   }
+//   h4 {
+//     font-weight: lighter
+//   }
+// }
+
+// .character { overflow: hidden }
+// .upload-image {
+//   //@include flex(flex-start, row nowrap, flex-end);
+// }
+
+// .report {
+//   .fas { color: $red}
+//   cursor: pointer; 
+//   text-decoration: underline;
+//   font-size: 0.7rem;
+// }
+
+// .change-image-tag {
+//   display: inline-block;
+//   cursor: pointer;
+//   font-weight: lighter;
+//   width: 50px;
+//   height: 50px;
+//   border: 1px dashed black;
+//   margin-top: 5px;
+//   font-size: 0.5rem;
+//   display: flex;
+//   flex-flow: column;
+//   justify-content: center;
+//   text-align: center;
+//   span {
+//     font-size: 4rem
+//   }
+//   img {
+//     max-width: 50px;
+//     max-height: 50px
+//   }
+// }
+
+// .floating-add {
+//   .floating-btn {
+//     position: fixed;
+//     bottom: 50px;
+//     right: 50px;
+//     font-size: 30px;
+//     width: 50px;
+//     height: 50px;
+//     line-height: 50px;
+//     border-radius: 50%;
+//     text-align: center;
+//     color: $ecru;
+//     background-color: $teal;
+//     cursor: pointer;
+//     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+//   }
+// }
+
+// .modal-floating {
+//   top: 30%
+// }
+
+// .columns {
+//   padding: 20px;
+//   display: flex;
+//   flex-flow: row nowrap;
+//   justify-content: space-between;
+//   align-items: center;
+//   .column {
+//     display: flex;
+//     flex-flow: column;
+//     justify-content: center;
+//     align-items: center;
+//   }
+//   .icon {
+//     height: 50px;
+//     width: 50px;
+//     background-size: cover;
+//     background-position: center;
+//   }
+// }
+
+// .story-cards {
+//   display: grid;
+//   grid-template-columns: repeat(5, 1fr);
+//   grid-gap: 10px;
+//   h3 {
+//     font-size: 16px
+//   }
+//   .item {
+//     cursor: pointer;
+//     position: relative;
+//     min-height: 150px;
+//     padding: 15px 10px;
+//     color: $ecru;
+//     text-shadow: 0 0 3px black;
+//     text-align: center;
+//     @include background();
+//     transition: all 0.5s ease;
+//     &:hover {
+//       box-shadow: 0 0 10px black
+//     }
+//   }
+//   small {
+//     margin-top: 8px; margin-left: 8px
+//   }
+//   span {
+//     font-size: 10px;
+//   }
+  
+// }
+
+// .scrollbar::-webkit-scrollbar {
+//   display: none;
+// }
+
+// .favorite {
+//   small {
+//     font-size: 11px
+//   }
+// }
+
+// .switch {
+//   display: flex;
+//   align-items: center;
+//   span {
+//     margin-right: 8px
+//   }
+// }
+
+// .add-location-btn {
+//   cursor: pointer;
+// }
+
+// div.inner-main {
+//   width: 1200px;
+//   padding: 20px;
+//   min-height: 500px;
+//   margin: 30px auto;
+//   position: relative;
+//   border-radius: 10px;
+//   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+// }
+
+// .add-circle {
+//   margin-top: 20px;
+//   cursor: pointer;
+//   span {
+//     @include circle(20px, #d6d6d6, white);
+//     margin-right: 5px;
+//   }
+// }
+
+
+
+// .back-button {
+//   font-size: 12px;
+//   margin: 30px 0
+// }
+
+// .dot {
+//   @include circle(15px, red, white);
+//   margin-right: 7px
+// }
+
+// .dot-in-progress {
+//   background-color: rgb(41, 167, 135)
+// }
+
+// .dot-complete {
+//   background-color: yellow
+// }
+
+// .dot-in-hiatus {
+//   background-color: orangered
+// }
+
+// .nightmode {
+//   div.inner-main { background-color: #1d1d1d; color: $ecru }
+//   .chara-story .item { background-color: #262626; color: $ecru }
+//   .private { h2 { color:$ecru }
+//   }
+// }
+
+// .chara-story {
+//   .item {
+//     width: 14%;
+//     background-color: white;
+//     display: block;
+//     margin-right: 15px;
+//     .grid-image {
+//       height: 150px;
+//       background-size: cover;
+//       background-position: center
+//     }
+//     a {
+//       color: $black
+//     }
+//     figcaption {
+//       padding: 10px;
+//       text-align: center
+//     }
+//     h4 {
+//       font-style: italic;
+//       font-weight: lighter;
+//       font-size: 1.2rem;
+//     }
+
+//     hr { margin: 10px 0 }
+
+//     h5 {
+//       text-align: center;
+//       font-weight: lighter;
+//       padding: 5px;
+//       font-size: 1rem
+//     }
+//   }
+// }
+
+// .private, .not-found {
+//   .inner-main {
+//     display: flex;
+//     flex-flow: column;
+//     justify-content: center;
+//     align-items: center
+//   }
+//   .button-group {
+//     margin-top: 15px;
+//     display: flex;
+//     width: 25%;
+//     flex-flow: row nowrap;
+//     justify-content: space-between
+//   }
+
+//   .btn-green {
+//     background-color: $teal;
+//     color: $ecru;
+//     font-size: 0.8rem
+//   }
+
+//   .btn-black {
+//     background-color: #262626;
+//     color: $ecru;
+//     font-size: 0.8rem
+//   }
+// }
+
+// .private-tag {
+//   display: block;
+//   background-color: red;
+//   color: white;
+//   padding: 10px;
+//   position: absolute;
+//   right: -47px;
+//   top: 0;
+//   transform: skew(45deg);
+//   width: 65px;
+//   height: 34px;
+//   .fa-lock {
+//     position: absolute;
+//     left: 8px;
+//     top: 8px;
+//     font-size: 0.6rem;
+//     transform: skew(-45deg);
+//   }
+// }
+
+// .warning {
+//   font-weight: bold;
+//   color: red
+// }
+
+// @media screen and (max-width: 1200px) {
+//   div.inner-main {
+//     width: 1000px;
+//   }
+// }
+
+// @media screen and (max-width: 1024px) {
+//   div.inner-main {
+//     width: 100%;
+//   }
+// }
+
+// @media screen and (max-width: 800px) {
+//   div.inner-main {
+//     width: 100%;
+//     border-radius: 0
+//   }
+//   .floating-add {
+//     .floating-btn {
+//       bottom: 30px;
+//       right: 30px;
+//       font-size: 20px;
+//       width: 40px;
+//       height: 40px;
+//       line-height: 40px;
+//     }
+//   }
+//   .story-cards {
+//     grid-template-columns: repeat(3, 1fr);
+//     .item {
+//       &:last-child { display: none}
+//     }
+//   }
+// }
+
+// @media screen and (max-width: 600px) {
+//   .story-cards {
+//     grid-template-columns: repeat(2, 1fr);
+//   }
+// }
+
+
+// @media screen and (max-width: 414px) {
+//   div.inner-main {
+//     width: calc(100% - 20px);
+//     padding: 10px
+//   }
+//   .story-cards {
+//     grid-template-columns: 1fr;
+//     h3 {
+//       font-size: 22px
+//     }
+//     .item {
+//       &:last-child { display: block}
+//     }
+//   }
+// }
+
+// ---------------------------------- STRUCTURE -------------------------
+main.inner-main {
+  width: 1200px;
+  min-height: 80vh;
+  margin: 50px auto;
+  background-color: white;
+  position: relative;
+  border-radius: 10px;
+  box-shadow: $boxShadow
+}
+
+// ---------------------------------- CARDS -------------------------
+
+.custom-card {
+  position: relative;
+  overflow: hidden;
+  padding: 0 10px;
+  color: $secondary;
+  text-align: center;
+  cursor: pointer;
+  h4 { 
+    font-size: 1rem;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: lighter; 
+  }
+  .inner-card { height: 100% }
+}
+
+.item-card {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 220px;
+  cursor: pointer;
+  .image {
+    overflow: hidden;
+    width: 100%;
+    height: 150px;
+    background-size: cover;
+    background-position: center
+  }
+  figcaption { 
+    text-align: center;
+    padding: 10px
+  }
+  hr { margin: 0; border: 1px solid rgba(142, 142, 142, 0.1); }
+  h4 { font-size: 0.95rem; }
+  small { font-size: 0.6rem; color: $primary }
+}
+
+.story-card {
+  position: relative;
+  margin-bottom: 15px;
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 150px;
+  transition: all 0.4s ease;
+  z-index: 1;
+  h4 { text-shadow: 0 0 3px black; }
+  .note {
+    font-size: 0.7rem;
+    margin-left: 5px;
+    @include circle(22px, transparent, white);
+    border: 1px solid white;
+  }
+  p { font-size: 0.65rem }
+
+  // &:hover { box-shadow: 0 0 10px #565656; }
+
+  .inner-card { transition: all 0.4s ease;}
+  .inner-card:hover { background-color: rgba($black, 0.8); transform: scale(1.1); width: 100%}
+  .inner-card:hover .story-card { padding: 0}
+  .story-title { line-height: 0.1rem; p { font-size: 0.7rem  } }
+}
+
+.user-card {
+  margin-bottom: 15px;
+  figcaption { 
+    background-color: $black;
+    color: $secondary;
+  }
+}
+
+.character-card, .location-card {
+  figcaption { 
+    background-color: $secondary;
+    color: $black;
+  }
+}
+
+// ---------------------------------- FORMS -------------------------
+
+input:focus, textarea:focus { outline: none }
+
+input, textarea { 
+  background-color: darken($secondary, 3%); 
+  border: none; 
+  width: 100%;
+  border-radius: 5px; 
+}
+
+textarea {
+  min-height: 120px;
+  padding: 15px;
+}
+
+input {
+  padding: 8px 10px;
+}
+
+label, .switch-label { 
+  font-weight: lighter;
+  font-size: 0.8rem
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  outline: 0;
+  box-shadow: none;
+  border: 0 !important;
+  background: darken($secondary, 3%);
+  background-image: none;
+  width: 100%;
+}
+/* Remove IE arrow */
+select::-ms-expand {
+  display: none;
+}
+/* Custom Select */
+.select {
+  position: relative;
+  display: flex;
+  width: 20em;
+  height: 3em;
+  line-height: 3;
+  background: $primary;
+  overflow: hidden;
+  border-radius: .25em;
+  width: 100%
+}
+select {
+  flex: 1;
+  padding: 0 .5em;
+  color: $black;
+  cursor: pointer;
+}
+/* Arrow */
+.select::after {
+  content: '\25BC';
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0 1em;
+  background: $secondary;
+  cursor: pointer;
+  color: $black;
+  pointer-events: none;
+  -webkit-transition: .25s all ease;
+  -o-transition: .25s all ease;
+  transition: .25s all ease;
+}
+/* Transition */
+.select:hover::after {
+  color: $primary;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 65px;
+  height: 26px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: $primary;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px $primary;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(30px);
+  -ms-transform: translateX(30px);
+  transform: translateX(30px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.switch-group {
+  span { margin-right: 8px }
+}
+
+.thumb {
+  display: inline-block;
+  cursor: pointer;
+  font-weight: lighter;
+  width: 50px;
+  height: 50px;
+  border: 1px dashed black;
+  margin-top: 5px;
+  font-size: 0.5rem;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  text-align: center;
+  span {
+    font-size: 4rem
+  }
+  img {
+    max-width: 50px;
+    max-height: 50px
+  }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: $black;
+  -webkit-box-shadow: 0 0 0px 1000px darken($secondary, 3%) inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+// ---------------------------------- FLOATING BUTTON -------------------------
+
+.floating-add {
+  .floating-btn {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    font-size: 30px;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 50%;
+    text-align: center;
+    color: $ecru;
+    background-color: $teal;
+    cursor: pointer;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  }
+}
+
+.columns {
+  padding: 20px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  .column {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .icon {
+    height: 50px;
+    width: 50px;
+    background-size: cover;
+    background-position: center;
+  }
+}
+
+.modal-floating {
+  top: 30%
+}
+
+.modal-image {
+  max-width: 100%;
+  height: auto;
+}
+
+
+// ---------------------------------- OTHER -------------------------
+
+.report {
+  .fas { color: $red}
+  cursor: pointer; 
+  text-decoration: underline;
+  text-align: center;
+  font-size: 0.7rem;
+}
+
+.private-tag {
+  display: block;
+  background-color: red;
+  color: white;
+  padding: 10px;
+  position: absolute;
+  right: -47px;
+  top: 0;
+  transform: skew(45deg);
+  width: 65px;
+  height: 34px;
+  .fa-lock {
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    font-size: 0.6rem;
+    transform: skew(-45deg);
+  }
+}
+
+#flash {
+  position: fixed;
+  bottom: 50px;
+  right: 150px;
+}
+
+
+.hidden {
+  opacity: 0
+}
+

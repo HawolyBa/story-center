@@ -1,0 +1,16 @@
+@mixin circle($size, $bg, $text) {
+  width: $size;
+  height: $size;
+  line-height: $size;
+  display: inline-block;
+  background-color: $bg;
+  border-radius: 50%;
+  color: $text;
+  text-align: center
+}
+
+@mixin background() {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center
+}
