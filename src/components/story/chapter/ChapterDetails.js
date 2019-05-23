@@ -7,12 +7,16 @@ import { Squares } from 'react-activity';
 import 'react-activity/lib/Squares/Squares.css';
 import SimpleBar from 'simplebar-react';
 import { languages } from '../addStory/metadatas'
+import { defaultBanner } from '../../default/defaultImages'
 
 import ChapterNotFound from './ChapterNotFound'
 import Ratings from './Ratings'
+import { siteName } from '../../../config/keys'
+import ShareButtons from '../../shared/ShareButtons';
 
 const ChapterDetails = ({ previous, next, locations, characters, story, chapter, match, comments, params, category, loading, auth, chapterNotFound, innerWidth }) => {
   const language = languages.find(l => l.code === story.language)
+  const title = `Read: ${story.title} - ${chapter.title} on ${siteName}`
   return innerWidth >= 768 ?
     <SimpleBar style={{ height: '80vh' }}>
       <section className="story-details p-4">
@@ -37,6 +41,7 @@ const ChapterDetails = ({ previous, next, locations, characters, story, chapter,
                 Posted on: <Moment format="YYYY-MM-DD, HH:mm">{new Date(chapter.createdAt)}</Moment>
               </small>
               <br/>
+              <ShareButtons title={title} image={story.banner ? story.banner: defaultBanner}/>
               { innerWidth < 768 && 
               <small className="meta-responsive">
                 Author: <Link to={`/profile/${story.authorId}`}> {story.authorName}</Link>  / 
@@ -49,7 +54,7 @@ const ChapterDetails = ({ previous, next, locations, characters, story, chapter,
             <hr/>
               <p dangerouslySetInnerHTML={{__html: chapter && chapter.body}} className="body"></p>
           </div>
-          <Ratings chapter={chapter} id={params.id} chapid={params.chapid}/>
+          {story.public && <Ratings chapter={chapter} id={params.id} chapid={params.chapid} /> }
           <nav className="chapter-nav flex spb ac frn mt-4">
             <Link className={`square-btn primary-btn outlined ${!previous ? 'hidden': null}`} to={`/story/${story.id}/chapter/${previous && previous.id}`}>Prev</Link>
             <Link className={`square-btn primary-btn outlined ${!next ? 'hidden': null}`} to={`/story/${story.id}/chapter/${next && next.id}`}>Next</Link>

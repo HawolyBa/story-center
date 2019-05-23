@@ -5,8 +5,11 @@ import StarRatings from 'react-star-ratings';
 import { Squares } from 'react-activity';
 import 'react-activity/lib/Squares/Squares.css';
 import SimpleBar from 'simplebar-react';
+import { defaultBanner } from '../default/defaultImages'
+import { siteName } from '../../config/keys'
 
 import Report from '../shared/Report';
+import ShareButtons from '../shared/ShareButtons'
 
 
 const StoryDetails = ({ story, id, auth, deleteChapter, isFavorite, changeRating, UI, innerWidth }) => {
@@ -38,6 +41,7 @@ const StoryDetails = ({ story, id, auth, deleteChapter, isFavorite, changeRating
       </div>
       <hr/>
       <p className="summary"><span>Summary:</span> {story && story.summary}</p>
+      <ShareButtons title={`Read: ${story.title} on ${siteName}`} image={story.banner ? story.banner: defaultBanner}/>
       <hr/>
       <div className="story-details-chapter">
       { auth.uid === story.authorId && 

@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import {  getStoryLocations, addChapter, getStory, cleanup } from '../../../redux/actions/storyActions'
 import { getUserCharacters } from '../../../redux/actions/charactersActions'
 import { arrayOf, string, bool, object, func, shape } from 'prop-types'
+import { replaceAll } from '../../../utils/helpers'
 
 import StoryBanner from '../StoryBanner'
 import ChapterForm from './ChapterForm';
@@ -13,13 +14,13 @@ import Private from '../../shared/Private';
 class AddChapter extends Component {
 
   state = {
-    storyId: this.props.match.params.id,
     charactersSelected: [],
     locationsSelected: [],
     idSelected: [],
     idLocations: [],
     body: '',
-    title: ''
+    title: '',
+    chap_number: ''
   }
 
   componentDidMount() {
@@ -38,15 +39,6 @@ class AddChapter extends Component {
 
   componentWillUnmount() {
     this.props.cleanup()
-  }
-
-  onSubmit = e => {
-    e.preventDefault()
-    if (this.state.title !== '') {
-      const { idSelected, storyId, body, title, chap_number, idLocations } = this.state
-      const info = { locations: idLocations, characters: idSelected, storyId, body: body.replace("<p><br></p>", ""), title, number: chap_number }
-      this.props.addChapter(this.props.match.params.id, info, this.props.history)
-    }
   }
 
   onChange = e => {
@@ -100,8 +92,15 @@ class AddChapter extends Component {
     })
   }
 
+  onSubmit = e => {
+    e.preventDefault()
+    const { idSelected, body, title, chap_number, idLocations } = this.state
+    const info = { storyId: this.props.match.params.id, locations: idLocations, characters: idSelected, body: replaceAll(body, "<p><br></p>", ""), title, number: chap_number }
+    this.props.addChapter(info, this.props.history)
+  }
+
   render() {
-    const { match, characters, locations, story } = this.props
+    const { match, characters, locations, story, errors } = this.props
     const { charactersSelected, idSelected, locationsSelected, idLocations } = this.state
     const charactersInSelect = characters && characters.filter(char => !idSelected.includes(char.id))
     const locationsInSelect = locations && locations.filter(loca => !idLocations.includes(loca.id))
@@ -114,6 +113,7 @@ class AddChapter extends Component {
         <div className="story add-chapter">
           <StoryBanner story={story} id={this.props.match.params.id}/>
           <ChapterForm
+            errors={errors}
             removeFromCharacters={this.removeFromCharacters}
             removeFromLocations={this.removeFromLocations}
             onSubmit={this.onSubmit}
@@ -178,7 +178,8 @@ const mapStateToProps = state => {
     chapterId: state.story.chapterId,
     story: state.story.story,
     loading: state.story.loading,
-    notFound: state.story.notFound
+    notFound: state.story.notFound,
+    errors: state.UI.errors
   }
 }
 

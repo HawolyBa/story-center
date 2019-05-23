@@ -1,5 +1,6 @@
 import React from 'react'
 import { FormGroup, Col, Row, Label, FormText } from 'reactstrap'
+import CustomTooltip from '../../hoc/CustomTooltip'
 
 const imageForm = ({ triggerClick, thumb, filename, addBanner, errors, imageCopyright, onSelect, setImage, searchImages }) => {
   return (
@@ -7,7 +8,7 @@ const imageForm = ({ triggerClick, thumb, filename, addBanner, errors, imageCopy
       <Row className="afe">
         <Col md="4">
           <FormGroup>
-            <Label>Add your own illustration:</Label>
+            <Label>Add your own illustration <i>(optional)</i></Label>
             <div className="thumb" onClick={triggerClick}>
               {thumb ? <img src={thumb} alt={thumb} /> : filename ? filename : <span>+</span>}
               <input id="addImage" hidden type="file" name="banner" onChange={addBanner} />
@@ -17,9 +18,15 @@ const imageForm = ({ triggerClick, thumb, filename, addBanner, errors, imageCopy
         </Col>
         <Col md={{ size: 4, offset: 4}}>
           <FormGroup>
-            <Label>Image credit</Label>
+            <Label>Image credit <i className="fas fa-info-circle" id="imageCopyright"></i></Label>
             <input defaultValue={imageCopyright} type='text' name='imageCopyright' onChange={onSelect}/>
             { errors && errors.imageCopyright && <p className="errors">{errors.imageCopyright}</p> }
+            <CustomTooltip placement="top" target="imageCopyright">
+              <small>
+                Person who owns the rights to the image you want to upload<br/>
+                (Required if you post a custom illustration)
+              </small>
+            </CustomTooltip>
           </FormGroup>
         </Col>
       </Row>

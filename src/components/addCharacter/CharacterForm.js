@@ -9,6 +9,7 @@ import RelativesForm from './RelativesForm';
 import SwitchButton from '../shared/SwitchButton'
 //{ filename }
 const CharacterForm = ({ onChange, onSubmit, handleImageChange, addRelation, relatives, remove, onRelationChange, onChangeSelect, characters, checked, switched, character, description, characterRelatives, deleteCharacter, filename, loading, triggerClick, errors, image }) => {
+
   return (
     <Form className="mt-4">
       <Row>
@@ -71,10 +72,10 @@ const CharacterForm = ({ onChange, onSubmit, handleImageChange, addRelation, rel
       </Row>
       <Row>
         <Col md="6">
-          <CharacterInput defaultValue={character && character.likes ? character.likes.join(', '): ''} name={'Likes'} type={'text'} onChange={onChange}/>
+          <CharacterInput defaultValue={character && character.likes ? character.likes: ''} name={'Likes'} type={'text'} onChange={onChange}/>
         </Col>
         <Col md="6">
-          <CharacterInput defaultValue={character && character.dislikes ? character.dislikes.join(', '): ''} name={'Dislikes'} type={'text'} onChange={onChange}/>
+          <CharacterInput defaultValue={character && character.dislikes ? character.dislikes: ''} name={'Dislikes'} type={'text'} onChange={onChange}/>
         </Col>
       </Row>
         <FormGroup>

@@ -16,6 +16,13 @@
 
 @media screen and (max-width: 1000px) {
   main.inner-main {width: 100%}
+  .home {
+    .popular-characters {
+      .col-6 {
+        &:nth-last-child(-n+1) { display: block}
+      }
+    }
+  }
 }
 
 @media screen and (max-width: $lg) {
@@ -68,6 +75,12 @@
       
     }
 
+    .popular-characters {
+      .col-6 {
+        &:nth-last-child(-n+2) { display: block}
+      }
+    }
+
     .call-to-action {
       .add-btn { 
         font-size: 0.7rem;
@@ -86,7 +99,12 @@
   header#main-header {
     .search-form { display: none }
     #menu-icon { display: block; z-index: 10000000; cursor: pointer; }
-
+    .mobile-link { display: block }
+    .mobile-notif { 
+      font-size: 0.7rem;
+      @include circle(20px, $red, white)
+    }
+    .dropdown { display: none }
     nav#main-nav {
       display: none;
       height: 100vh;

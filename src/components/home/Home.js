@@ -173,18 +173,15 @@ class Home extends Component {
                 <h2>Popular authors</h2>
                 <ul>
                   { popularUsers.map(user => (
-                    <Fragment key={user.id}>
-                      <li className="flex fs ac frn">
-                        <div className="user-pic-block">
-                          <img className="user-pic" src={user.image ? user.image: defaultAvatar } alt={user.username}/>
-                        </div>
-                        <span className="flex fc fs jc">
-                          <Link to={`/profile/${user.id}`}>{user.username}</Link>
-                          <span>{user.likesCount} follower{user.likesCount > 1 ? 's': ''}</span>
-                        </span>
-                      </li> 
-                      <hr/>
-                    </Fragment>
+                    <li className="flex fs ac frn" key={user.id}>
+                      <div className="user-pic-block">
+                        <img className="user-pic" src={user.image ? user.image: defaultAvatar } alt={user.username}/>
+                      </div>
+                      <span className="flex fc fs jc">
+                        <Link to={`/profile/${user.id}`}>{user.username}</Link>
+                        <span>{user.likesCount} follower{user.likesCount > 1 ? 's': ''}</span>
+                      </span>
+                    </li> 
                   )) }
                 </ul>
               </div>

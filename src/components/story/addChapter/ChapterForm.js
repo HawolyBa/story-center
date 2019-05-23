@@ -7,7 +7,7 @@ import 'react-quill/dist/quill.snow.css';
 import { Link } from 'react-router-dom'
 import LocationsCards from '../../shared/LocationsCards';
 
-const ChapterForm = ({ body, onSubmit, onChange, handleEditorChange, onSelect, charactersSelected, pathname, addCharacterToStory, match, locationsSelected, addLocations, onLocationSelect, charactersInSelect, locationsInSelect, chapter, removeFromCharacters, removeFromLocations }) => {
+const ChapterForm = ({ body, onSubmit, onChange, handleEditorChange, onSelect, charactersSelected, pathname, addCharacterToStory, match, locationsSelected, addLocations, onLocationSelect, charactersInSelect, locationsInSelect, chapter, removeFromCharacters, removeFromLocations, errors }) => {
   return (
     <div className="edit-story add-story">
       <div className="upper-band flex as spb">
@@ -30,10 +30,12 @@ const ChapterForm = ({ body, onSubmit, onChange, handleEditorChange, onSelect, c
             <Col md="2">
               <Label>Number</Label>
               <input defaultValue={chapter ? chapter.number: ''} onInput={onChange} name="chap_number" type="number"/>
+              { errors && errors.number && <p className="warning">{errors.number}</p> }
             </Col>
             <Col md="10">
               <Label>Enter a title</Label>
               <input defaultValue={chapter ? chapter.title : ''} type="text" onInput={onChange} name="title" />
+              {errors && errors.title && <p className="warning">{errors.title}</p>}
             </Col>
           </Row>
         </FormGroup>

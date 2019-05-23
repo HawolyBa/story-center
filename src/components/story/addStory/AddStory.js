@@ -15,15 +15,12 @@ import StoryForm from './StoryForm';
 import ImageForm from './ImageForm';
 import Gallery from './Gallery';
 
-// TODO CUSTOM IMAGE COPYRIGHT
-
 export class AddStory extends Component {
   _isMounted = false;
 
   state = {
     checked: false,
     errors: {},
-    status: 'In progress',
     imageCopyright: '',
     thumb: '',
     category: '',
@@ -39,7 +36,8 @@ export class AddStory extends Component {
     },
     filename: '',
     imagesLoading: false,
-    tags: []
+    tags: [],
+    summary: ''
   }
 
   componentDidMount() {
@@ -89,13 +87,6 @@ export class AddStory extends Component {
     this.setState({ tags: e.target.value.trim().split(',').map(c => `${encodeURIComponent(c.trim())}`)})
   }
 
-  onSubmit = e => {
-    e.preventDefault()
-    let { checked, errors, alert, flash, message, searchImage, banners, thumb, filename, isOpen,...remain } = this.state
-    const tags = this.state.tags ? this.state.tags: []
-    this.props.addStory({...remain, public: checked, tags}, this.props.history)
-  }
-
   searchImages = e => {
     e.preventDefault()
     this.props.searchImages(this.state.searchImage)
@@ -121,6 +112,13 @@ export class AddStory extends Component {
 
   nextpage = url => {
     this.props.nextpage(url)
+  }
+
+  onSubmit = e => {
+    e.preventDefault()
+    let { imagesLoading, checked, errors, alert, flash, message, searchImage, banners, thumb, filename, isOpen, ...remain } = this.state
+    const tags = this.state.tags ? this.state.tags : []
+    this.props.addStory({ ...remain, public: checked, tags }, this.props.history)
   }
 
   render() {

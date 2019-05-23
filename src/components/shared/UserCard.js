@@ -1,13 +1,16 @@
 import React from 'react'
 import { Col } from 'reactstrap'
 import { Link } from 'react-router-dom'
+import { defaultAvatar } from '../default/defaultImages'
 
-const UserCard = ({ user }) => {
+const UserCard = ({ user, type }) => {
   return (
-    <Col lg="2" md="4" xs="6">
+    <Col lg={type === 'favorites' ? 3: 2} md="4" xs="6">
       <Link to={`/profile/${user.id}`}>
       <figure className="user-card item-card">
-        <div className="image" style={{ backgroundImage: `url(${user.image})` }}></div>
+        <div className="image">
+          <div className="inner-image" style={{ background: `url(${user.image ? user.image: defaultAvatar}) no-repeat center / cover` }}/>
+        </div>
         <figcaption>
           <h4>{user.username}</h4>
           <hr/>

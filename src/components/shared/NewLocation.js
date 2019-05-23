@@ -13,7 +13,9 @@ class AddLocation extends Component {
     modal:false,
     image: '',
     info: {
-      storyId: this.props.currentId ? this.props.currentId: ''
+      storyId: this.props.currentId ? this.props.currentId: '',
+      name: '',
+      description: ''
     }
   }
 

@@ -1,0 +1,49 @@
+.nightmode {
+  background-color: #131313;
+  main.inner-main { background-color: #1d1d1d; color: $secondary }
+  .home {
+    a { color: $secondary }
+    aside.home-users .links, .chara-story .item { background-color: #262626 }
+    hr { border-top: 1px solid rgba(156, 156, 156, 0.1); }
+    li { border-bottom: 1px solid rgba(156, 156, 156, 0.1) }
+    .links { background: #080808; color: $secondary }
+  }
+  header#main-header {
+    a, .far { color: $secondary }
+    nav#main-nav .dropdown-item a { color: $black }
+    .search-form input { background-color: #424242; color: $secondary }
+  }
+
+  main.inner-main-profile {
+    section.banner { 
+      background: $black; 
+      color: $secondary;
+      .social .icon { box-shadow: 3px 3px 2px #000000 } 
+    }
+
+    .profile-content {
+      color: $secondary;
+      nav.profile-nav span { color: $secondary }
+    }
+
+    section.settings.bg-white { background-color: $black !important }
+    section.favorites {
+      .favstories.bg-white { background: $black !important }
+    }
+  }  
+
+  .user-card figcaption, .character-card figcaption, .location-card figcaption {
+    background: #080808;
+    color: $secondary
+  }
+
+  .select::after {
+    background: #454648;
+    color: #ffffff;
+  }
+
+  select { color: $secondary; background: #080808 }
+  input, textarea { color: $secondary; background-color:#424242 }
+
+  .dropleft .dropdown-toggle::before { color: $primary }
+}

@@ -84,7 +84,6 @@ export const isPostValid = data => {
   let errors = {}
   if (isEmpty(data.title)) errors.title = 'Must not be empty'
   if (isEmpty(data.category)) errors.category = 'Must not be empty'
-  if (isEmpty(data.status)) errors.status = 'Must not be empty'
   if (isEmpty(data.language)) errors.language = 'Must not be empty'
   if (isEmpty(data.copyright)) errors.copyright = 'Must not be empty'
   if (data.banner && isEmpty(data.imageCopyright)) errors.imageCopyright = 'Must not be empty'

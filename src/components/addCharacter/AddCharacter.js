@@ -16,7 +16,13 @@ class AddCharacter extends Component {
     image: '',
     lastname: '',
     firstname: '',
-    imageCopyright: ''
+    imageCopyright: '',
+    age: '',
+    gender: '',
+    ethnicity: '',
+    occupation: '',
+    residence: '',
+    group: ''
   }
 
   componentDidMount() {

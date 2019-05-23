@@ -7,7 +7,7 @@ const ImageModal = ({ isOpen, toggle, image, name, copyright }) => {
       <ModalBody>
         <center><img className="modal-image" src={image} alt={name}/></center>
       </ModalBody>
-      <ModalFooter toggle={toggle}>
+      <ModalFooter>
         Image: {name}<br/>
         Copyright: {copyright}
       </ModalFooter>

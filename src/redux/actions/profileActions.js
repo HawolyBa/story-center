@@ -573,3 +573,7 @@ export const report = info => (dispatch, getState, { getFirebase, getFirestore }
     .catch((err) => dispatch({ type: types.REPORT_SENT, payload: { message: 'There has been a problem', alert: 'danger' } }))
   }
 }
+
+export const addFeedback = (userId, content) => (dispatch, getState, { getFirebase, getFirestore }) => {
+  getFirestore().collection('feedback').add({ userId, content, createdAt: new Date().toISOString() })
+}

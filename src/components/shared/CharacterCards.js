@@ -2,11 +2,11 @@ import React from 'react'
 import { Row } from 'reactstrap'
 import CharacterCard from './CharacterCard'
 
-const CharacterCards = ({ characters, type, auth }) => {
+const CharacterCards = ({ characters, type, auth, lg, md, xs }) => {
   return (
     <Row>
-      { characters.map((chara, i) => (
-        <CharacterCard auth={auth} type={type} key={i} character={chara}/>
+      {characters.map((chara, i) => (
+        <CharacterCard lg={lg} md={md} xs={xs} auth={auth} type={type} key={i} character={chara}/>
       )) }
     </Row>
   )

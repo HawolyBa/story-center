@@ -216,6 +216,7 @@ class PrivateProfile extends Component {
         handleSize={this.handleSize}
         orientation={orientation}
         toggle={this.toggle}
+        activeTab={this.state.activeTab}
       />
         <div className="profile-content">
         {!loading ?

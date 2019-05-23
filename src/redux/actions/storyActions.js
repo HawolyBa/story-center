@@ -143,12 +143,18 @@ export const getStory = id => (dispatch, getState, { getFirebase, getFirestore }
   
 }
 
-export const addChapter = (storyId, info, history) => (dispatch, getState, { getFirebase, getFirestore }) => {
+export const addChapter = (info, history) => async (dispatch, getState, { getFirebase, getFirestore }) => {
+
+  const errors = {}
+  if (!info.title) errors.title = "Must not be empty" 
+  if (!info.number) errors.number = "Must not be empty" 
+
+  if (errors.title || errors.number) return dispatch({ type: types.SET_ERRORS, payload: errors })
+
   getFirestore().collection('chapters').add({
     ...info,
     authorId: getFirebase().auth().currentUser.uid,
     authorName: getState().firebase.profile.username,
-    storyId: storyId,
     note: 0,
     voters: [],
     votesCount: 0,
@@ -156,14 +162,21 @@ export const addChapter = (storyId, info, history) => (dispatch, getState, { get
     createdAt: new Date().toISOString()
   })
   .then(doc => {
-    history.push(`/story/${storyId}/chapter/${doc.id}`)
+    history.push(`/story/${info.storyId}/chapter/${doc.id}`)
   })
   .catch(err => console.log(err))
 
 }
 
-export const editChapter = (storyId, chapId, info) => async (dispatch, getState, { getFirebase, getFirestore }) => {
-  await getFirestore()
+export const editChapter = (chapId, info) => (dispatch, getState, { getFirebase, getFirestore }) => {
+  
+  const errors = {}
+  if (!info.title) errors.title = "Must not be empty"
+  if (!info.number) errors.number = "Must not be empty"
+
+  if (errors.title || errors.number) return dispatch({ type: types.SET_ERRORS, payload: errors })
+
+  getFirestore()
     .collection('chapters')
     .doc(chapId)
     .update({ ...info })
@@ -457,28 +470,49 @@ export const getPopularStories = () => async (dispatch, getState, { getFirebase,
 
   dispatch({ type: types.LOADING_HOME })
 
-  const publicStories = await getFirestore().collection('stories').where('public', '==', true).get()
+  getFirestore()
+    .collection('stories')
+    .where('public', '==', true)
+    .orderBy('note', 'desc')
+    .get()
+    .then(data => {
+      let result = []
+      data.forEach(doc => {
+        result.push({
+          title: doc.data().title,
+          banner: doc.data().banner,
+          authorName: doc.data().authorName,
+          likesCount: doc.data().likesCount,
+          id: doc.id,
+          chaptersCount: doc.data().chaptersCount,
+          note: doc.data().note
+        })
+      })
+      return dispatch({ type: types.GET_POPULAR_STORIES, payload: result })
+    })
 
-  const storiesArr = publicStories && publicStories.docs.map(async story => {
+  // const publicStories = await getFirestore().collection('stories').where('public', '==', true).get()
+
+  // const storiesArr = publicStories && publicStories.docs.map(async story => {
     
-    const storyChapters = await getFirestore().collection('chapters').where('storyId', '==', story.id).get()
-    const notedChapters = storyChapters.docs.filter(chap => chap.data().voters.length > 0)
-    const note = storyChapters.docs.map(chap => chap.data().note).reduce((a, b) => a + b, 0) / notedChapters.length
+  //   const storyChapters = await getFirestore().collection('chapters').where('storyId', '==', story.id).get()
+  //   const notedChapters = storyChapters.docs.filter(chap => chap.data().voters.length > 0)
+  //   const note = storyChapters.docs.map(chap => chap.data().note).reduce((a, b) => a + b, 0) / notedChapters.length
 
-    return  {
-      title: story.data().title,
-      banner: story.data().banner,
-      authorName: story.data().authorName,
-      likesCount: story.data().likesCount,
-      id: story.id,
-      chapertsNum: storyChapters.docs.length,
-      characters: storyChapters.docs.map(chap => chap.data().characters).flat().filter(onlyUnique).length,
-      note: !isNaN(note) ? note: 0
-    }
+  //   return  {
+  //     title: story.data().title,
+  //     banner: story.data().banner,
+  //     authorName: story.data().authorName,
+  //     likesCount: story.data().likesCount,
+  //     id: story.id,
+  //     chapertsNum: storyChapters.docs.length,
+  //     characters: storyChapters.docs.map(chap => chap.data().characters).flat().filter(onlyUnique).length,
+  //     note: !isNaN(note) ? note: 0
+  //   }
 
-  })
+  // })
 
-  Promise.all(storiesArr).then(res =>  dispatch({ type: types.GET_POPULAR_STORIES, payload: res.sort((a, b) => b.note - a.note).slice(0, 10) }))
+  // Promise.all(storiesArr).then(res =>  dispatch({ type: types.GET_POPULAR_STORIES, payload: res.sort((a, b) => b.note - a.note).slice(0, 10) }))
 }
 
 export const getPopularTags = () => async (dispatch, getState, { getFirebase, getFirestore }) => {
@@ -700,7 +734,7 @@ export const getFeaturedStories = () => (dispatch, getState, { getFirebase, getF
 
   let result = []
 
-  getFirestore().collection('stories').where('featured', '==', true).orderBy('createdAt', 'desc').limit(5).get()
+  getFirestore().collection('stories').where('featured', '==', true).where('public', '==', true).orderBy('createdAt', 'desc').limit(5).get()
     .then(data => {
       data.forEach(doc => {
         result.push({
@@ -726,7 +760,8 @@ export const getPrivateStories = () => (dispatch, getState, { getFirebase, getFi
           title: doc.data().title,
           likesCount: doc.data().likesCount,
           public: doc.data().public,
-          note: doc.data().note
+          note: doc.data().note,
+          authorId: doc.data().authorId
         })
       })
       return dispatch({ type: types.GET_STORIES, payload: result })
@@ -773,7 +808,7 @@ export const getPrivateLocations = () => (dispatch, getState, { getFirebase, get
       return Promise.all(storiesPromises)
     })
     .then(data => {
-      locFromChapters = locFromChapters.map(story => ({ ...story, id: story.id, title: data.find(doc => doc.id === story.id).data().title, locations: story.locations.flat(Infinity) }))
+      locFromChapters = locFromChapters.map(story => ({ ...story, id: story.id, title: data.find(doc => doc.id === story.id).data().title, locations: [...new Set(story.locations.flat(Infinity))] }))
       return getFirestore().collection('locations').where('authorId', '==', userId).orderBy('createdAt', 'desc').get()
     })
     .then(data => {
@@ -820,6 +855,7 @@ export const getPublicLocations = id => (dispatch, getState, { getFirebase, getF
     })
     .then(data => {
       locFromChapters = locFromChapters.map(story => ({ ...story, id: story.id, title: data.find(doc => doc.id === story.id).data().title, public: data.find(doc => doc.id === story.id).data().public })).filter(story => story.public)
+      
       let locPromises = []
       let allLocations = []
       locFromChapters.forEach(doc => allLocations.push((doc.locations)) )
@@ -869,7 +905,7 @@ export const getFavoriteStories = id => (dispatch, getState, { getFirebase, getF
     .then(data => {
       let stories = []
       data.forEach(doc => {
-        if (doc.exists && (doc.data().public || doc.data().authorId === userId)) {
+        if (doc.exists && ((doc.data().public) || (!id && doc.data().authorId === getFirebase().auth().currentUser.uid))) {
           stories.push({
             title: doc.data().title,
             authorName: doc.data().authorName,

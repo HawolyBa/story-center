@@ -175,7 +175,7 @@ header#main-header {
   .inner {
     width: 1200px;
     margin: 0 auto;
-    height: 50px;
+    height: 70px;
   }
 
   a.logo {
@@ -186,8 +186,9 @@ header#main-header {
   }
 
   nav#main-nav {
+    transition: all 0.3s ease;
     a { margin-right: 10px; &:hover { text-decoration: underline } }
-    .far { cursor: pointer; margin-left: 8px }
+    .far { cursor: pointer; margin-right: 8px }
 
     a.auth-btn {
       text-decoration: none;
@@ -237,19 +238,19 @@ header#main-header {
       top: 10px
     }
   }
-  .fa-bell { margin-left: 10px }
 
   .notif {
     position: relative;
     span {
       position: absolute;
       font-size: 0.7rem;
-      right: -10px;
+      right: -3px;
       @include circle(15px, $red, white)
     }
   }
 
   .dropdown-menu { font-size: 0.8rem }
+  .mobile-link { display: none }
 
   .search-form {
     margin-right: 20px;
@@ -267,6 +268,6 @@ header#main-header {
       border: none;
       background-color: transparent
     }
-    .fas { color: $primary; font-size: 0.8rem }
+    .fas { color: darken($primary, 10%); font-size: 0.8rem }
   }
 }

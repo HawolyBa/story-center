@@ -8,11 +8,11 @@ const Relatives = ({ characterRelatives, auth }) => {
     <div className="relatives">
       <h3>Relationships</h3>
       {<Row>
-        { characterRelatives.length > 0 ? characterRelatives.map(char => (
+        {characterRelatives.length > 0 ? characterRelatives.filter(char => (!auth && !char.public) || (auth && !char.public && auth.uid !== char.authorId) ? char.public : char).map(char => (
           <Col lg="3" md="4" xs="6" key={char.character_id}>
             <Link to={`/character/${char.character_id}`}>
-            { (char.public || (auth.uid === char.authorId)) && 
               <figure className="item-card character-card">
+                {!char.public && <span className="private-tag"><i className="fas fa-lock"></i></span> }
                 <div className={`image flex fc ac jc ${(!auth && !char.public) || (!char.public && auth && auth.uid !== char.authorId) ? 'layer' : ''}`}>
                   <div style={{ background: `url(${char.image ? char.image : defaultAvatar}) no-repeat center / cover`}} className="inner-image" />
                 </div>
@@ -21,7 +21,7 @@ const Relatives = ({ characterRelatives, auth }) => {
                   <hr/>
                   <small>{char.relation}</small>
                 </figcaption>  
-              </figure>}
+              </figure>
             </Link>
           </Col>
         )) : <p>No relationships for the moment</p>}

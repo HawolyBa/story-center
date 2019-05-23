@@ -5,6 +5,8 @@ import mask from '../../images/mask.png'
 import location from '../../images/location.png'
 import { Link } from 'react-router-dom'
 import NewLocation from './NewLocation'
+import Feedback from './Feedback'
+import { siteName, slogan } from '../../config/keys'
 
 class FloatingButton extends Component {
 
@@ -19,7 +21,24 @@ class FloatingButton extends Component {
     });
   }
 
+  getWindowOptions = () => {
+    const width = 500;
+    const height = 350;
+    const left = (window.innerWidth / 2) - (width / 2);
+    const top = (window.innerHeight / 2) - (height / 2);
+
+    return [
+      'resizable,scrollbars,status',
+      'height=' + height,
+      'width=' + width,
+      'left=' + left,
+      'top=' + top,
+    ].join();
+  };
+
   render() {
+    const text = encodeURIComponent(`${siteName} - ${slogan}`);
+    const shareUrl = 'https://twitter.com/intent/tweet?url=' + location.href + '&text=' + text;
     return (
       <div className="floating-add">
         <Modal isOpen={this.state.modal} toggle={this.toggle} className="modal-floating">
@@ -38,10 +57,15 @@ class FloatingButton extends Component {
                 <img src={mask} alt="mask-icon"/>
                 Add a charatcer
               </Link>
+              <Feedback userId={this.props.userId} />
             </div>
           </ModalBody>
         </Modal>
-        <div onClick={this.toggle} className="floating-btn">+</div>
+        <div className="floating-btn-group">
+          <div onClick={this.toggle} className="floating-btn">+</div>
+          <div onClick={() => window.open(shareUrl, 'ShareOnTwitter', this.getWindowOptions())} className="floating-btn floating-twitter"><i className="fab fa-twitter"></i></div>
+          <div className="floating-btn floating-facebook"><i className="fab fa-facebook"></i></div>
+        </div>
       </div>
     )
   }

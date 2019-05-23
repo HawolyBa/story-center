@@ -1,33 +1,4 @@
-// .nightmode {
-//   .home {
-//     .inner-main { background-color: #1d1d1d; color: $ecru }
-//     a { color: $ecru }
-//     aside.home-users .links, .chara-story .item { background-color: #262626 }
-//     hr { border-top: 1px solid rgba(156, 156, 156, 0.1); }
-//   }
-// }
 
-// .home {
-//   .inner-main { background-color: white; padding: 40px 30px 50px 30px }
-//   h2 {
-//     margin-bottom: 30px;
-//     font-size: 20px;
-//   }
-//   aside.home-aside {
-//     width: 10%;
-//     hr {
-//       margin: 8px 0
-//     }
-//     .categories-list {
-//       margin-bottom: 30px;
-//       text-align: center;
-//       .select-cat { display: none}
-//       li {
-//         font-size: 12px;
-//         padding: 0 20px;
-//       }
-//     }
-//   }
 
 
 
@@ -254,7 +225,7 @@
 
     }
     .slides.active { visibility: visible; opacity: 1 }
-    .pagination-btn.pagination-active {  background-color: rgba(39, 186, 176, 0.5) }
+    .pagination-btn.pagination-active {  background-color: rgba($primary, 0.5) }
   }
 
   .character-card.item-card {
@@ -267,12 +238,13 @@
 
   .home-list {
     text-align: center;
-    li {
-      font-size: 0.85rem;
-      padding: 8px 0;
-      border-bottom: 1px solid $separator
-    }
   } 
+
+  li {
+    font-size: 0.85rem;
+    padding: 8px 0;
+    border-bottom: 1px solid $separator
+  }
 
   aside#left-col {
     .select { display: none }
@@ -328,5 +300,11 @@
     }
     padding: 0;
     .fas {margin-bottom: 2px; color: $secondary; font-size: 1.2rem}
+  }
+
+  .popular-characters {
+    .col-6 {
+      &:nth-last-child(-n+2) { display: none}
+    }
   }
 }

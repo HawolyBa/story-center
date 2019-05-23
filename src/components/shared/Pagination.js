@@ -32,7 +32,7 @@ class Pagination extends Component {
       type === 'users' ?
       <UserCard key={data.id} user={data} />:
       type === 'characters' ?
-      <CharacterCard key={data.id} character={data} type='archives' />:
+      <CharacterCard lg="2" md="3" xs="6" key={data.id} character={data} type='archives' />:
       null
     })
     

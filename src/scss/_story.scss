@@ -466,11 +466,15 @@
       a, a:hover { color: $secondary }
     }
 
+
+
     .banner-rating {
       margin-top: 10px;
       .note {
-        margin-left: 10px;
-        font-size: 20px
+        @include circle(1.8rem, transparent, $primary);
+        font-size: 0.8rem;
+        border: 1px solid $primary;
+        margin-left: 5px
       }
     }
 
@@ -558,13 +562,6 @@
   }
   .rate:not(:checked) > label {
       font-size:1.7em;
-  }
-
-  .note {
-    @include circle(1.8rem, transparent, $primary);
-    font-size: 1rem;
-    border: 1px solid $primary;
-    margin-left: 5px
   }
 
 

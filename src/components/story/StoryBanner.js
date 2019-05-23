@@ -18,6 +18,7 @@ const StoryBanner = ({id, story, category, note}) => {
         <h2 className="storyTitle mb-3">
           <Link to={`/story/${id}`}>{story.title}</Link>
         </h2>
+        { story.public && 
         <div className="responsive">
           <div className="banner-rating flex afs jc frn">
             <StarRatings
@@ -32,7 +33,7 @@ const StoryBanner = ({id, story, category, note}) => {
             />
             <small className="note">{note.toFixed(1)}</small>
           </div>
-        </div>
+        </div>}
         <div className="details">
           <div>
             <p className="status flex ac jc">
@@ -41,7 +42,7 @@ const StoryBanner = ({id, story, category, note}) => {
             <p>Author: <Link to={`/profile/${story.authorId}`}>{story.authorName}</Link></p>
             <p>Genre: <Link to={`/categories/${category.id}`}>{category.name}</Link></p>
             <p><i className="fab fa-font-awesome-flag"></i>&nbsp;&nbsp; {`${language && language.lang} (${language && language.code})`}</p>
-            <div className="banner-rating flex afs jc frn">
+            {story.public && <div className="banner-rating flex afs jc frn">
               <StarRatings
                 rating={note}
                 starRatedColor="#27bab0"
@@ -53,7 +54,7 @@ const StoryBanner = ({id, story, category, note}) => {
                 name='banner-rating'
               />
               <small className="note">{note.toFixed(1)}</small>
-            </div>
+            </div>}
           </div>
           <div className="sub-info mt-3">
             <small className="date"><i className="far fa-calendar-alt"></i>&nbsp;&nbsp; <Moment format='YYYY-MM-DD'>{new Date(story.createdAt)}</Moment></small><br />

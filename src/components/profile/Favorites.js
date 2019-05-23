@@ -11,12 +11,12 @@ const Favorites = ({ favorites, auth }) => {
         <Col md="9">
           <div className="fav-characters">
             <h5 className="mb-3">{favorites.characters.length} Favorite characters</h5>
-            <CharacterCards auth={auth} type={'favorites'} characters={favorites.characters}/>
+            <CharacterCards lg='3' md='4' xs='6' auth={auth} type={'favorites'} characters={favorites.characters}/>
           </div>
           <hr/>
           <div className="followings">
             <h5>{ favorites.followings.length } Favorite author{ favorites.followings.length > 1 ? 's':'' }</h5>
-            <UsersCards users={favorites.followings} />
+            <UsersCards type={'favorites'} users={favorites.followings} />
           </div>
         </Col>
         <div className="col-md-3 bg-white favstories">
@@ -25,7 +25,7 @@ const Favorites = ({ favorites, auth }) => {
             <tbody>
               {favorites.stories.map(story => (
                 <tr key={story.id}>
-                  <td>{story.title} <br/>by {auth.uid && (auth.uid === story.authorId) ? 'you' : <Link className="author" to={`/profile/${story.authorId}`}> {story.authorName}</Link>}</td>
+                  <td>{story.title} <br/>by {auth.uid && (auth.uid === story.authorId) ? 'you' : story.authorName}</td>
                   <td><Link className="story-name" to={`/story/${story.id}`}>Read</Link></td>
                 </tr>
               ))}

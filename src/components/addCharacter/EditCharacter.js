@@ -32,8 +32,8 @@ class EditCharacter extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.character !== this.props.character) {
-      const { relatives, image, ...remain } = nextProps.character
-      this.setState({ ...remain, checked: nextProps.character.public, relatives: nextProps.character.relatives.map(rel => ({ character_id: rel.character_id, relation: rel.relation })) })
+      const { relatives, image, authorName, authorId, createdAt, id, stories, ...remain } = nextProps.character
+      this.setState({ ...remain, checked: nextProps.character.public, relatives: nextProps.character.relatives.map(rel => ({ character_id: rel.character_id, relation: rel.relation })), likes: nextProps.character.likes.join(', '), dislikes: nextProps.character.dislikes.join(', ') })
     }
   }
 
@@ -79,17 +79,18 @@ class EditCharacter extends Component {
     // Get current character id
     const id = this.props.match.params.id
     let { checked, message, flash, alert,imageFormat,filename,...remain } = this.state
+   
     // Likes
-    remain.likes = remain.likes.length > 0 ? remain.likes.split(',').map(l => l.trim()): this.props.character.likes
+    remain.likes = remain.likes ? remain.likes.split(',').map(l => l.trim()): []
     // Dislikes
-    remain.dislikes = remain.dislikes.length > 0 ? remain.dislikes.split(',').map(l => l.trim()): this.props.character.dislikes
+    remain.dislikes = remain.dislikes ? remain.dislikes.split(',').map(l => l.trim()): []
+
     // Public or private
     const publicCharacter = this.state.checked ? true: false
     // Image
     remain.image = remain.image && remain.image ? remain.image: null
 
    const characterData = { ...remain, public: publicCharacter }
-
     if (this.state.alert !== 'danger') {
       this.props.updateCharacter(id, characterData)
     }
@@ -120,7 +121,6 @@ class EditCharacter extends Component {
   }
 
   render() {
-    console.log(this.state)
     return (
       <main className="inner-main">
         { !this.props.loading ? 

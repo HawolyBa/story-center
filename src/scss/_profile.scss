@@ -693,6 +693,7 @@
 
 main.inner-main-profile {
   .profile-loading { height: 100%; }
+  .activeTab { transform: scale(1.2) }
   section.banner {
     width: 100%;
     height: 250px;

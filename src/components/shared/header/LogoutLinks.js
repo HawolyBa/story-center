@@ -1,12 +1,12 @@
 import React, {Fragment} from 'react'
 import { NavLink } from 'react-router-dom';
 
-const LogoutLinks = () => {
+const LogoutLinks = ({ menuIcon }) => {
   return (
     <Fragment>
-      <NavLink to="/">Home</NavLink>
-      <NavLink to="/browse">Browse</NavLink>
-      <NavLink className="auth-btn" to="/auth">Login/Register</NavLink>
+      <NavLink onClick={menuIcon} to="/">Home</NavLink>
+      <NavLink onClick={menuIcon} to="/browse">Browse</NavLink>
+      <NavLink onClick={menuIcon} className="auth-btn" to="/auth">Login/Register</NavLink>
     </Fragment>
   )
 }

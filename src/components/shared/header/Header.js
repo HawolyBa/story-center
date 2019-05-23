@@ -16,7 +16,8 @@ export class Header extends Component {
     windoWidth: window.innerWidth,
     dropdownOpen: false,
     notifIsOpen: false,
-    checked: false
+    checked: false,
+    menuIsOpen: false
   }
 
   updateDimensions = e => {
@@ -96,8 +97,9 @@ export class Header extends Component {
                 notifications={this.props.notifications}
                 markedAsSeen={this.markedAsSeen}
                 checked={this.state.checked}
+                menuIcon={this.menuIcon}
               />: 
-              <LogoutLinks/>}
+              <LogoutLinks menuIcon={this.menuIcon} />}
               <Search cn="search-form responsive-searchbar"/>
             </nav>
             <div id="menu-icon" onClick={this.menuIcon} className="navbar-toggler"  data-toggle="collapse" data-target="#mainNavbar" aria-controls="mainNavbar" role="button" aria-expanded="false" aria-label="Toggle navigation">
@@ -111,6 +113,13 @@ export class Header extends Component {
     )
   }
 }
+
+Header.defaultProps = {
+  profile: {
+    nightMode: false
+  }
+}
+
 
 Header.propTypes = {
   logout: func.isRequired,

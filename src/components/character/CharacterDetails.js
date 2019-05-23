@@ -12,6 +12,7 @@ const CharacterDetails = ({ character, auth, changeRating, isFavorite, toggle, i
       <ImageModal copyright={character.imageCopyright} isOpen={isOpen} toggle={toggle} name={`${character.firstname} ${character.lastname && character.lastname}`} image={character.image ? character.image: defaultAvatar}/>
       <section className="character-details">
         <div onClick={toggle} className="image" id="chara-image" style={{ background: `url(${character && character.image ? character.image: defaultAvatar}) no-repeat center / cover`}}>
+          {!character.public && <span className="private-tag"><i className="fas fa-lock"></i></span>}
         </div>
         <SimpleBar data-simplebar-auto-hide="false" style={{ height: `calc(80vh - 400px)` }}>
           <div className="info">

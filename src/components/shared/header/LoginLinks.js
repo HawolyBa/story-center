@@ -3,12 +3,16 @@ import { NavLink } from 'react-router-dom'
 import { Dropdown, DropdownToggle, DropdownMenu,  DropdownItem } from 'reactstrap'
 import SwitchButton from '../SwitchButton'
 
-const LoginLinks = ({ logout, toggle, isOpen, isOpenNotification, auth, profile, toggleNightmode, toggleNotif, notifications, markedAsSeen, checked }) => {
+const LoginLinks = ({ logout, toggle, isOpen, isOpenNotification, auth, profile, toggleNightmode, toggleNotif, notifications, markedAsSeen, checked, menuIcon }) => {
   return (
     <Fragment>
-      <NavLink exact to="/">Home</NavLink>
-      <NavLink to="/browse">Browse</NavLink>
-      <Dropdown direction="left" isOpen={isOpen} toggle={toggle}>
+      <NavLink onClick={menuIcon} exact to="/">Home</NavLink>
+      <NavLink onClick={menuIcon} to="/browse">Browse</NavLink>
+      <NavLink onClick={menuIcon} className="mobile-link" to="/profile">Profile</NavLink>
+      <NavLink onClick={menuIcon} className="mobile-link" to={`/profile/${auth}`}>Public Profile</NavLink>
+      <NavLink onClick={menuIcon} className="mobile-link" to='notifications'>Notifications <span className="mobile-notif">{notifications.length}</span></NavLink>
+      <p onClick={menuIcon} className="mobile-link" onClick={logout}>Logout</p>
+      <Dropdown direction="left" isOpen={isOpen} toggle={toggle} className="mr-2">
         <DropdownToggle caret tag="span" data-toggle="dropdown" aria-expanded={isOpen}>
           <i className="far fa-user"></i>
         </DropdownToggle>
@@ -22,7 +26,7 @@ const LoginLinks = ({ logout, toggle, isOpen, isOpenNotification, auth, profile,
         </DropdownMenu>
       </Dropdown>
       <Dropdown direction="left" isOpen={isOpenNotification} toggle={toggleNotif}>
-        <DropdownToggle tag="span" data-toggle="dropdown" aria-expanded={isOpenNotification}>
+        <DropdownToggle caret tag="span" data-toggle="dropdown" aria-expanded={isOpenNotification}>
         <span className="notif"><i className="far fa-bell"></i>{notifications.length > 0 && <span>{notifications.length}</span>}</span>
         </DropdownToggle>
         <DropdownMenu>

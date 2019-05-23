@@ -3,9 +3,9 @@ import { Col } from 'reactstrap'
 import { Link } from 'react-router-dom'
 import { defaultAvatar } from '../default/defaultImages'
 
-const CharacterCard = ({ character, type, auth }) => {
+const CharacterCard = ({ character, type, auth, lg, md, xs }) => {
   return (
-    <Col lg={type === 'favorites' || type === 'chapter' ? 3 : type === 'home' ? 3: 2} md={type === 'favorites' || type === 'chapter' ? 4 : 3} xs="6">
+    <Col lg={lg} md={md} xs={xs}>
       <Link to={`/character/${character.id}`}>
         <figure className="item-card character-card">
           { auth && !character.public && auth.uid === character.authorId && <span className="private-tag"><i className="fas fa-lock"></i></span> }

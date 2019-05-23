@@ -11,7 +11,7 @@ const Followers = ({followers}) => {
           <Col lg="2" sm="4" xs="6" className="mb-5" key={follower.id}>
             <Link to={`/profile/${follower.id}`} className="item">
               <figure className="user-card item-card">
-                <div className="image" style={{ backgroundImage: `url(${follower.image})` }}/>
+                <div className="image" style={{ background: `url(${follower.image}) no-repeat center / cover` }}/>
                 <figcaption>
                   <h4>{follower.username}</h4>
                   <hr/>

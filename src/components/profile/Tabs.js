@@ -7,14 +7,14 @@ import follower_icon from '../../images/tabs/followers.png'
 import favorite_icon from '../../images/tabs/like.png'
 import setting_icon from '../../images/tabs/gears.png'
 
-const Tabs = ({ changeTab, id, changeTabSelect, auth }) => {
+const Tabs = ({ changeTab, id, changeTabSelect, auth, activeTab }) => {
   return (
     <Fragment>
       <div className="floating-tabs flex fc ac js">
         <img
           href="#"
           id="stories"
-          className="tab"
+          className={`tab ${activeTab === 'stories' ? 'activeTab': ''}`}
           onClick={changeTab.bind(this, "stories")}
           src={story_icon}
           alt="stories"
@@ -24,7 +24,7 @@ const Tabs = ({ changeTab, id, changeTabSelect, auth }) => {
         </CustomTooltip>
         <img
           id="characters"
-          className="tab"
+          className={`tab ${activeTab === 'characters' ? 'activeTab' : ''}`}
           onClick={changeTab.bind(this, "characters")}
           src={character_icon}
           alt="characters"
@@ -34,7 +34,7 @@ const Tabs = ({ changeTab, id, changeTabSelect, auth }) => {
         </CustomTooltip>
         <img
           id="locations"
-          className="tab"
+          className={`tab ${activeTab === 'locations' ? 'activeTab' : ''}`}
           onClick={changeTab.bind(this, "locations")}
           src={location_icon}
           alt="locations"
@@ -44,7 +44,7 @@ const Tabs = ({ changeTab, id, changeTabSelect, auth }) => {
         </CustomTooltip>
         <img
           id="followers"
-          className="tab"
+          className={`tab ${activeTab === 'followers' ? 'activeTab' : ''}`}
           onClick={changeTab.bind(this, "followers")}
           src={follower_icon}
           alt="followers"
@@ -54,7 +54,7 @@ const Tabs = ({ changeTab, id, changeTabSelect, auth }) => {
         </CustomTooltip>
         <img
           id="favorites"
-          className="tab"
+          className={`tab ${activeTab === 'favorites' ? 'activeTab' : ''}`}
           onClick={changeTab.bind(this, "favorites")}
           src={favorite_icon}
           alt="favorites"
@@ -66,7 +66,7 @@ const Tabs = ({ changeTab, id, changeTabSelect, auth }) => {
           <React.Fragment>
             <img 
             id="settings" 
-            className="tab" 
+            className={`tab ${activeTab === 'settings' ? 'activeTab' : ''}`} 
             onClick={changeTab.bind(this, 'settings')}
             src={setting_icon}
             alt="settings"
@@ -84,7 +84,7 @@ const Tabs = ({ changeTab, id, changeTabSelect, auth }) => {
           <option value="locations">Locations</option>
           <option value="followers">Followers</option>
           <option value="favorites">Favorites</option>
-          <option value="settings">Settings</option>
+          {!id && <option value="settings">Settings</option>}
         </select>
       </div>
     </Fragment>

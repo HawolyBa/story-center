@@ -7,7 +7,7 @@ import { defaultAvatar } from '../default/defaultImages'
 import Report from '../shared/Report';
 import ProfileLoading from './ProfileLoading'
 
-const Banner = ({ changeTab, user, changeAvatar, triggerClick, id, auth, toggleFollow, verifyEmail, isFavorite, changeTabSelect, UI, loading, handleSize, orientation}) => {
+const Banner = ({ changeTab, user, changeAvatar, triggerClick, id, auth, toggleFollow, verifyEmail, isFavorite, changeTabSelect, UI, loading, handleSize, orientation, activeTab}) => {
   return (
     <section className="banner">
     {!loading ? 
@@ -80,7 +80,7 @@ const Banner = ({ changeTab, user, changeAvatar, triggerClick, id, auth, toggleF
             }
           </div>
         </div>
-        <Tabs changeTab={changeTab} changeTabSelect={changeTabSelect} id={id} />
+          <Tabs activeTab={activeTab} changeTab={changeTab} changeTabSelect={changeTabSelect} id={id} />
       </div>:
       <ProfileLoading/>}
     </section>

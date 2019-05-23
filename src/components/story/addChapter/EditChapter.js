@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { getStoryLocations, addChapter, getChapter, editChapter, getStory, cleanup } from '../../../redux/actions/storyActions'
 import { getUserCharacters } from '../../../redux/actions/charactersActions'
 import { arrayOf, array, string, bool, object, func, shape } from 'prop-types'
+import { replaceAll } from '../../../utils/helpers'
 
 import StoryBanner from '../StoryBanner'
 import ChapterForm from './ChapterForm';
@@ -15,7 +16,6 @@ class EditChapter extends Component {
   _isMounted = false;
 
   state = {
-    storyId: this.props.match.params.id,
     idSelected: [],
     idLocations: [],
     body: '',
@@ -61,19 +61,12 @@ class EditChapter extends Component {
     this.props.cleanup()
   }
 
-  onSubmit = e => {
-    e.preventDefault()
-    let { idSelected, storyId, body, title, idLocations, chap_number } = this.state
-    const info = { locations: idLocations, characters: idSelected, storyId, body, title, number: chap_number }
-    this.props.editChapter(this.props.match.params.id, this.props.match.params.chapid, info)
-  }
-
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value })
   }
 
   handleEditorChange = (value) => {
-    this.setState({ body: value.replaceAll("<p><br></p><p><br></p>", "<p><br></p>") })
+    this.setState({ body: replaceAll(value, "<p><br></p><p><br></p>", "<p><br></p>") })
   }
 
   onLocationSelect = e => {
@@ -119,8 +112,15 @@ class EditChapter extends Component {
     })
   }
 
+  onSubmit = e => {
+    e.preventDefault()
+    let { idSelected, body, title, idLocations, chap_number } = this.state
+    const info = { storyId: this.props.match.params.id, locations: idLocations, characters: idSelected, body: replaceAll(body, "<p><br></p>", ""), title, number: chap_number }
+    this.props.editChapter(this.props.match.params.chapid, info)
+  }
+
   render() {
-    const { match, chapter, characters, locations, loading, chapterLoading, auth, notFound, chapterNotFound } = this.props
+    const { match, chapter, characters, locations, loading, chapterLoading, auth, notFound, chapterNotFound, errors } = this.props
     const { charactersSelected, idSelected, locationsSelected, idLocations, body } = this.state
     const charactersInSelect = characters && characters.filter(char => !idSelected.includes(char.id))
     const locationsInSelect = locations && locations.filter(loca => !idLocations.includes(loca.id))
@@ -133,6 +133,7 @@ class EditChapter extends Component {
         <div className="add-chapter story">
           <StoryBanner story={this.props.story} id={this.props.match.params.id}/>
           <ChapterForm
+            errors={errors}
             body={body}
             chapter={chapter}
             removeFromCharacters={this.removeFromCharacters}
@@ -211,7 +212,8 @@ const mapStateToProps = state => {
     loading: state.story.loading,
     chapterLoading: state.story.chapterLoading,
     notFound: state.story.notFound,
-    chapterNotFound: state.story.chapterNotFound
+    chapterNotFound: state.story.chapterNotFound,
+    errors: state.UI.errors
   }
 }
 

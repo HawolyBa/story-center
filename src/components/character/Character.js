@@ -69,10 +69,11 @@ class Character extends Component {
   render() {
     const { character, profile, match, auth, isFavorite, notFound } = this.props
     const id = match.params.id 
-    return !notFound ?
-    (auth.uid === character.authorId) || character.public ?
+    return (
     <main className="inner-main inner-main-character">
       {!this.props.loading ? 
+      !notFound ?
+      (auth.uid === character.authorId) || character.public ?
       this.state.innerWidth >= 768 ? 
       <div className="character flex spb">
         <CharacterDetails
@@ -105,11 +106,11 @@ class Character extends Component {
         id={id}
         auth={auth}
       />:
+            <Private data={auth} type="Private Character" /> :
+      <NotFound />:
       <Loading /> }
-    </main>:
-    <Private data={auth} type="Private Character"/>:
-    <NotFound/>
-    
+    </main>
+    )
   }
 }
 

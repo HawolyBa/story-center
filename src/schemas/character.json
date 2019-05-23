@@ -1,0 +1,20 @@
+{
+  "authorId": "5s4df5s16vf51zs",
+  "authorName": "Hawoly",
+  "likesCount": 0,
+  "createdAt": "2019-08-01",
+  "public": true,
+  "firstname": "Gogo",
+  "lastname": "Leueu",
+  "image": "http://www.imge.com",
+  "age": "20",
+  "gender": "Female",
+  "ethnicity": "Black",
+  "occupation": "Student",
+  "residence": "Los Angeles",
+  "group": "Hollywood",
+  "likes": ["milk", "yogourt"],
+  "dislikes": ["mean"],
+  "imageCopyright": "Gogo78",
+  "relatives": []
+}

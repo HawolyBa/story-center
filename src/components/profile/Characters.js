@@ -29,13 +29,13 @@ const Characters = ({ characters, auth }) => {
       { activeTab === 'allCharacters' ?
       <div id="allCharacters">
         <h5>{characters.allCharacters.length} character{characters.allCharacters.length > 1 ? 's' : ''}</h5>
-        <CharacterCards auth={auth} type='characters' characters={characters.allCharacters}/>
+        <CharacterCards lg='2' md='3' xs='6' auth={auth} type='characters' characters={characters.allCharacters}/>
       </div>:
       activeTab === 'charactersByStory' ?
       <div className="chara-by-story">
       {characters && characters.charaByStory.map(chara => {
         return chara.characters && chara.characters.length > 0 ?
-          <DataByStory auth={auth} key={chara.id} type="characters" data={chara}/>:
+          <DataByStory lg='2' md='3' xs='6' auth={auth} key={chara.id} type="characters" data={chara}/>:
         null
       })}
       </div>:

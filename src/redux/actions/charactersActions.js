@@ -261,7 +261,7 @@ export const getPrivateCharacters = () => (dispatch, getState, { getFirebase, ge
       return Promise.all(storiesPromises)
     })
     .then(data => {
-      charaFromChapters = charaFromChapters.map(story => ({ ...story, id: story.id, title: data.find(doc => doc.id === story.id).data().title, characters: story.characters.flat(Infinity) }))
+      charaFromChapters = charaFromChapters.map(story => ({ ...story, id: story.id, title: data.find(doc => doc.id === story.id).data().title, characters: [...new Set(story.characters.flat(Infinity))] }))
       return getFirestore().collection('characters').where('authorId', '==', userId).orderBy('createdAt', 'desc').get()
     })
     .then(data => {
@@ -273,7 +273,8 @@ export const getPrivateCharacters = () => (dispatch, getState, { getFirebase, ge
           lastname: doc.data().lastname,
           likesCount: doc.data().likesCount,
           image: doc.data().image,
-          public: doc.data().public
+          public: doc.data().public,
+          authorId: doc.data().authorId
         })
       })
       result.charaByStory = charaFromChapters.map(story => ({ ...story, characters: story.characters.map(chara => ({ 
@@ -282,10 +283,10 @@ export const getPrivateCharacters = () => (dispatch, getState, { getFirebase, ge
           lastname: result.allCharacters.find(doc => doc.id === chara).lastname,
           likesCount: result.allCharacters.find(doc => doc.id === chara).likesCount,
           image: result.allCharacters.find(doc => doc.id === chara).image,
-          public: result.allCharacters.find(doc => doc.id === chara).public
+          public: result.allCharacters.find(doc => doc.id === chara).public,
+          authorId: result.allCharacters.find(doc => doc.id === chara).authorId
         })) 
       }))
-      
       return dispatch({ type: types.GET_CHARACTERS, payload: result })
     })
 }
@@ -309,7 +310,7 @@ export const getPublicCharacters = id => (dispatch, getState, { getFirebase, get
       return Promise.all(storiesPromises)
     })
     .then(data => {
-      charaFromChapters = charaFromChapters.map(story => ({ ...story, id: story.id, title: data.find(doc => doc.id === story.id).data().title, public: data.find(doc => doc.id === story.id).data().public }))
+      charaFromChapters = charaFromChapters.map(story => ({ ...story, id: story.id, title: data.find(doc => doc.id === story.id).data().title, public: data.find(doc => doc.id === story.id).data().public, characters: [...new Set(story.characters.flat(Infinity))] }))
       return getFirestore().collection('characters').where('authorId', '==', id).where('public', '==', true).orderBy('createdAt', 'desc').get()
     })
     .then(data => {
@@ -338,7 +339,7 @@ export const getPublicCharacters = id => (dispatch, getState, { getFirebase, get
           }
         } else return null
         })
-      })).map(story => ({ ...story, characters: story.characters.filter(char => char) }))
+      })).map(story => ({ ...story, characters: story.characters.filter(char => char) })).filter(story => story.public)
 
       return dispatch({ type: types.GET_CHARACTERS, payload: result })
     })

@@ -160,6 +160,7 @@ class Profile extends Component {
         changeTabSelect={this.changeTabSelect}
         loading={loading}
         orientation={orientation}
+        activeTab={this.state.activeTab}
       />
       <div className="profile-content">
       {!loading ?

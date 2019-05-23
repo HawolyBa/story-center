@@ -67,7 +67,6 @@ export const deleteSpaces = str => {
   return str.replace(/\s/g,'');
 }
 
-String.prototype.replaceAll = function(search, replacement) {
-    var target = this;
+export const replaceAll = (target, search, replacement) => {
     return target.replace(new RegExp(search, 'g'), replacement);
 };
