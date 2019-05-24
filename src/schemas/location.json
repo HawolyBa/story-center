@@ -1,6 +1,7 @@
 {
   "name": "Magny",
   "image": "http://image.com",
+  "imageCopyright": "",
   "description": "Petite ville sordide",
   "createdAt": "2019-01-01",
   "authorName": "Hawoly",

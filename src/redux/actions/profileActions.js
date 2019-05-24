@@ -506,22 +506,6 @@ export const getNotifications = () => (dispatch, getState, { getFirebase, getFir
     })
 }
 
-export const markedAsSeen = notifications => (dispatch, getState, { getFirebase, getFirestore }) => {
-
-  const batch = getFirestore().batch()
-  const notifPromises = []
-
-  notifications.forEach(notif => {
-    notifPromises.push(getFirestore().collection('notifications').doc(notif.id).get())
-  })
-  Promise.all(notifPromises).then(data => {
-    data.forEach(doc => {
-      if (!doc.data().read) batch.update(getFirestore().collection('notifications').doc(doc.id), { read: true })
-    })
-    batch.commit()
-  })
-}
-
 export const getUsersBySearch = search => (dispatch, getState, { getFirebase, getFirestore }) => {
 
   let result = []
@@ -576,4 +560,51 @@ export const report = info => (dispatch, getState, { getFirebase, getFirestore }
 
 export const addFeedback = (userId, content) => (dispatch, getState, { getFirebase, getFirestore }) => {
   getFirestore().collection('feedback').add({ userId, content, createdAt: new Date().toISOString() })
+}
+
+export const markedAsSeen = notifications => (dispatch, getState, { getFirebase, getFirestore }) => {
+
+  const batch = getFirestore().batch()
+  const notifPromises = []
+
+  notifications.forEach(notif => {
+    notifPromises.push(getFirestore().collection('notifications').doc(notif.id).get())
+  })
+  Promise.all(notifPromises).then(data => {
+    data.forEach(doc => {
+      if (!doc.data().read) batch.update(getFirestore().collection('notifications').doc(doc.id), { read: true })
+    })
+    batch.commit()
+  })
+}
+
+export const markAllAsRead = () => (dispatch, getState, { getFirebase, getFirestore }) => {
+
+  const batch = getFirestore().batch()
+  const userId = getFirebase().auth().currentUser.uid
+
+  getFirestore().collection('notifications').where('recipient', '==', userId).where('read', '==', false).get()
+    .then(data => {
+      data.forEach(doc => {
+        batch.update(getFirestore().collection('notifications').doc(doc.id), { read: true })
+      })
+      return batch.commit()
+    })
+}
+
+export const markOneAsRead = id => (dispatch, getState, { getFirebase, getFirestore }) => {
+  getFirestore().collection('notifications').doc(id).update({ read: true })
+}
+
+export const dismissAll = () => (dispatch, getState, { getFirebase, getFirestore }) => {
+  const batch = getFirestore().batch()
+  const userId = getFirebase().auth().currentUser.uid
+
+  getFirestore().collection('notifications').where('recipient', '==', userId).get()
+    .then(data => {
+      data.forEach(doc => {
+        batch.delete(getFirestore().collection('notifications').doc(doc.id))
+      })
+      return batch.commit()
+    })
 }

@@ -52,8 +52,9 @@
     section.settings {width: 700px}
     .floating-tabs {
       flex-direction: row;
-      top: 30%;
+      top: -15%;
       left: 50%;
+      position: absolute;
       img { margin-right: 10px }
     }
   }
@@ -235,6 +236,18 @@
       margin-bottom: 30px;
     }
   }
+
+  .floating-btn-group {
+    bottom: 30px;
+    right: 30px;
+    .floating-btn {
+      font-size: 20px;
+      width: 35px;
+      height: 35px;
+      line-height: 35px;
+    }
+  }
+
 }
 
 @media (max-width: $sm) {

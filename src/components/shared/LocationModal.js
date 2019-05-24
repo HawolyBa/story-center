@@ -14,8 +14,9 @@ const LocationModal = ({deleteLocation, currentLocation, toggle, modal,id}) => {
         <p>Story: <Link to={`/story/${currentLocation && currentLocation.storyId}`}>{currentLocation && currentLocation.storyTitle}</Link></p>
       </ModalBody>
       <ModalFooter>
+        <small>Image copyright: {currentLocation && currentLocation.imageCopyright}</small>
         {!id &&
-          <button className="danger-btn custom-btn" onClick={deleteLocation}>
+          <button className="danger-btn custom-btn ml-2" onClick={deleteLocation}>
             Delete
           </button>}
       </ModalFooter>

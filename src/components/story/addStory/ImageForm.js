@@ -8,12 +8,20 @@ const imageForm = ({ triggerClick, thumb, filename, addBanner, errors, imageCopy
       <Row className="afe">
         <Col md="4">
           <FormGroup>
-            <Label>Add your own illustration <i>(optional)</i></Label>
+            <Label>Add your own illustration <i className="fas fa-info-circle" id="illustration"></i> <i>(optional)</i></Label>
             <div className="thumb" onClick={triggerClick}>
               {thumb ? <img src={thumb} alt={thumb} /> : filename ? filename : <span>+</span>}
               <input id="addImage" hidden type="file" name="banner" onChange={addBanner} />
             </div>
               { filename && <FormText color="muted">By adding your own illustration, you acknowledge that you own the rights to the image or have an authorization to use it.</FormText> }
+            <CustomTooltip placement="top" target="illustration">
+              <small>
+                <strong>Minimum width</strong>: 900px<br />
+                <strong>Maximum width</strong>: 1600px<br />
+                <strong>Minimum height</strong>: 600px<br/>
+                <strong>Maximum height</strong>: 1200px
+              </small>
+            </CustomTooltip>
           </FormGroup>
         </Col>
         <Col md={{ size: 4, offset: 4}}>

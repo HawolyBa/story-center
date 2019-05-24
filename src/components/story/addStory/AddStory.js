@@ -14,6 +14,7 @@ import Loading from '../../shared/Loading'
 import StoryForm from './StoryForm';
 import ImageForm from './ImageForm';
 import Gallery from './Gallery';
+import Flash from '../../shared/FlashMessage';
 
 export class AddStory extends Component {
   _isMounted = false;
@@ -74,13 +75,32 @@ export class AddStory extends Component {
   }
 
   addBanner = e => {
+
+    const reader = new FileReader();
     const banner = e.target.files[0]
+
     if (banner.name.includes('jpg') || banner.name.includes('png') || banner.name.includes('jpeg')) {
-      this.setState({ banner, thumb: '', filename: banner.name, imageCopyright: '' })
+      reader.onload = (imgFile => {
+        const image = new Image();
+        image.src = imgFile.target.result
+
+        image.onload = () => {
+          if (image.width < 800 || image.width > 1600 || image.height < 600 || image.height > 1200) {
+            console.log(image.width, image.height)
+            this.setState({ flash: true, message: 'Your image does not respect the size requirements', alert: 'danger' })
+            setTimeout(() => this.setState({ flash: false }), 3000)
+          } else {
+            console.log(image.width, image.height)
+            this.setState({ banner, thumb: '', filename: banner.name, imageCopyright: '' })
+          }
+        }
+      })
+      reader.readAsDataURL(banner);
     } else {
-      this.setState({ flash: true, message: 'The format of your image is not supported', alert: 'alert-danger' })
+      this.setState({ flash: true, message: 'The format of your image is not supported', alert: 'danger' })
       setTimeout(() => this.setState({ flash: false }), 3000)
     }
+      
   }
 
   tagsChange = e => {
@@ -98,11 +118,11 @@ export class AddStory extends Component {
 
   chooseBanner = (banner, e) => {
     if (!this.state.banner) {
-      this.setState({ banner: banner.src.original, imageCopyright: `${banner.photographer} (Pexels)`, thumb: banner.src.tiny, filename: '' })
-    } else if (this.state.banner && this.state.banner === banner.src.original) {
+      this.setState({ banner: banner.src.landscape, imageCopyright: `${banner.photographer} (Pexels)`, thumb: banner.src.tiny, filename: '' })
+    } else if (this.state.banner && this.state.banner === banner.src.landscape) {
       this.setState({ banner: '', ImageCopyright: '', thumb: '', filename: '' })
-    } else if (this.state.banner && this.state.banner !== banner.src.original) {
-      this.setState({ banner: banner.src.original, imageCopyright: `${banner.photographer} (Pexels)`, thumb: banner.src.tiny, filename: '' })
+    } else if (this.state.banner && this.state.banner !== banner.src.landscape) {
+      this.setState({ banner: banner.src.landscape, imageCopyright: `${banner.photographer} (Pexels)`, thumb: banner.src.tiny, filename: '' })
     }
   }
 
@@ -176,6 +196,11 @@ export class AddStory extends Component {
             </FormGroup>
           </Form>
         </div>
+        <Flash 
+          flash={this.state.flash}
+          message={this.state.message}
+          alert={this.state.alert}
+        />
       </main>:
       <div>Verify your email first</div>:
     <Loading/>

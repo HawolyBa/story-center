@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { Form, Label, FormGroup, Modal, Button, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+import { Row, Form, Label, FormGroup, Modal, Button, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { firestoreConnect } from 'react-redux-firebase'
@@ -12,6 +12,7 @@ class AddLocation extends Component {
   state = {
     modal:false,
     image: '',
+    imageCopyright: '',
     info: {
       storyId: this.props.currentId ? this.props.currentId: '',
       name: '',
@@ -82,15 +83,23 @@ class AddLocation extends Component {
                   <Label>Location Description</Label>
                   <textarea onInput={this.onChange} name="description"></textarea>
                 </FormGroup>
-                <FormGroup>
-                  <div className="image-upload">
-                    <Label for="photo">Add a photo</Label>
-                    <div className="thumb" onClick={this.triggerClick}>
-                      <span>+</span>
-                      <input hidden type={'file'} id="photo" onChange={this.handleImageChange} name={'photo'} />
+                <Row>
+                  <div className="col-md-6">
+                    <div className="image-upload">
+                      <Label for="photo">Add a photo</Label>
+                      <div className="thumb" onClick={this.triggerClick}>
+                        <span>+</span>
+                        <input hidden type={'file'} id="photo" onChange={this.handleImageChange} name={'photo'} />
+                      </div>
                     </div>
                   </div>
-                </FormGroup>
+                  <div className="col-md-6">
+                    <FormGroup>
+                      <Label>Copyright</Label>
+                      <input type="text" name="imageCopyright" onInput={this.onChange}/>
+                    </FormGroup>
+                  </div>
+                </Row>
               </ModalBody>
               <ModalFooter>
                 <Button>Submit</Button>

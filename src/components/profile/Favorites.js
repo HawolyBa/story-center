@@ -4,14 +4,15 @@ import { Row, Col } from 'reactstrap'
 import CharacterCards from '../shared/CharacterCards'
 import UsersCards from '../shared/UsersCards'
 
-const Favorites = ({ favorites, auth }) => {
+const Favorites = ({ favorites, auth, id }) => {
+  const characters = id ? favorites.characters.filter(char => char.public) : favorites.characters
   return (
     <section className="favorites">
       <Row>
         <Col md="9">
           <div className="fav-characters">
-            <h5 className="mb-3">{favorites.characters.length} Favorite characters</h5>
-            <CharacterCards lg='3' md='4' xs='6' auth={auth} type={'favorites'} characters={favorites.characters}/>
+            <h5 className="mb-3">{characters.length} Favorite characters</h5>
+            <CharacterCards lg='3' md='4' xs='6' auth={auth} type={'favorites'} characters={characters}/>
           </div>
           <hr/>
           <div className="followings">

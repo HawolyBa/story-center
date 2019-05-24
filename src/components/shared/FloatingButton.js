@@ -49,14 +49,14 @@ class FloatingButton extends Component {
                 <img src={story} alt="story-icon"/>
                 Add a story
               </Link>
-              <div className="column">
-                <img src={location} alt="location-icon"/>
-                <NewLocation/>
-              </div>
               <Link onClick={this.toggle} className="column" to={'/character/add'}>
                 <img src={mask} alt="mask-icon"/>
                 Add a charatcer
               </Link>
+              <div className="column">
+                <img src={location} alt="location-icon" />
+                <NewLocation />
+              </div>
               <Feedback userId={this.props.userId} />
             </div>
           </ModalBody>

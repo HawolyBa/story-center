@@ -18,7 +18,7 @@ class Character extends Component {
 
   state = {
     character: {},
-    innerWidth: window.innerWidth,
+    innerWidth: window.innerWidth, 
     isOpen: false
   }
 

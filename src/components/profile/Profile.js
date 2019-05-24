@@ -175,7 +175,7 @@ class Profile extends Component {
           activeTab === 'followers' ?
           <Followers followers={user.followers}/>:
           activeTab === 'favorites' ?
-          <Favorites favorites={user.favorites} auth={auth}/>:
+                        <Favorites favorites={user.favorites} auth={auth} id={id}/>:
           <div></div>
         }
         </React.Fragment>:

@@ -9,6 +9,7 @@ import { languages, copyrights, status as statuses } from './metadatas'
 import { Sentry } from 'react-activity';
 import 'react-activity/lib/Sentry/Sentry.css';
 import { Link } from 'react-router-dom'
+import SimpleBar from 'simplebar-react';
 
 import StoryBanner from '../StoryBanner'
 import FlashMessage from '../../shared/FlashMessage'
@@ -102,11 +103,28 @@ class EditStory extends Component {
   }
 
   addBanner = e => {
+    const reader = new FileReader();
     const banner = e.target.files[0]
+
     if (banner.name.includes('jpg') || banner.name.includes('png') || banner.name.includes('jpeg')) {
-      this.setState({ banner, thumb: '', filename: banner.name, imageCopyright: '' })
+      reader.onload = (imgFile => {
+        const image = new Image();
+        image.src = imgFile.target.result
+
+        image.onload = () => {
+          if (image.width < 800 || image.width > 1600 || image.height < 600 || image.height > 1200) {
+            console.log(image.width, image.height)
+            this.setState({ flash: true, message: 'Your image does not respect the size requirements', alert: 'danger' })
+            setTimeout(() => this.setState({ flash: false }), 3000)
+          } else {
+            console.log(image.width, image.height)
+            this.setState({ banner, thumb: '', filename: banner.name, imageCopyright: '' })
+          }
+        }
+      })
+      reader.readAsDataURL(banner);
     } else {
-      this.setState({ flash: true, message: 'The format of your image is not supported', alert: 'alert-danger' })
+      this.setState({ flash: true, message: 'The format of your image is not supported', alert: 'danger' })
       setTimeout(() => this.setState({ flash: false }), 3000)
     }
   }
@@ -133,11 +151,11 @@ class EditStory extends Component {
 
   chooseBanner = (banner, e) => {
     if (!this.state.banner) {
-      this.setState({ banner: banner.src.original, imageCopyright: banner.photographer, thumb: banner.src.tiny, filename: '' })
-    } else if (this.state.banner && this.state.banner === banner.src.original) {
+      this.setState({ banner: banner.src.landscape, imageCopyright: banner.photographer, thumb: banner.src.tiny, filename: '' })
+    } else if (this.state.banner && this.state.banner === banner.src.landscape) {
       this.setState({ banner: '', ImageCopyright: '', thumb: '' , filename: ''})
-    } else if (this.state.banner && this.state.banner !== banner.src.original) {
-      this.setState({ banner: banner.src.original, imageCopyright: banner.photographer, thumb: banner.src.tiny, filename: '' })
+    } else if (this.state.banner && this.state.banner !== banner.src.landscape) {
+      this.setState({ banner: banner.src.landscape, imageCopyright: banner.photographer, thumb: banner.src.tiny, filename: '' })
     }
   }
 
@@ -160,69 +178,71 @@ class EditStory extends Component {
         <React.Fragment>
         <div className="story">
           <StoryBanner story={story} id={match.params.id}/>
-          <div className="edit-story add-story">
-            <div className="upper-band flex as spb">
-              <Link className="square-btn primary-btn outlined" to={`/story/${match.params.id}`}>Back to story</Link>
-            </div>
-            <hr/>  
-            <h2 className="text-center">Edit your story</h2>
-            <Form>
-              <StoryForm
-                categories={categories}
-                checked={checked}
-                errors={errors}
-                onSelect={this.onSelect}
-                languages={languages} 
-                copyrights={copyrights}
-                statuses={statuses}
-                status={status}
-                tagsChange={this.tagsChange}
-                switched={this.switched} 
-                mature={mature} 
-                turnMature={this.turnMature}
-                title={title}
-                language={language}
-                category={category}
-                copyright={copyright}
-                summary={summary}
-                tags={tags}
-                type="edit"
-              />
-              <ImageForm
-                triggerClick={this.triggerClick}
-                thumb={thumb} 
-                filename={filename}
-                addBanner={this.addBanner}
-                errors={errors}
-                imageCopyright={imageCopyright}
-                onSelect={this.onSelect}
-                setImage={this.setImage}
-                searchImages={this.searchImages}
-              />
-              <Gallery
-                imagesLoading={imagesLoading}
-                banners={banners}
-                banner={banner}
-                chooseBanner={this.chooseBanner}
-                nextpage={this.props.nextpage}
-              />
-              <hr/>
-              <div className="flex ac frn spb">
-                <FormGroup>
-                {
-                  UI.loading ?
-                  <Sentry/>:
-                  <Button onClick={this.onSubmit} type="submit" className="square-btn primary-btn">Edit</Button>
-                }
-                </FormGroup>
-                <FormGroup>
-                  <Button onClick={this.delete} className="square-btn danger-btn">Delete story</Button>
-                </FormGroup>
+          <SimpleBar style={{ height: '80vh' }}>
+            <div className="edit-story add-story">
+              <div className="upper-band flex as spb">
+                <Link className="square-btn primary-btn outlined" to={`/story/${match.params.id}`}>Back to story</Link>
               </div>
-            </Form>
-          </div>
+              <hr/>  
+              <h2 className="text-center">Edit your story</h2>
+              <Form>
+                <StoryForm
+                  categories={categories}
+                  checked={checked}
+                  errors={errors}
+                  onSelect={this.onSelect}
+                  languages={languages} 
+                  copyrights={copyrights}
+                  statuses={statuses}
+                  status={status}
+                  tagsChange={this.tagsChange}
+                  switched={this.switched} 
+                  mature={mature} 
+                  turnMature={this.turnMature}
+                  title={title}
+                  language={language}
+                  category={category}
+                  copyright={copyright}
+                  summary={summary}
+                  tags={tags}
+                  type="edit"
+                />
+                <ImageForm
+                  triggerClick={this.triggerClick}
+                  thumb={thumb} 
+                  filename={filename}
+                  addBanner={this.addBanner}
+                  errors={errors}
+                  imageCopyright={imageCopyright}
+                  onSelect={this.onSelect}
+                  setImage={this.setImage}
+                  searchImages={this.searchImages}
+                />
+                <Gallery
+                  imagesLoading={imagesLoading}
+                  banners={banners}
+                  banner={banner}
+                  chooseBanner={this.chooseBanner}
+                  nextpage={this.props.nextpage}
+                />
+                <hr/>
+                <div className="flex ac frn spb">
+                  <FormGroup>
+                  {
+                    UI.loading ?
+                    <Sentry/>:
+                    <Button onClick={this.onSubmit} type="submit" className="square-btn primary-btn">Edit</Button>
+                  }
+                  </FormGroup>
+                  <FormGroup>
+                    <Button onClick={this.delete} className="square-btn danger-btn">Delete story</Button>
+                  </FormGroup>
+                </div>
+              </Form>
+            </div>
+          </SimpleBar>
         </div>
-        <FlashMessage id={match.params.id} flash={this.state.flash} message={this.state.message} alert={this.state.alert}/>
+        <FlashMessage flash={this.state.flash} message={this.state.message} alert={this.state.alert}/>
         </React.Fragment>:
         <Private data={auth} type={"Unauthorized"} /> :
         <NotFound /> :

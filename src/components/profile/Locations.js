@@ -51,12 +51,12 @@ const Locations = ({ id, locations, deleteLocation }) => {
       { activeTab === 'allLocations' ? 
       <div id ="allLocations">
         <h5 className="mb-4">{locations.allLocations ? locations.allLocations.length : 0} location{locations && locations.allLocations.length > 1 ? 's': ''}</h5>
-        <LocationCards locations={locations.allLocations} toggle={toggle} />
+        <LocationCards lg="2" md="3" xs="6" locations={locations.allLocations} toggle={toggle} />
       </div>:
       <Fragment>
       { 
         locations.locByStory && locations.locByStory.map(loc => (
-          <DataByStory key={loc.id} toggle={toggle} type="locations" data={loc}/>
+          <DataByStory lg="2" md="3" xs="6" key={loc.id} toggle={toggle} type="locations" data={loc}/>
         ))
       }
       </Fragment>

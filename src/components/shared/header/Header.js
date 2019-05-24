@@ -76,6 +76,11 @@ export class Header extends Component {
     this.props.markedAsSeen(this.props.notifications)
   }
 
+  logout = () => {
+    this.props.logout()
+    this.state.windoWidth < 768 && this.menuIcon()
+  }
+
   render() {
     return (
       <header id="main-header">
@@ -86,8 +91,9 @@ export class Header extends Component {
             <nav id="main-nav" className="flex fs ac frn">
               {this.props.auth.uid ?
               <LoginLinks 
+                windoWidth={this.state.windoWidth}
                 auth={this.props.auth.uid} 
-                logout={this.props.logout} 
+                logout={this.logout} 
                 isOpen={this.state.dropdownOpen} 
                 toggle={this.toggle}
                 profile={this.props.profile}

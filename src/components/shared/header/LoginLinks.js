@@ -3,15 +3,15 @@ import { NavLink } from 'react-router-dom'
 import { Dropdown, DropdownToggle, DropdownMenu,  DropdownItem } from 'reactstrap'
 import SwitchButton from '../SwitchButton'
 
-const LoginLinks = ({ logout, toggle, isOpen, isOpenNotification, auth, profile, toggleNightmode, toggleNotif, notifications, markedAsSeen, checked, menuIcon }) => {
+const LoginLinks = ({ logout, toggle, isOpen, isOpenNotification, auth, profile, toggleNightmode, toggleNotif, notifications, markedAsSeen, checked, menuIcon, windoWidth }) => {
   return (
     <Fragment>
-      <NavLink onClick={menuIcon} exact to="/">Home</NavLink>
-      <NavLink onClick={menuIcon} to="/browse">Browse</NavLink>
-      <NavLink onClick={menuIcon} className="mobile-link" to="/profile">Profile</NavLink>
-      <NavLink onClick={menuIcon} className="mobile-link" to={`/profile/${auth}`}>Public Profile</NavLink>
-      <NavLink onClick={menuIcon} className="mobile-link" to='notifications'>Notifications <span className="mobile-notif">{notifications.length}</span></NavLink>
-      <p onClick={menuIcon} className="mobile-link" onClick={logout}>Logout</p>
+      <NavLink onClick={windoWidth < 768 && menuIcon} exact to="/">Home</NavLink>
+      <NavLink onClick={windoWidth < 768 && menuIcon} to="/browse">Browse</NavLink>
+      <NavLink onClick={windoWidth < 768 && menuIcon} className="mobile-link" to="/profile">Profile</NavLink>
+      <NavLink onClick={windoWidth < 768 && menuIcon} className="mobile-link" to={`/profile/${auth}`}>Public Profile</NavLink>
+      <NavLink onClick={windoWidth < 768 && menuIcon} className="mobile-link" to='notifications'>Notifications <span className="mobile-notif">{notifications.length}</span></NavLink>
+      <p className="mobile-link c-pointer" onClick={logout}>Logout</p>
       <Dropdown direction="left" isOpen={isOpen} toggle={toggle} className="mr-2">
         <DropdownToggle caret tag="span" data-toggle="dropdown" aria-expanded={isOpen}>
           <i className="far fa-user"></i>
@@ -34,6 +34,8 @@ const LoginLinks = ({ logout, toggle, isOpen, isOpenNotification, auth, profile,
           { notifications.length > 0 ? notifications.map(notif => (
             <DropdownItem key={notif.id}>{notif.message}</DropdownItem>
           )):  <DropdownItem>No notification</DropdownItem>}
+          <DropdownItem divider />
+          <DropdownItem><NavLink to="/notifications">See all notifications</NavLink></DropdownItem>
         </DropdownMenu>
       </Dropdown>
       

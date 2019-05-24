@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
 import { withRouter } from 'react-router-dom'
+import CookieConsent from "react-cookie-consent";
 
 import Header from './header/Header'
 import FloatingButton from './FloatingButton';
@@ -50,6 +51,19 @@ class Layout extends Component {
         {this.props.children}
         {this.props.auth.uid && <FloatingButton userId={this.props.auth.uid} />}
         <FlashMessage flash={flash} message={message} alert={alert}/>
+        <CookieConsent
+          enableDeclineButton
+          location="bottom"
+          buttonText="I understand"
+          cookieName="storycentercookie"
+          style={{ background: "#2B373B" }}
+          expires={150}
+          buttonClasses="cookie-btn"
+          buttonStyle={{ backgroundColor: '#27bab0', color: "#fff", fontSize: "13px"  }}
+          declineButtonStyle={{ backgroundColor: '#cf3a3a', fontSize: "13px" }}
+      >
+        This website uses cookies to enhance the user experience
+        </CookieConsent>
       </div>
     )
   }

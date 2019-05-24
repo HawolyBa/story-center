@@ -7,6 +7,7 @@ import { defaultAvatar } from '../default/defaultImages'
 import CharacterInput from './CharacterInput'
 import RelativesForm from './RelativesForm';
 import SwitchButton from '../shared/SwitchButton'
+import CustomTooltip from '../hoc/CustomTooltip'
 //{ filename }
 const CharacterForm = ({ onChange, onSubmit, handleImageChange, addRelation, relatives, remove, onRelationChange, onChangeSelect, characters, checked, switched, character, description, characterRelatives, deleteCharacter, filename, loading, triggerClick, errors, image }) => {
 
@@ -15,13 +16,22 @@ const CharacterForm = ({ onChange, onSubmit, handleImageChange, addRelation, rel
       <Row>
         <Col md="9">
         <FormGroup>
+          <Label>Illustration <i className="fas fa-info-circle" id="illustration"></i></Label>
           <div className="thumb" onClick={triggerClick}>
               {filename ? filename: <img src={image ? image : defaultAvatar} alt=""/>}
             <div className="image-upload">
               <input hidden type='file' id="photo" onChange={handleImageChange} name='photo' />
             </div>
           </div>
-            {filename && <FormText color="muted">By adding your own illustration, you acknowledge that you own the rights to the image or have an authorization to use it.</FormText>}
+          {filename && <FormText color="muted">By adding your own illustration, you acknowledge that you own the rights to the image or have an authorization to use it.</FormText>}
+          <CustomTooltip placement="top" target="illustration">
+            <small>
+              <strong>Minimum width</strong>: 300px<br />
+              <strong>Maximum width</strong>: 1200px<br />
+              <strong>Minimum height</strong>: 200px<br />
+              <strong>Maximum height</strong>: 1200px
+            </small>
+          </CustomTooltip>
         </FormGroup>
         </Col> 
         <Col md="3">

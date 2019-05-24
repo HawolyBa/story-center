@@ -34,6 +34,7 @@ import Contact from './components/links/Contact'
 import NotFound from './components/shared/NotFound';
 import ScrollToTop from './components/shared/ScrollToTop';
 import Guidances from './components/static/Guidances';
+import Notifications from './components/notifications/Notifications';
 
 class App extends Component {
   render() {
@@ -47,6 +48,7 @@ class App extends Component {
                 <Route exact path='/rules' component={Guidances}/>
                 <AuthRoute exact path="/auth" component={Authentication} />
                 <ProtectedRoute exact path='/profile' component={PrivateProfile}/>
+                <ProtectedRoute exact path='/notifications' component={Notifications}/>
                 <Route path='/profile/:id' component={Profile}/>
                 <ProtectedRoute exact path='/character/add' component={AddCharacter}/>
                 <Route path='/character/edit/:id' component={EditCharacter}/>

@@ -1,0 +1,13 @@
+.notifications {
+  padding: 30px;
+
+  h2 { font-size: 2rem }
+
+  .notif-list { width: 100% }
+
+  h3 { font-family: 'Lato', sans-serif; font-style: normal }
+  .notif-number {
+    //font-size: 0.7rem;
+    @include circle(30px, $red, white)
+  }
+}

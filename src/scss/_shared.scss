@@ -631,6 +631,7 @@ select:-webkit-autofill:focus {
   position: fixed;
   bottom: 50px;
   right: 50px;
+  z-index: 9;
   display: flex;
   flex-direction: column;
   .floating-btn {
@@ -728,5 +729,9 @@ select:-webkit-autofill:focus {
 
 .hidden {
   opacity: 0
+}
+
+.cookie-btn {
+  background-color: $primary
 }
 

@@ -444,6 +444,12 @@
   position: relative;
   overflow-x: hidden;
   height: 80vh;
+  .note {
+    @include circle(1.8rem, transparent, $primary);
+    font-size: 0.8rem;
+    border: 1px solid $primary;
+    margin-left: 5px
+  }
   .responsive { display: none }
   section.story-banner {
     width: 230px;
@@ -470,16 +476,11 @@
 
     .banner-rating {
       margin-top: 10px;
-      .note {
-        @include circle(1.8rem, transparent, $primary);
-        font-size: 0.8rem;
-        border: 1px solid $primary;
-        margin-left: 5px
-      }
     }
 
     .story-info {
       position: absolute;
+      z-index: 666;
       bottom: 5%;
       left: 50%;
       transform: translateX(-50%);
@@ -652,7 +653,6 @@ nav.chap-nav {
 
 .edit-story {
   margin-left: 230px;
-  height: 80vh;
   overflow-x: hidden
 }
 

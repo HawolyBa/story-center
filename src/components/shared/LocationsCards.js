@@ -20,7 +20,7 @@ class LocationsCards extends Component {
 
   render() {
     const { modal, currentLocation } = this.state
-    const { locations, pathname, removeFromLocations } = this.props
+    const { locations, pathname, removeFromLocations, lg, md, xs } = this.props
     return (
       <div className="locations-cards locations">
         <Modal isOpen={modal} toggle={this.toggle}>
@@ -45,7 +45,7 @@ class LocationsCards extends Component {
               ))}
             </tbody>
           </table>: 
-          <LocationCards locations={locations} toggle={this.toggle} />}
+          <LocationCards locations={locations} lg={lg} md={md} xs={xs} toggle={this.toggle} />}
       </div>
     )
   }

@@ -90,6 +90,7 @@ class Home extends Component {
 
   render() {
     const { categories, stories, popularStories, popularCharacters, authError, auth, profile, popularUsers, popularTags, loading, featuredStories } = this.props
+    console.log(stories)
     return (
       <main className="inner-main">
       {!loading ?

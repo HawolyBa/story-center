@@ -46,4 +46,11 @@
   input, textarea { color: $secondary; background-color:#424242 }
 
   .dropleft .dropdown-toggle::before { color: $primary }
+
+  .add-btn-group {
+    a { color: $secondary }
+  }
+  .story section.story-details .chapters-list .chapter-link.edit { color: $secondary }
+
+  .add-chapter .quill { color: $black }
 }

@@ -111,11 +111,26 @@ class EditCharacter extends Component {
   }
 
   handleImageChange = e => {
-    const image = e.target.files[0]
-    if (image.name.includes('jpg') || image.name.includes('png') || image.name.includes('jpeg')) {
-      this.setState({ image: image, imageFormat: 'valid', filename: image.name })
+    const img = e.target.files[0]
+    const reader = new FileReader();
+
+    if (img.name.includes('jpg') || img.name.includes('png') || img.name.includes('jpeg')) {
+      reader.onload = (imgFile => {
+        const image = new Image();
+        image.src = imgFile.target.result
+
+        image.onload = () => {
+          if (image.width < 300 || image.width > 1200 || image.height < 200 || image.height > 1200) {
+            this.setState({ flash: true, message: 'Your image does not respect the size requirements', alert: 'danger' })
+            setTimeout(() => this.setState({ flash: false }), 3000)
+          } else {
+            this.setState({ image: img, filename: img.name, alert: '' })
+          }
+        }
+      })
+      reader.readAsDataURL(img);
     } else {
-      this.setState({ flash: true, message: 'Invalid image format', alert: 'danger', imageFormat: 'invalid', image: null })
+      this.setState({ flash: true, message: 'The format of your image is not supported', alert: 'danger' })
       setTimeout(() => this.setState({ flash: false }), 3000)
     }
   }

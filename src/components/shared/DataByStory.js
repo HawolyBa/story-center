@@ -11,7 +11,7 @@ const DataByStory = ({ data, type, match, toggle, lg, md, xs, auth }) => {
       <hr/>
       { type === 'characters' ?
         <CharacterCards lg={lg} md={md} xs={xs} auth={auth} match={match} characters={data.characters}/> :
-        <LocationCards locations={data.locations} toggle={toggle}/>
+        <LocationCards lg={lg} md={md} xs={xs} locations={data.locations} toggle={toggle}/>
       }
     </div>:
     <Fragment></Fragment>
