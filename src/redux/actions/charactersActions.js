@@ -144,8 +144,10 @@ export const getCharacter = id => async (dispatch, getState, { getFirebase, getF
         result.stories[i].id = story.id
         result.stories[i].title = story.data().title
         result.stories[i].status = story.data().status
+        result.stories[i].public = story.data().public
       })
 
+      result.stories = result.stories.filter(story => story.public)
       let relPromises = []
       result.relatives.forEach((rel, i) => {
         relPromises.push(getOneFromCollection(getFirestore, 'characters', rel.character_id)) 
