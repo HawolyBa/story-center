@@ -60,23 +60,13 @@
   }
 }
 
-@media (max-width: 801px) {
-  .home {
-    #popular-stories { order: 1 }
-    #left-col { order: 2 }
-    #right-col { order: 3 }
-
-    .popular-characters {
-      .col-6 {
-        &:nth-last-child(-n+2) { display: block}
-      }
-    }
-  }
-}
 
 @media (max-width: $md) {
   main.inner-main { border-radius: 0; box-shadow: none; width: 100%}
   .home {
+    #popular-stories { order: 1 }
+    #left-col { order: 2 }
+    #right-col { order: 3 }
     section.showcase {
       border-radius: 0;
       .slides {
@@ -87,7 +77,11 @@
     }
 
     
-
+    .popular-characters {
+      .col-6 {
+        &:nth-last-child(-n+2) { display: block}
+      }
+    }
     .call-to-action {
       .add-btn { 
         font-size: 0.7rem;
