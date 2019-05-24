@@ -108,7 +108,6 @@ class AddCharacter extends Component {
   render() {
     const { characters, loading, errors } = this.props
     const { flash, message, alert } = this.state
-    console.log(this.state)
     return (
       <main className="inner-main">
         <div className="add-story">

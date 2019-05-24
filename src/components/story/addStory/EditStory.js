@@ -113,11 +113,9 @@ class EditStory extends Component {
 
         image.onload = () => {
           if (image.width < 800 || image.width > 1600 || image.height < 600 || image.height > 1200) {
-            console.log(image.width, image.height)
             this.setState({ flash: true, message: 'Your image does not respect the size requirements', alert: 'danger' })
             setTimeout(() => this.setState({ flash: false }), 3000)
           } else {
-            console.log(image.width, image.height)
             this.setState({ banner, thumb: '', filename: banner.name, imageCopyright: '' })
           }
         }

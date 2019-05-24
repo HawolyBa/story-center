@@ -30,7 +30,6 @@ class Feedback extends Component {
   }
 
   render() {
-    console.log(this.state)
     return (
       <div>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className="modal-floating">

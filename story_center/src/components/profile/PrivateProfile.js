@@ -60,7 +60,6 @@ class PrivateProfile extends Component {
         charactersLeft: 240 - Number(letterCount) })
     }
     if (this.props.user.image !== nextProps.user.image) {
-      console.log(object)
       const img = new Image();
       img.src = nextProps.user.image;
       this.setState({ orientation: img.width > img.height ? 'circular--landscape': img.width < img.height ?  'circular--portrait': 'circular--square' })
@@ -76,7 +75,6 @@ class PrivateProfile extends Component {
     const image = e.target.files[0]
     if (image.name.includes('jpg') || image.name.includes('png') || image.name.includes('jpeg')) {
       this.props.changeImage(image)
-      console.log(image.naturalWidth)
     } else {
       this.setState({ flash: true, message: 'Invalid image format', alert: 'danger' })
       setTimeout(() => this.setState({ flash: false }), 3000)
@@ -192,7 +190,6 @@ class PrivateProfile extends Component {
   const { user, auth, loading, UI } = this.props
   const { activeTab, flash, message, alert, orientation, charactersLeft, userInfo } = this.state
   const { id } = this.props.match.params
-  console.log(orientation)
   return (
     <main className="inner-main-profile">
       <Banner 

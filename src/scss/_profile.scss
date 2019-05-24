@@ -702,7 +702,8 @@ main.inner-main-profile {
     .follow-btn-outlined { color: $primary }
 
     .avatar {
-      
+      height: 150px;
+      width: 150px;
       position: relative;
       &:hover::before {
         font-family: "Font Awesome 5 Free"; font-weight: 900; content: "\f093";

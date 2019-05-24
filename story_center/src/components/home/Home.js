@@ -75,7 +75,6 @@ class Home extends Component {
   }
 
   toggleBg = e => {
-    console.log(e)
     // const target = document.getElementById(e.target.id)
     // const bg = target.getAttribute('data-bg')
     // if (!this.state.hovered) {

@@ -13,13 +13,11 @@ const Banner = ({ changeTab, user, changeAvatar, triggerClick, id, auth, toggleF
     {!loading ? 
       <div className="inner-banner flex spb ac frw">
         <div className="left-col flex fc ac jc">
-          {!id ? <div className={`avatar mb-3 flex jc ac fc ${orientation}`} onClick={triggerClick}>
+          {!id ? <div className={`avatar mb-3 flex jc ac fc ${orientation}`} onClick={triggerClick} style={{ background: `url(${user.image ? user.image : defaultAvatar}) no-repeat center / cover` }}>
             { UI.loading ?
               <Sentry/>:
-              <React.Fragment>
-                <input id="changeAvatar" onChange={changeAvatar} name="banner" hidden type="file" />
-                <img id="userImage" src={user.image ? user.image : defaultAvatar} alt={user.username} />
-              </React.Fragment> }
+              <input id="changeAvatar" onChange={changeAvatar} name="banner" hidden type="file" />
+            }
           </div>:
           <div className={`mb-3 flex jc ac fc ${orientation}`}>
             <img src={user.image ? user.image : defaultAvatar} alt={user.username}/>

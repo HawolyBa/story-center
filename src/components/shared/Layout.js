@@ -49,7 +49,7 @@ class Layout extends Component {
       <div className='main-content'>
         <Header history={this.props.history}/>
         {this.props.children}
-        {this.props.auth.uid && <FloatingButton userId={this.props.auth.uid} />}
+        <FloatingButton userId={this.props.auth.uid} />
         <FlashMessage flash={flash} message={message} alert={alert}/>
         <CookieConsent
           enableDeclineButton

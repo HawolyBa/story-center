@@ -125,7 +125,6 @@ class EditChapter extends Component {
     const charactersInSelect = characters && characters.filter(char => !idSelected.includes(char.id))
     const locationsInSelect = locations && locations.filter(loca => !idLocations.includes(loca.id))
     const pathname = match.path
-    console.log(loading, chapterLoading)
     return (
       <main className="inner-main">
         {!loading && !chapterLoading ? 

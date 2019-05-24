@@ -62,7 +62,7 @@ class FloatingButton extends Component {
           </ModalBody>
         </Modal>
         <div className="floating-btn-group">
-          <div onClick={this.toggle} className="floating-btn">+</div>
+          {this.props.userId && <div onClick={this.toggle} className="floating-btn">+</div>}
           <div onClick={() => window.open(shareUrl, 'ShareOnTwitter', this.getWindowOptions())} className="floating-btn floating-twitter"><i className="fab fa-twitter"></i></div>
           <div className="floating-btn floating-facebook"><i className="fab fa-facebook"></i></div>
         </div>

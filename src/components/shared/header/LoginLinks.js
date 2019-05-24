@@ -6,11 +6,11 @@ import SwitchButton from '../SwitchButton'
 const LoginLinks = ({ logout, toggle, isOpen, isOpenNotification, auth, profile, toggleNightmode, toggleNotif, notifications, markedAsSeen, checked, menuIcon, windoWidth }) => {
   return (
     <Fragment>
-      <NavLink onClick={windoWidth < 768 ? menuIcon: null} exact to="/">Home</NavLink>
-      <NavLink onClick={windoWidth < 768 ? menuIcon: null} to="/browse">Browse</NavLink>
-      <NavLink onClick={windoWidth < 768 ? menuIcon: null} className="mobile-link" to="/profile">Profile</NavLink>
-      <NavLink onClick={windoWidth < 768 ? menuIcon: null} className="mobile-link" to={`/profile/${auth}`}>Public Profile</NavLink>
-      <NavLink onClick={windoWidth < 768 ? menuIcon: null} className="mobile-link" to='notifications'>Notifications <span className="mobile-notif">{notifications.length}</span></NavLink>
+      <NavLink onClick={windoWidth < 850 ? menuIcon: null} exact to="/">Home</NavLink>
+      <NavLink onClick={windoWidth < 850 ? menuIcon: null} to="/browse">Browse</NavLink>
+      <NavLink onClick={windoWidth < 850 ? menuIcon: null} className="mobile-link" to="/profile">Profile</NavLink>
+      <NavLink onClick={windoWidth < 850 ? menuIcon: null} className="mobile-link" to={`/profile/${auth}`}>Public Profile</NavLink>
+      <NavLink onClick={windoWidth < 850 ? menuIcon: null} className="mobile-link" to='notifications'>Notifications <span className="mobile-notif">{notifications.length}</span></NavLink>
       <p className="mobile-link c-pointer" onClick={logout}>Logout</p>
       <Dropdown direction="left" isOpen={isOpen} toggle={toggle} className="mr-2">
         <DropdownToggle caret tag="span" data-toggle="dropdown" aria-expanded={isOpen}>

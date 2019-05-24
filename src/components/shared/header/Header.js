@@ -50,7 +50,6 @@ export class Header extends Component {
   }
 
   menuIcon = e => {
-
     document.querySelector('#menuBar1').classList.toggle('transMenuBar1')
     document.querySelector('#menuBar2').classList.toggle('transMenuBar2')
     document.querySelector('#menuBar3').classList.toggle('transMenuBar3')

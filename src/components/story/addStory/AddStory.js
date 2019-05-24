@@ -15,6 +15,7 @@ import StoryForm from './StoryForm';
 import ImageForm from './ImageForm';
 import Gallery from './Gallery';
 import Flash from '../../shared/FlashMessage';
+import Private from '../../shared/Private';
 
 export class AddStory extends Component {
   _isMounted = false;
@@ -86,11 +87,9 @@ export class AddStory extends Component {
 
         image.onload = () => {
           if (image.width < 800 || image.width > 1600 || image.height < 600 || image.height > 1200) {
-            console.log(image.width, image.height)
             this.setState({ flash: true, message: 'Your image does not respect the size requirements', alert: 'danger' })
             setTimeout(() => this.setState({ flash: false }), 3000)
           } else {
-            console.log(image.width, image.height)
             this.setState({ banner, thumb: '', filename: banner.name, imageCopyright: '' })
           }
         }
@@ -202,7 +201,7 @@ export class AddStory extends Component {
           alert={this.state.alert}
         />
       </main>:
-      <div>Verify your email first</div>:
+      <main className="inner-main"><Private auth={auth} type="Verify your email first"/></main>:
     <Loading/>
   }
 }
