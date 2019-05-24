@@ -77,7 +77,7 @@ export class Header extends Component {
 
   logout = () => {
     this.props.logout()
-    this.state.windoWidth < 768 && this.menuIcon()
+    this.state.windoWidth < 850 && this.menuIcon()
   }
 
   render() {

@@ -13,7 +13,7 @@ import ShareButtons from '../shared/ShareButtons'
 
 
 const StoryDetails = ({ story, id, auth, deleteChapter, isFavorite, changeRating, UI, innerWidth }) => {
-  return innerWidth >= 768 ?
+  return innerWidth >= 850 ?
     <SimpleBar style={{ height: '80vh' }}>
       <section className="story-details p-4">
       <div className="upper-band flex as spb">

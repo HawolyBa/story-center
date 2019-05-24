@@ -17,7 +17,7 @@ import ShareButtons from '../../shared/ShareButtons';
 const ChapterDetails = ({ previous, next, locations, characters, story, chapter, match, comments, params, category, loading, auth, chapterNotFound, innerWidth }) => {
   const language = languages.find(l => l.code === story.language)
   const title = `Read: ${story.title} - ${chapter.title} on ${siteName}`
-  return innerWidth >= 768 ?
+  return innerWidth >= 850 ?
     <SimpleBar style={{ height: '80vh' }}>
       <section className="story-details p-4">
         { !chapterNotFound ?
@@ -42,7 +42,7 @@ const ChapterDetails = ({ previous, next, locations, characters, story, chapter,
               </small>
               <br/>
               <ShareButtons title={title} image={story.banner ? story.banner: defaultBanner}/>
-              { innerWidth < 768 && 
+              { innerWidth < 850 && 
               <small className="meta-responsive">
                 Author: <Link to={`/profile/${story.authorId}`}> {story.authorName}</Link>  / 
                 Status: {story.status} / 

@@ -74,7 +74,7 @@ class Character extends Component {
       {!this.props.loading ? 
       !notFound ?
       (auth.uid === character.authorId) || character.public ?
-      this.state.innerWidth >= 768 ? 
+      this.state.innerWidth >= 850 ? 
       <div className="character flex spb">
         <CharacterDetails
           toggle={this.toggle}

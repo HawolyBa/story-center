@@ -74,7 +74,7 @@ class Character extends Component {
     (auth.uid === character.authorId) || character.public ?
     <main className="inner-main inner-main-character">
       {!this.props.loading ? 
-      this.state.innerWidth >= 768 ? 
+      this.state.innerWidth >= 850 ? 
       <div className="character flex spb">
         <CharacterDetails 
           isFavorite={isFavorite} 

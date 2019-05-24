@@ -13,7 +13,7 @@ import Ratings from './Ratings'
 
 const ChapterDetails = ({ previous, next, locations, characters, story, chapter, match, comments, params, category, loading, auth, chapterNotFound, innerWidth }) => {
   const language = languages.find(l => l.code === story.language)
-  return innerWidth >= 768 ?
+  return innerWidth >= 850 ?
     <SimpleBar style={{ height: '80vh' }}>
       <section className="story-details p-4">
         { !chapterNotFound ?
