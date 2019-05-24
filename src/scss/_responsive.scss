@@ -61,7 +61,7 @@
 }
 
 
-@media (max-width: $md) {
+@media screen and (max-width: $md) {
   main.inner-main { border-radius: 0; box-shadow: none; width: 100%}
   .home {
     #popular-stories { order: 1 }
@@ -250,7 +250,7 @@
 
 }
 
-@media (max-width: $sm) {
+@media screen and (max-width: $sm) {
   .home {
     .home-story-cards {
       grid-template-columns: repeat(2, 1fr);
