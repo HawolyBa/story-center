@@ -174,7 +174,7 @@ export const addChapter = (info, chapNumbers, titles, history) => async (dispatc
     createdAt: new Date().toISOString()
   })
   .then(doc => {
-    history.push(`/story/${info.storyId}/chapter/${doc.id}`)
+    info.status === 'published' ? history.push(`/story/${info.storyId}/chapter/${doc.id}`): history.push(`/story/${info.storyId}`)
   })
   .catch(err => console.log(err))
 
