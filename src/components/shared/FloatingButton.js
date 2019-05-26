@@ -55,11 +55,7 @@ class FloatingButton extends Component {
               </Link>
               <Link onClick={this.toggle} className="column" to={'/character/add'}>
                 <img src={mask} alt="mask-icon"/>
-<<<<<<< HEAD
-                Add a charatcer
-=======
                 Add a character
->>>>>>> Fixed import issue
               </Link>
               <div className="column" onClick={this.triggerClick}>
                 <img src={location} alt="location-icon" />
