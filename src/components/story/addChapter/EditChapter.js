@@ -25,9 +25,14 @@ class EditChapter extends Component {
     chap_number: 0,
     status: 'draft',
     charactersSelected: [],
-    locationsSelected: []
+    locationsSelected: [],
+    windowWidth: window.innerWidth,
+    windowHeight: window.innerHeight
   }
 
+  updateDimensions = () => {
+    this.setState({ windowWidth: window.innerWidth, windowHeight: window.innerHeight });
+  }
 
   componentWillReceiveProps(nextProps) {
     if (!this.props.loading && !this.props.notFound) {
@@ -60,11 +65,13 @@ class EditChapter extends Component {
       this.props.getStoryLocations(this.props.match.params.id)
       }
     }
+    window.addEventListener("resize", this.updateDimensions)
   }
 
   componentWillUnmount() {
     this._isMounted = false;
     this.props.cleanup()
+    window.removeEventListener("resize", this.updateDimensions);
   }
 
   onChange = e => {
@@ -132,13 +139,15 @@ class EditChapter extends Component {
     const locationsInSelect = locations && locations.filter(loca => !idLocations.includes(loca.id))
     const pathname = match.path
     return (
-      <main className="inner-main">
+      <main className="inner-main inner-main-story">
         {!loading && !chapterLoading ? 
         !notFound && !chapterNotFound ?
         (auth && chapter) && auth.uid === chapter.authorId ?
         <div className="add-chapter story">
           <StoryBanner story={this.props.story} id={this.props.match.params.id}/>
           <ChapterForm
+            innerWidth={this.state.windowWidth}
+            innerHeight={this.state.windowHeight}
             errors={errors}
             body={body}
             status={status}

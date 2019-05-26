@@ -24,7 +24,13 @@ class AddChapter extends Component {
     body: '',
     title: '',
     chap_number: '',
-    status: "draft"
+    status: "draft",
+    windowWidth: window.innerWidth,
+    windowHeight: window.innerHeight
+  }
+
+  updateDimensions = () => {
+    this.setState({ windowWidth: window.innerWidth, windowHeight: window.innerHeight });
   }
 
   componentDidMount() {
@@ -33,6 +39,7 @@ class AddChapter extends Component {
       this.props.getUserCharacters(this.props.auth.uid)
       this.props.getStoryLocations(this.props.match.params.id)
     }
+    window.addEventListener("resize", this.updateDimensions)
   }
 
   static getDerivedStateFromProps (nextProps, prevState) {
@@ -43,6 +50,7 @@ class AddChapter extends Component {
 
   componentWillUnmount() {
     this.props.cleanup()
+    window.removeEventListener("resize", this.updateDimensions);
   }
 
   onChange = e => {
@@ -110,13 +118,15 @@ class AddChapter extends Component {
     const locationsInSelect = locations && locations.filter(loca => !idLocations.includes(loca.id))
     const pathname = match.path
     return (
-      <main className="inner-main">
+      <main className="inner-main inner-main-story">
         { !this.props.loading ?
           !this.props.notFound ?
           (this.props.auth && this.props.story && this.props.story.authorId === this.props.auth.uid) ? 
         <div className="story add-chapter">
           <StoryBanner story={story} id={this.props.match.params.id}/>
           <ChapterForm
+            innerWidth={this.state.windowWidth}
+            innerHeight={this.state.windowHeight}
             errors={errors}
             removeFromCharacters={this.removeFromCharacters}
             removeFromLocations={this.removeFromLocations}

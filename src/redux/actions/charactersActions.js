@@ -118,7 +118,7 @@ export const getCharacter = id => async (dispatch, getState, { getFirebase, getF
       result = doc.data()
       result.id = doc.id
 
-      return getFirestore().collection('chapters').where('characters', 'array-contains', id).get()
+      return getFirestore().collection('chapters').where('characters', 'array-contains', id).where('status', '==', 'published').get()
     })
     .then(data => {
       let stories = []

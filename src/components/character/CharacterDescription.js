@@ -7,7 +7,6 @@ import SimpleBar from 'simplebar-react';
 const CharacterDescription = ({ charaAuthorId, id, auth, character }) => {
   return (
     <section className="character-description">
-      <SimpleBar style={{ height: '80vh' }}>
         <div className="chara-stories">
           {charaAuthorId === auth.uid ? <Link className="square-btn outlined" to={`/character/edit/${id}`}>Edit</Link>: null}
           <hr/>
@@ -15,7 +14,6 @@ const CharacterDescription = ({ charaAuthorId, id, auth, character }) => {
           <hr/>
           <Relatives auth={auth} characterRelatives={character.relatives}/>
         </div>
-      </SimpleBar>
     </section>
   )
 }

@@ -14,7 +14,6 @@ const CharacterDetails = ({ character, auth, changeRating, isFavorite, toggle, i
         <div onClick={toggle} className="image" id="chara-image" style={{ background: `url(${character && character.image ? character.image: defaultAvatar}) no-repeat center / cover`}}>
           {!character.public && <span className="private-tag"><i className="fas fa-lock"></i></span>}
         </div>
-        <SimpleBar data-simplebar-auto-hide="false" style={{ height: `calc(80vh - 400px)` }}>
           <div className="info">
             <h2 className="text-center">
               {character && character.firstname} {character && character.lastname && character.lastname}
@@ -52,7 +51,6 @@ const CharacterDetails = ({ character, auth, changeRating, isFavorite, toggle, i
             </ul>
             <Report type="character" data={character}/>
           </div>
-        </SimpleBar>
       </section>
     </React.Fragment>
   )
