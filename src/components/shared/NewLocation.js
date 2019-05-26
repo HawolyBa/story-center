@@ -106,7 +106,7 @@ class AddLocation extends Component {
               </ModalFooter>
             </Form>
         </Modal>
-        <span className="add-location-btn" onClick={this.toggle}> Add a new location</span>
+        <span id="add-location-btn" className="add-location-btn c-pointer" onClick={this.toggle}> Add a new location</span>
         <FlashMessage flash={this.state.flash} message={this.state.message} alert={this.state.alert}/>
       </Fragment>
     )

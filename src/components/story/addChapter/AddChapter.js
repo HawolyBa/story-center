@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { compose } from 'redux'
+import { firestoreConnect } from 'react-redux-firebase';
 import {  getStoryLocations, addChapter, getStory, cleanup } from '../../../redux/actions/storyActions'
 import { getUserCharacters } from '../../../redux/actions/charactersActions'
 import { arrayOf, string, bool, object, func, shape } from 'prop-types'
@@ -11,6 +13,7 @@ import Loading from '../../shared/Loading';
 import NotFound from '../../shared/NotFound';
 import Private from '../../shared/Private';
 
+
 class AddChapter extends Component {
 
   state = {
@@ -20,7 +23,8 @@ class AddChapter extends Component {
     idLocations: [],
     body: '',
     title: '',
-    chap_number: ''
+    chap_number: '',
+    status: "draft"
   }
 
   componentDidMount() {
@@ -94,9 +98,9 @@ class AddChapter extends Component {
 
   onSubmit = e => {
     e.preventDefault()
-    const { idSelected, body, title, chap_number, idLocations } = this.state
-    const info = { storyId: this.props.match.params.id, locations: idLocations, characters: idSelected, body: replaceAll(body, "<p><br></p>", ""), title, number: chap_number }
-    this.props.addChapter(info, this.props.history)
+    const { idSelected, body, title, chap_number, idLocations, status } = this.state
+    const info = { status, storyId: this.props.match.params.id, locations: idLocations, characters: idSelected, body: replaceAll(body, "<p><br></p>", ""), title, number: chap_number }
+    this.props.addChapter(info, this.props.storyChapNumbers, this.props.storyChapTitles, this.props.history)
   }
 
   render() {
@@ -170,7 +174,7 @@ AddChapter.propTypes = {
   addChapter: func.isRequired
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
     auth: state.firebase.auth,
     characters: state.story.userCharacters,
@@ -179,9 +183,11 @@ const mapStateToProps = state => {
     story: state.story.story,
     loading: state.story.loading,
     notFound: state.story.notFound,
-    errors: state.UI.errors
+    errors: state.UI.errors,
+    storyChapNumbers: state.firestore.ordered.chapters && state.firestore.ordered.chapters.filter(chap => chap.storyId === ownProps.match.params.id).map(chap => chap.number),
+    storyChapTitles: state.firestore.ordered.chapters && state.firestore.ordered.chapters.filter(chap => chap.storyId === ownProps.match.params.id).map(chap => chap.title)
   }
 }
 
-export default connect(mapStateToProps, { getUserCharacters, getStoryLocations, addChapter, getStory, cleanup })(AddChapter)
+export default compose(connect(mapStateToProps, { getUserCharacters, getStoryLocations, addChapter, getStory, cleanup }), firestoreConnect([ {collection: 'chapters'} ]))(AddChapter)
 

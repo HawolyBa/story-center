@@ -26,7 +26,7 @@ const Favorites = ({ favorites, auth, id }) => {
             <tbody>
               {favorites.stories.map(story => (
                 <tr key={story.id}>
-                  <td>{story.title} <br/>by {auth.uid && (auth.uid === story.authorId) ? 'you' : story.authorName}</td>
+                  <td><i>{story.title}</i> <br/>by {auth.uid && (auth.uid === story.authorId) ? 'you' : story.authorName}</td>
                   <td><Link className="story-name" to={`/story/${story.id}`}>Read</Link></td>
                 </tr>
               ))}

@@ -44,8 +44,8 @@ class Chapter extends Component {
   }
 
   render() {
-    return !this.props.loading ?
-    !this.props.notFound ?
+    return !this.props.loading && this.props.chapter.status ?
+    !this.props.notFound && this.props.chapter.status === 'published' ?
       <main className="inner-main">
         <div className="story chapter">
           <StoryBanner 
@@ -83,6 +83,7 @@ Chapter.propTypes = {
     authorId: string.isRequired,
     storyId: string.isRequired,
     title: string.isRequired,
+    status: string.isRequired,
     createdAt: string.isRequired,
     body: string,
     note: number,
@@ -114,9 +115,9 @@ Chapter.propTypes = {
 
 const mapStateToProps = (state, ownProps) => {
   const story = state.story.story
-  const currentChapterNumber = state.story.chapter && Number(state.story.chapter.number)
-  const previous = story && story.chapters && story.chapters.find(chap => Number(chap.number) === currentChapterNumber - 1) 
-  const next = story && story.chapters && story.chapters.find(chap => Number(chap.number) === currentChapterNumber + 1) 
+  const currentIndex = story && story.chapters.findIndex(chap => chap.id === ownProps.match.params.chapid)
+  const previous = state.story.chapter && story && story.chapters[ currentIndex - 1]
+  const next = state.story.chapter && story && story.chapters[currentIndex + 1] 
   const categories = state.firestore.ordered.categories
   const category = story && categories && categories.filter(gen => gen.id === story.category)[0]
   const users = state.firestore.ordered.users

@@ -157,7 +157,7 @@ class Home extends Component {
                   </FormGroup>
                   <div className="flex fc ac">
                     <button className="custom-btn">Login</button>
-                    <p className="mt-4" onClick={this.togglePasswordLost}>Password lost ?</p>
+                    <p className="mt-4 c-pointer" onClick={this.togglePasswordLost}>Password lost ?</p>
                     <Link to="/auth">Don't have an account yet ? Register here</Link>
                   </div>
                 </Form>: 

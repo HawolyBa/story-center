@@ -55,12 +55,12 @@ export const sortAlpha = arr => {
   arr.sort(function(a, b){
     var nameA=a.name.toLowerCase(), nameB=b.name.toLowerCase();
     if (nameA < nameB) //sort string ascending
-     return -1;
+      return -1;
     if (nameA > nameB)
-     return 1;
-    return 0; //default return value (no sorting)
-   });
-   return arr
+      return 1;
+     return 0; //default return value (no sorting)
+    });
+    return arr
 }
 
 export const deleteSpaces = str => {
@@ -70,3 +70,7 @@ export const deleteSpaces = str => {
 export const replaceAll = (target, search, replacement) => {
     return target.replace(new RegExp(search, 'g'), replacement);
 };
+
+export const formatTags = tags => {
+  return tags.map(tag => replaceAll(tag, '#', '').trim())
+}

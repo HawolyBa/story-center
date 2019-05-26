@@ -21,6 +21,10 @@ class FloatingButton extends Component {
     });
   }
 
+  triggerClick = () => {
+    document.getElementById('add-location-btn').click()
+  }
+
   getWindowOptions = () => {
     const width = 500;
     const height = 350;
@@ -53,7 +57,7 @@ class FloatingButton extends Component {
                 <img src={mask} alt="mask-icon"/>
                 Add a charatcer
               </Link>
-              <div className="column">
+              <div className="column" onClick={this.triggerClick}>
                 <img src={location} alt="location-icon" />
                 <NewLocation />
               </div>

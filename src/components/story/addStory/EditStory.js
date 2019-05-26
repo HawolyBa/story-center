@@ -135,7 +135,7 @@ class EditStory extends Component {
     e.preventDefault()
     let { checked, alert, flash, message, searchImage, banners, thumb, filename, isOpen,...remain } = this.state
     const tags = this.state.tags ? this.state.tags: []
-    this.props.editStory(this.props.match.params.id, {...remain, public: checked, tags })
+    this.props.editStory(this.props.match.params.id, { ...remain, public: checked, tags }, this.props.storiesTitles)
   }
 
   searchImages = e => {
@@ -166,8 +166,8 @@ class EditStory extends Component {
   }
 
   render() {
-    const { categories, story, match, auth, UI, loading, notFound } = this.props
-    const { errors, checked, mature, title, language, category, copyright, summary, tags, status, thumb, filename, imageCopyright, imagesLoading, banners, banner } = this.state
+    const { categories, story, match, auth, UI, loading, notFound, errors } = this.props
+    const { checked, mature, title, language, category, copyright, summary, tags, status, thumb, filename, imageCopyright, imagesLoading, banners, banner } = this.state
     return (
       <main className="inner-main">
       { !loading ?
@@ -306,7 +306,9 @@ const mapStateToProps = state => {
     banners: state.story.banners,
     imagesLoading: state.UI.imagesLoading,
     loading: state.story.loading,
-    notFound: state.story.notFound
+    notFound: state.story.notFound, 
+    errors: state.UI.errors,
+    storiesTitles: state.firestore.ordered.stories && state.firestore.ordered.stories.filter(story => story.authorId === state.firebase.auth.uid).map(story => story.title).filter(title => title !== state.story.story.title)
   }
 }
 
@@ -319,4 +321,4 @@ const mapDispatchToProps = {
   cleanup
 }
 
-export default compose(connect(mapStateToProps, mapDispatchToProps), firestoreConnect([ {collection: 'categories'} ]))(EditStory)
+export default compose(connect(mapStateToProps, mapDispatchToProps), firestoreConnect([ {collection: 'categories'}, { collection: 'stories' } ]))(EditStory)

@@ -6,12 +6,12 @@ import SimpleBar from 'simplebar-react';
 import { Link } from 'react-router-dom'
 import LocationsCards from '../../shared/LocationsCards';
 
-const ChapterForm = ({ body, onSubmit, onChange, handleEditorChange, onSelect, charactersSelected, pathname, addCharacterToStory, match, locationsSelected, addLocations, onLocationSelect, charactersInSelect, locationsInSelect, chapter, removeFromCharacters, removeFromLocations, errors }) => {
+const ChapterForm = ({ body, onSubmit, onChange, handleEditorChange, onSelect, charactersSelected, pathname, addCharacterToStory, match, locationsSelected, addLocations, onLocationSelect, charactersInSelect, locationsInSelect, chapter, removeFromCharacters, removeFromLocations, errors, status }) => {
   return (
     <SimpleBar style={{ height: '80vh' }}>
       <div className="edit-story add-story">
         <div className="upper-band flex as spb">
-          {pathname.includes('edit') ? 
+          {pathname.includes('edit') && status && status === 'published' ? 
           <Link className="square-btn primary-btn outlined" to={`/story/${match.params.id}/chapter/${match.params.chapid}`}>
           Back to chapter
           </Link> 
@@ -21,24 +21,42 @@ const ChapterForm = ({ body, onSubmit, onChange, handleEditorChange, onSelect, c
             Back to story
           </Link>: 
           null}
+          {pathname.includes('edit') && status && status === 'draft' &&
+            <Link className="square-btn primary-btn outlined" to={`/story/${match.params.id}`}>
+              Back to story
+            </Link> 
+          }
         </div>
         <hr/>
         <h2 className="text-center">{pathname.includes('add') ? 'Add a new chapter': 'Edit your chapter'}</h2>
         <Form>
-          <FormGroup>
-            <Row>
-              <Col md="2">
+          <Row>
+            <Col md="2">
+              <FormGroup>
                 <Label>Number</Label>
                 <input defaultValue={chapter ? chapter.number: ''} onInput={onChange} name="chap_number" type="number"/>
                 { errors && errors.number && <p className="warning">{errors.number}</p> }
-              </Col>
-              <Col md="10">
+              </FormGroup>
+            </Col>
+            <Col md="7">
+              <FormGroup>
                 <Label>Enter a title</Label>
                 <input defaultValue={chapter ? chapter.title : ''} type="text" onInput={onChange} name="title" />
                 {errors && errors.title && <p className="warning">{errors.title}</p>}
-              </Col>
-            </Row>
-          </FormGroup>
+              </FormGroup>
+            </Col>
+            <Col md="3">
+              <FormGroup>
+                <Label>Status</Label>
+                <div className="select">
+                  <select name="status" onChange={onChange} defaultValue={chapter ? chapter.status : "draft"}>
+                    <option value="draft">Draft</option>
+                    <option value="published">Published</option>
+                  </select>
+                </div>
+              </FormGroup>
+            </Col>
+          </Row>
           <FormGroup>
             <ReactQuill value={body || ''} onChange={handleEditorChange} />
           </FormGroup>

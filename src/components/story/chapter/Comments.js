@@ -72,14 +72,16 @@ class Comments extends Component {
     return (
       <section className="comments">
         <h3 className="mb-4">Comments</h3>
-          <Form onSubmit={this.submitComment} className="mb-5">
+          { auth && auth.uid ? <Form onSubmit={this.submitComment} className="mb-5">
             <FormGroup>
               <textarea onInput={this.onChange} name="content"></textarea>
             </FormGroup>
             <button className="custom-btn">Submit</button>
-          </Form>
+          </Form>:
+          <p>You need to be logged in to post a comment. <Link className="td-underline" to='/auth'>Go to auth page</Link></p>}
           <p>
-          { favoriteError ? <Badge color="danger">{favoriteError}</Badge>: null }</p>
+            { favoriteError ? <Badge color="danger">{favoriteError}</Badge>: null }
+          </p>
           <div className="comments-block">
             { comments && comments.map(comment => (
               <div className="comment" key={comment.id}>
@@ -95,7 +97,7 @@ class Comments extends Component {
                   </small>
                 </div>
                   <p>{ comment.content }</p>
-                  <span className="answer" onClick={this.commentToggle.bind(this, comment.id)}>Answer</span>
+                  { auth && auth.uid && <span className="answer" onClick={this.commentToggle.bind(this, comment.id)}>Answer</span>}
                   { comment.userId === auth.uid ? <span className="delete" onClick={this.deleteComment.bind(this, comment.id)}>Delete</span>: null}
                 <div>
                 { this.state.clickedForm === comment.id && this.state.toggleCommentForm ? 
@@ -121,7 +123,7 @@ class Comments extends Component {
                       </small>
                     </div>
                     <p>{ answer.content }</p> 
-                    <span className="answer" onClick={this.answerToggle.bind(this, answer.id)}>Answer</span>
+                    {auth && auth.uid && <span className="answer" onClick={this.answerToggle.bind(this, answer.id)}>Answer</span>}
                     { answer.userId === auth.uid ? <span className="delete" onClick={this.deleteComment.bind(this, answer.id)}>Delete</span>: null}
                     { this.state.clickedForm === answer.id && this.state.toggleAnswerForm ? 
                     <Form onSubmit={this.submitAnswer.bind(this, comment.id, answer.username, answer.userId)}>

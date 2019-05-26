@@ -450,7 +450,6 @@ export const updateUserProfile = (newInfo, usernames) => (dispatch, getState, { 
 
   const user = getFirebase().auth().currentUser
   const {newPassword, actualPassword,...info} = reducedDetails
- 
 
   if (newPassword) {
     user.reauthenticateAndRetrieveDataWithCredential(

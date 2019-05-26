@@ -378,5 +378,13 @@
   //   #container.right-panel-active .overlay-right {
   //     transform: translateY(20%);
   //   }
- }
+  }
+
+  .story {
+    section.story-details {
+      .chapter-content {
+        p { text-align: left}
+      }
+    }
+  }
 }

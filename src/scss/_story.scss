@@ -472,8 +472,6 @@
       a, a:hover { color: $secondary }
     }
 
-
-
     .banner-rating {
       margin-top: 10px;
     }
@@ -506,7 +504,7 @@
     //   .stat:first-child { margin-right: 20px }
     // }
   }
-
+.storyTags a:hover { color: $primary }
   section.story-details {
     padding-left: 20px;
     padding-right: 40px;
@@ -663,6 +661,8 @@ nav.chap-nav {
     background: darken($secondary, 3%);
     border-radius: 5px
   }
+  
+  .select { line-height: 2.5; height: 2.5em; }
 
   .ql-editor {
     height: 300px;  

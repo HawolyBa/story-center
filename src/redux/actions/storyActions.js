@@ -5,15 +5,15 @@ import types from '../types'
 import axios from 'axios'
 import { pexelsAPI } from '../../config/keys'
 
-// Errors
-export const addStory = (info, history) => (dispatch, getState, { getFirebase, getFirestore }) => {
+
+export const addStory = (info, storyTitles, history) => (dispatch, getState, { getFirebase, getFirestore }) => {
 
   dispatch({ type: types.LOADING_UI })
   const imageName = info.title.toLowerCase().split(' ').join('_')
   const userId = getFirebase().auth().currentUser.uid
   const username = getState().firebase.profile.username
 
-  const {valid, errors} = isPostValid(info)
+  const {valid, errors} = isPostValid(info, storyTitles)
   if (!valid) return dispatch({ type: types.SET_ERRORS, payload: errors })
 
   if (typeof info.banner === 'object') {
@@ -40,7 +40,7 @@ export const addStory = (info, history) => (dispatch, getState, { getFirebase, g
       })
       .then(doc => { 
         dispatch({type: types.CLEAR_ERRORS })
-        history.push(`/story/${doc.id}/edit`)
+        history.push(`/story/${doc.id}`)
       })
       .catch(err => dispatch({ type: types.STORY_ADDED, payload: {message: err.response.message, alert: 'danger'} }))
   } else {
@@ -60,18 +60,23 @@ export const addStory = (info, history) => (dispatch, getState, { getFirebase, g
       })
       .then(doc => { 
         dispatch({type: types.CLEAR_ERRORS })
-        history.push(`/story/${doc.id}/edit`)
+        history.push(`/story/${doc.id}`)
       })
       .catch(err => dispatch({ type: types.STORY_ADDED, payload: {message: err.response.message, alert: 'danger'} }))
   }
   
 }
 
-export const editStory = (storyId, newInfo) => async (dispatch, getState, { getFirebase, getFirestore }) => {
+export const editStory = (storyId, newInfo, storyTitles) => async (dispatch, getState, { getFirebase, getFirestore }) => {
 
   const {banner,...remain} = newInfo
   const imageName = remain.title.toLowerCase().split(' ').map(c => c.replace(/[^a-zA-Z ]/g, "")).join('_')
   const userId = getFirebase().auth().currentUser.uid
+  const errors = {}
+
+  if (!newInfo.title) errors.title = 'Must not be empty'
+  if (newInfo.title && storyTitles.includes(newInfo.title)) errors.title = `You already have a story titled ${newInfo.title}`
+  if (errors.title) return dispatch({ type: types.SET_ERRORS, payload: errors })
 
   if (typeof banner === 'object') {
     storage
@@ -94,6 +99,7 @@ export const editStory = (storyId, newInfo) => async (dispatch, getState, { getF
       ...newInfo,
     })
     .then(() => { 
+      dispatch({ type: types.CLEAR_ERRORS })
       dispatch({type: types.STORY_ADDED, payload: {message: 'Story edited successefully', alert: 'success'} })
     })
     .catch(err => dispatch({ type: types.STORY_ADDED, payload: {message: err.response.message, alert: 'danger'} }))
@@ -121,7 +127,7 @@ export const getStory = id => (dispatch, getState, { getFirebase, getFirestore }
     }
     result = doc.data()
     result = {...result, id: doc.id}
-    getFirestore().collection('chapters').where('storyId', '==', id)
+    getFirestore().collection('chapters').where('storyId', '==', id).orderBy('number', 'asc')
       .onSnapshot(data => {
         let allCharacters = []
         result.chapters = []
@@ -132,7 +138,8 @@ export const getStory = id => (dispatch, getState, { getFirebase, getFirestore }
             result.chapters.push({
               id: doc.id,
               title: doc.data().title,
-              number: doc.data().number
+              number: doc.data().number,
+              status: doc.data().status
             })
           })
         }
@@ -145,11 +152,14 @@ export const getStory = id => (dispatch, getState, { getFirebase, getFirestore }
   
 }
 
-export const addChapter = (info, history) => async (dispatch, getState, { getFirebase, getFirestore }) => {
+export const addChapter = (info, chapNumbers, titles, history) => async (dispatch, getState, { getFirebase, getFirestore }) => {
 
   const errors = {}
   if (!info.title) errors.title = "Must not be empty" 
   if (!info.number) errors.number = "Must not be empty" 
+  if (info.number && Number(info.number) < 1) errors.number = "Number cannot be less than 1"
+  if (info.number && chapNumbers.includes(info.number)) errors.number = `You already have a chapter number ${info.number}`
+  if (info.title && titles.includes(info.title)) errors.title = `You already have a chapter titled ${info.title} for this story`
 
   if (errors.title || errors.number) return dispatch({ type: types.SET_ERRORS, payload: errors })
 
@@ -170,11 +180,14 @@ export const addChapter = (info, history) => async (dispatch, getState, { getFir
 
 }
 
-export const editChapter = (chapId, info) => (dispatch, getState, { getFirebase, getFirestore }) => {
+export const editChapter = (chapId, info, chapNumbers, titles) => (dispatch, getState, { getFirebase, getFirestore }) => {
   
   const errors = {}
   if (!info.title) errors.title = "Must not be empty"
   if (!info.number) errors.number = "Must not be empty"
+  if (info.number && Number(info.number) < 1) errors.number = "Number cannot be less than 1"
+  if (info.number && chapNumbers.includes(info.number)) errors.number = `You already have a chapter number ${info.number}`
+  if (info.title && titles.includes(info.title)) errors.title = `You already have a chapter titled ${info.title} for this story`
 
   if (errors.title || errors.number) return dispatch({ type: types.SET_ERRORS, payload: errors })
 
@@ -182,10 +195,11 @@ export const editChapter = (chapId, info) => (dispatch, getState, { getFirebase,
     .collection('chapters')
     .doc(chapId)
     .update({ ...info })
-    .then(() => dispatch({ type: types.STORY_ADDED, payload: {message: 'Chapter edited successfully', alert: 'success'} }))
+    .then(() => {
+      dispatch({ type: types.STORY_ADDED, payload: { message: 'Chapter edited successfully', alert: 'success' } })
+      dispatch({ type: types.CLEAR_ERRORS })
+    })
     .catch(err => console.log(err))
-    
-  return dispatch({ type: 'EDIT_CHAPTER', payload: 'Chapter successfully edited' })
 }
 
 export const deleteChapter = (storyId, id, history) => async (dispatch, getState, { getFirebase, getFirestore }) => {
@@ -221,7 +235,7 @@ export const getChapter = (storyId, chapid) => async (dispatch, getState, { getF
       lastname: doc.data().lastname,
       image: doc.data().image,
       public: doc.data().public,
-      authorId: doc.data().authorId
+      authorId: doc.data().authorId,
     })
   })
 

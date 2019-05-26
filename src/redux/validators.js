@@ -79,7 +79,7 @@ export const reduceUserDetails = (data) => {
   return userDetails
 }
 
-export const isPostValid = data => {
+export const isPostValid = (data, titles) => {
 
   let errors = {}
   if (isEmpty(data.title)) errors.title = 'Must not be empty'
@@ -87,6 +87,7 @@ export const isPostValid = data => {
   if (isEmpty(data.language)) errors.language = 'Must not be empty'
   if (isEmpty(data.copyright)) errors.copyright = 'Must not be empty'
   if (data.banner && isEmpty(data.imageCopyright)) errors.imageCopyright = 'Must not be empty'
+  if (data.title && titles.includes(data.title)) errors.title = `You already have a story titled ${data.title}`
 
   return {
     errors,

@@ -5,7 +5,7 @@ import { compose } from 'redux'
 import { addStory, searchImages, nextpage, cleanup } from '../../../redux/actions/storyActions'
 import { Form, Button, FormGroup } from 'reactstrap'
 import { languages, copyrights } from './metadatas'
-import { sortAlpha } from '../../../utils/helpers'
+import { sortAlpha, formatTags } from '../../../utils/helpers'
 import PropTypes from 'prop-types'
 import { Sentry } from 'react-activity';
 import 'react-activity/lib/Sentry/Sentry.css';
@@ -99,11 +99,12 @@ export class AddStory extends Component {
       this.setState({ flash: true, message: 'The format of your image is not supported', alert: 'danger' })
       setTimeout(() => this.setState({ flash: false }), 3000)
     }
-      
+    
   }
 
   tagsChange = e => {
-    this.setState({ tags: e.target.value.trim().split(',').map(c => `${encodeURIComponent(c.trim())}`)})
+    const tags = formatTags(e.target.value.split(',').map(c => c.trim()))
+    this.setState({ tags})
   }
 
   searchImages = e => {
@@ -137,7 +138,7 @@ export class AddStory extends Component {
     e.preventDefault()
     let { imagesLoading, checked, errors, alert, flash, message, searchImage, banners, thumb, filename, isOpen, ...remain } = this.state
     const tags = this.state.tags ? this.state.tags : []
-    this.props.addStory({ ...remain, public: checked, tags }, this.props.history)
+    this.props.addStory({ ...remain, public: checked, tags }, this.props.storiesTitles, this.props.history)
   }
 
   render() {
@@ -231,8 +232,9 @@ const mapStateToProps = state => {
     UI: state.UI,
     banners: state.story.banners,
     errors: state.UI.errors,
-    imagesLoading: state.UI.imagesLoading
+    imagesLoading: state.UI.imagesLoading,
+    storiesTitles: state.firestore.ordered.stories && state.firestore.ordered.stories.filter(story => story.authorId === state.firebase.auth.uid).map(story => story.title)
   }
 }
 
-export default compose(connect(mapStateToProps, { addStory, searchImages, nextpage, cleanup }), firestoreConnect([ {collection: 'categories'} ]))(AddStory)
+export default compose(connect(mapStateToProps, { addStory, searchImages, nextpage, cleanup }), firestoreConnect([ {collection: 'categories'}, {collection: 'stories'} ]))(AddStory)

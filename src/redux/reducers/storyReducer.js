@@ -31,6 +31,7 @@ const initialState = {
     body: '',
     number: '',
     note: 0,
+    status: '',
     voters: [],
     votersCount: 0,
     locations: [],

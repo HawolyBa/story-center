@@ -10,6 +10,8 @@ import ChapterForm from './ChapterForm';
 import Private from '../../shared/Private';
 import Loading from '../../shared/Loading';
 import NotFound from '../../shared/NotFound';
+import { compose } from 'C:/Users/utilisateur/AppData/Local/Microsoft/TypeScript/3.4.5/node_modules/redux';
+import { firestoreConnect } from 'react-redux-firebase';
 
 class EditChapter extends Component {
 
@@ -20,7 +22,10 @@ class EditChapter extends Component {
     idLocations: [],
     body: '',
     title: '',
-    chap_number: 0
+    chap_number: 0,
+    status: 'draft',
+    charactersSelected: [],
+    locationsSelected: []
   }
 
 
@@ -38,7 +43,8 @@ class EditChapter extends Component {
         this.setState({ 
           body: nextProps.chapter.body, 
           title: nextProps.chapter.title,
-          chap_number: nextProps.chapter.number
+          chap_number: nextProps.chapter.number,
+          status: nextProps.chapter.status
         })
       }
     }
@@ -114,13 +120,13 @@ class EditChapter extends Component {
 
   onSubmit = e => {
     e.preventDefault()
-    let { idSelected, body, title, idLocations, chap_number } = this.state
-    const info = { storyId: this.props.match.params.id, locations: idLocations, characters: idSelected, body: replaceAll(body, "<p><br></p>", ""), title, number: chap_number }
-    this.props.editChapter(this.props.match.params.chapid, info)
+    let { idSelected, body, title, idLocations, chap_number, status } = this.state
+    const info = { status, storyId: this.props.match.params.id, locations: idLocations, characters: idSelected, body: replaceAll(body, "<p><br></p>", ""), title, number: chap_number }
+    this.props.editChapter(this.props.match.params.chapid, info, this.props.storyChapNumbers, this.props.storyChapTitles)
   }
 
   render() {
-    const { match, chapter, characters, locations, loading, chapterLoading, auth, notFound, chapterNotFound, errors } = this.props
+    const { match, chapter, characters, locations, loading, chapterLoading, auth, notFound, chapterNotFound, errors, status } = this.props
     const { charactersSelected, idSelected, locationsSelected, idLocations, body } = this.state
     const charactersInSelect = characters && characters.filter(char => !idSelected.includes(char.id))
     const locationsInSelect = locations && locations.filter(loca => !idLocations.includes(loca.id))
@@ -135,6 +141,7 @@ class EditChapter extends Component {
           <ChapterForm
             errors={errors}
             body={body}
+            status={status}
             chapter={chapter}
             removeFromCharacters={this.removeFromCharacters}
             removeFromLocations={this.removeFromLocations}
@@ -161,6 +168,10 @@ class EditChapter extends Component {
       </main>
     )
   }
+}
+
+EditChapter.defaultProps = {
+  status: 'draft'
 }
 
 EditChapter.propTypes = {
@@ -201,7 +212,9 @@ EditChapter.propTypes = {
   editChapter: func.isRequired
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
+  const chapter = state.firestore.ordered.chapters && state.firestore.ordered.chapters.find(chap => chap.id === state.story.chapter.id)
+  const status = chapter && chapter.status
   return {
     auth: state.firebase.auth,
     characters: state.story.userCharacters,
@@ -213,9 +226,12 @@ const mapStateToProps = state => {
     chapterLoading: state.story.chapterLoading,
     notFound: state.story.notFound,
     chapterNotFound: state.story.chapterNotFound,
-    errors: state.UI.errors
+    errors: state.UI.errors,
+    status,
+    storyChapNumbers: state.firestore.ordered.chapters && state.firestore.ordered.chapters.filter(chap => chap.storyId === ownProps.match.params.id && chap.number !== state.story.chapter.number).map(chap => chap.number),
+    storyChapTitles: state.firestore.ordered.chapters && state.firestore.ordered.chapters.filter(chap => chap.storyId === ownProps.match.params.id && chap.title !== state.story.chapter.title).map(chap => chap.title)
   }
 }
 
-export default connect(mapStateToProps, { getUserCharacters, getStoryLocations, addChapter, getChapter, editChapter, getStory, cleanup })(EditChapter)
+export default compose(connect(mapStateToProps, { getUserCharacters, getStoryLocations, addChapter, getChapter, editChapter, getStory, cleanup }), firestoreConnect([{collection: 'chapters'}]))(EditChapter)
 
