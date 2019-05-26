@@ -10,8 +10,7 @@ import ChapterForm from './ChapterForm';
 import Private from '../../shared/Private';
 import Loading from '../../shared/Loading';
 import NotFound from '../../shared/NotFound';
-import { compose } from 'redux';
-import { compose } from 'redux';
+import { compose } from 'redux'
 import { firestoreConnect } from 'react-redux-firebase';
 
 class EditChapter extends Component {
