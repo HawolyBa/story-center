@@ -10,7 +10,11 @@ import ChapterForm from './ChapterForm';
 import Private from '../../shared/Private';
 import Loading from '../../shared/Loading';
 import NotFound from '../../shared/NotFound';
+<<<<<<< HEAD
 import { compose } from 'C:/Users/utilisateur/AppData/Local/Microsoft/TypeScript/3.4.5/node_modules/redux';
+=======
+import { compose } from 'redux';
+>>>>>>> Fixed import issue
 import { firestoreConnect } from 'react-redux-firebase';
 
 class EditChapter extends Component {
