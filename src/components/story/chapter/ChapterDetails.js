@@ -14,11 +14,12 @@ import Ratings from './Ratings'
 import { siteName } from '../../../config/keys'
 import ShareButtons from '../../shared/ShareButtons';
 
-const ChapterDetails = ({ previous, next, locations, characters, story, chapter, match, comments, params, category, loading, auth, chapterNotFound, innerWidth }) => {
+const ChapterDetails = ({ previous, next, locations, characters, story, chapter, match, comments, params, category, loading, auth, chapterNotFound, innerWidth, innerHeight }) => {
   const language = languages.find(l => l.code === story.language)
   const title = `Read: ${story.title} - ${chapter.title} on ${siteName}`
+  const height = innerHeight <= 720 ? 'calc(100vh - 90px)': '80vh'
   return innerWidth >= 850 ?
-    <SimpleBar style={{ height: '80vh' }}>
+    <SimpleBar style={{ height: height }}>
       <section className="story-details p-4">
         { !chapterNotFound ?
           !loading ? 

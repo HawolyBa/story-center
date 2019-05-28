@@ -18,6 +18,7 @@ import Banner from './Banner'
 import Favorites from './Favorites'
 import Settings from './Settings'
 import Flash from '../shared/FlashMessage'
+import Tabs from './Tabs';
 import ProfileLoading from './ProfileLoading'
 
 class PrivateProfile extends Component {
@@ -167,11 +168,9 @@ class PrivateProfile extends Component {
   };
 
   onChangeBio = e => {
-    let letterCount = e.target.value.replace(/\s+/g, '').length;
-    if (this.state.charactersLeft > 0) {
-      this.setState({ charactersLeft: 240 - Number(letterCount) })
-      this.setState({ userInfo: {...this.state.userInfo, biography: e.target.value} })
-    }
+    let letterCount = e.target.value.length;
+    this.setState({ charactersLeft: 240 - Number(letterCount) })
+    this.setState({ userInfo: {...this.state.userInfo, biography: e.target.value} })
   }
 
   onSubmit = e => {
@@ -221,11 +220,12 @@ class PrivateProfile extends Component {
         <div className="profile-content">
         {!loading ?
           <React.Fragment>
+            <Tabs activeTab={activeTab} changeTab={this.changeTab} changeTabSelect={this.changeTabSelect} id={id} />
           {
             activeTab === 'stories' ?
-            <Stories auth={auth} stories={user.stories}/>:
+            <Stories id={id} auth={auth} stories={user.stories}/>:
             activeTab === 'characters' ?
-            <Characters auth={auth} characters={user.characters}/>:
+            <Characters id={id} auth={auth} characters={user.characters}/>:
             activeTab === 'locations' ?
             <Locations deleteLocation={this.props.deleteLocation} locations={user.locations} id={id}/>:
             activeTab === 'followers' ?
@@ -233,7 +233,7 @@ class PrivateProfile extends Component {
             activeTab === 'favorites' ?
             <Favorites auth={auth} favorites={user.favorites}/>:
             activeTab === 'settings' ?
-                          <Settings bio={userInfo.biography} charactersLeft={charactersLeft} onChangeBio={this.onChangeBio} deleteAccount={this.deleteAccount} onSubmit={this.onSubmit}  onChange={this.onChange} user={user} />:
+            <Settings bio={userInfo.biography} charactersLeft={charactersLeft} onChangeBio={this.onChangeBio} deleteAccount={this.deleteAccount} onSubmit={this.onSubmit}  onChange={this.onChange} user={user} />:
             <div></div>
           }
           </React.Fragment>:

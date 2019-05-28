@@ -6,8 +6,10 @@ const Followers = ({followers}) => {
   return (
     <section className="followers">
       <h5>{ followers && followers.length} follower{followers && followers.length > 1 ? 's': ''}</h5>
+      <hr/>
+      {followers.length > 0 ? 
       <Row>
-        { followers && followers.map(follower => (
+        { followers.map(follower => (
           <Col lg="2" sm="4" xs="6" className="mb-5" key={follower.id}>
             <Link to={`/profile/${follower.id}`} className="item">
               <figure className="user-card item-card">
@@ -20,8 +22,9 @@ const Followers = ({followers}) => {
               </figure>
             </Link>
           </Col>
-        )) }
-      </Row>
+        ))}
+      </Row>: 
+      <p>No follower for the moment</p>}
     </section>
   )
 }

@@ -209,10 +209,10 @@
 // }
 
 .character {
-  
+  .report { text-align: left }
   section.character-details {
-    height: 80vh;
     width: 25%;
+    height: 100%;
     background: #171717;
     color: $secondary;
     border-radius: 10px 0 0 10px;
@@ -261,10 +261,9 @@
   }
 
   section.character-description {
-    height: 80vh;
     width: 75%;
     position: relative;
-
+    height: 100%;
     h3 { font-size: 1.8rem; margin-bottom: 15px;  font-weight: lighter }
 
 
@@ -455,7 +454,7 @@
   }
 }
 
-main.inner-main-character { height: 80vh; }
+main.inner-main-character { height: auto; }
 
 .add-character {
   padding: 30px;

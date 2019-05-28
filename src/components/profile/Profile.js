@@ -15,6 +15,7 @@ import Followers from './Followers'
 import Banner from './Banner'
 import Favorites from './Favorites'
 import ProfileLoading from './ProfileLoading'
+import Tabs from './Tabs';
 
 
 class Profile extends Component {
@@ -165,6 +166,7 @@ class Profile extends Component {
       <div className="profile-content">
       {!loading ?
         <React.Fragment>
+          <Tabs activeTab={activeTab} changeTab={this.changeTab} changeTabSelect={this.changeTabSelect} id={id} />
         {
           activeTab === 'stories' ?
           <Stories auth={auth} stories={user.stories}/>:

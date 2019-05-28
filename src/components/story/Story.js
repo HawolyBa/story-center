@@ -17,11 +17,12 @@ class Story extends Component {
   _isMounted = false;
 
   state = {
-    windowWidth: window.innerWidth
+    windowWidth: window.innerWidth,
+    windowHeight: window.innerHeight
   }
 
   updateDimensions = () => {
-    this.setState({ innerWidth: window.innerWidth });
+    this.setState({ windowWidth: window.innerWidth });
   }
 
   componentDidMount() {
@@ -67,13 +68,14 @@ class Story extends Component {
 
   render() {
     return (
-      <main className="inner-main">
+      <main className="inner-main inner-main-story">
       {!this.props.loading ?
         !this.props.notFound ?
         this.props.story.public || (this.props.story.authorId === this.props.auth.uid) ?
         <div className="story">
           <StoryBanner story={this.props.story} id={this.props.match.params.id}/>
           <StoryDetails 
+            innerHeight={this.state.windowHeight}
             innerWidth={this.state.windowWidth}
             chapters={this.props.chapters}
             profile={this.props.profile} 

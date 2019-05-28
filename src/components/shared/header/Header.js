@@ -50,14 +50,15 @@ export class Header extends Component {
   }
 
   menuIcon = e => {
-    document.querySelector('#menuBar1').classList.toggle('transMenuBar1')
-    document.querySelector('#menuBar2').classList.toggle('transMenuBar2')
-    document.querySelector('#menuBar3').classList.toggle('transMenuBar3')
-    document.querySelector('#main-nav').classList.toggle('flex')
-    document.querySelector('#main-nav').classList.toggle('open')
-    document.querySelector('.search-form').classList.toggle('open')
-
- }
+    if (this.state.windoWidth < 850) {
+      document.querySelector('#menuBar1').classList.toggle('transMenuBar1')
+      document.querySelector('#menuBar2').classList.toggle('transMenuBar2')
+      document.querySelector('#menuBar3').classList.toggle('transMenuBar3')
+      document.querySelector('#main-nav').classList.toggle('flex')
+      document.querySelector('#main-nav').classList.toggle('open')
+      document.querySelector('.search-form').classList.toggle('open')
+    }
+  }
 
   toggle = () => {
     this.setState({ dropdownOpen: !this.state.dropdownOpen });
@@ -77,7 +78,7 @@ export class Header extends Component {
 
   logout = () => {
     this.props.logout()
-    this.state.windoWidth < 850 && this.menuIcon()
+    this.menuIcon()
   }
 
   render() {

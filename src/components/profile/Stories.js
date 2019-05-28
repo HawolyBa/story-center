@@ -1,12 +1,20 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import StoriesCards from '../shared/StoriesCards'
 
-const Stories = ({ stories, auth }) => {
+const Stories = ({ stories, auth, id }) => {
   return (
     <section className="stories">
-      <h5>{stories && stories.length} {stories && stories.length > 1 ? 'stories': 'story'}</h5>
-      <StoriesCards auth={auth} type="profile" stories={stories} />
+      <div className="flex frw spb ac">
+        <h5>{stories && stories.length} {stories && stories.length > 1 ? 'stories': 'story'}</h5>
+        <Link className="custom-btn" to='/story/add'><i className="fas fa-plus-circle"></i> Add a new story</Link>
+      </div>
+      <hr/>
+      { stories.length > 0 ?
+        <StoriesCards auth={auth} type="profile" stories={stories} />:
+        <p>No story for the moment</p>
+      }
       {/* <div className="masonry" id="masonry">
         {stories && stories.map((v, i) => {
           return (

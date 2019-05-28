@@ -12,10 +12,11 @@ import Report from '../shared/Report';
 import ShareButtons from '../shared/ShareButtons'
 
 
-const StoryDetails = ({ story, id, auth, deleteChapter, isFavorite, changeRating, UI, innerWidth }) => {
+const StoryDetails = ({ story, id, auth, deleteChapter, isFavorite, changeRating, UI, innerWidth, innerHeight }) => {
   const chapters = story.chapters.filter(chap => auth.uid !== story.authorId ? chap.status === "published" : chap)
+  const height = innerHeight <= 720 ? 'calc(100vh - 90px)': '80vh'
   return innerWidth >= 850 ?
-    <SimpleBar style={{ height: '80vh' }}>
+    <SimpleBar style={{ height: height }}>
       <section className="story-details p-4">
       <div className="upper-band flex as spb">
         {auth.uid === story.authorId ?
@@ -114,9 +115,9 @@ const StoryDetails = ({ story, id, auth, deleteChapter, isFavorite, changeRating
           <div className="chapters-list">
             {story.chapters.sort((a, b) => a.number - b.number).map(chap => (
               <div key={chap.id} className="chapter-el">
-                <span className="chapter-name">{chap.number}. {chap.title}</span>
+                <span className="chapter-name">{chap.number}. {chap.title} {auth.uid === story.authorId && chap.status === "draft" && <i>(draft)</i>}</span>
                 <hr />
-                <Link to={`/story/${id}/chapter/${chap.id}`} className="chapter-link primary">Read</Link>
+                {chap.status === 'published' && <Link to={`/story/${id}/chapter/${chap.id}`} className="chapter-link primary">Read</Link>}
                 {auth.uid === story.authorId &&
                   <Fragment>
                     <Link to={`/story/${id}/chapter/${chap.id}/edit`} className="chapter-link edit">Edit</Link>

@@ -12,7 +12,7 @@ const Settings = ({ user, onChange, onSubmit, deleteAccount, checked, switched, 
         </FormGroup>
         <FormGroup>
           <Label>Biography</Label>
-          <textarea value={bio} name="biography" id="biography" onChange={onChangeBio}></textarea>
+          <textarea maxLength="240" value={bio} name="biography" id="biography" onChange={onChangeBio}></textarea>
           <FormText className="ta-right">{charactersLeft}/240 characters left</FormText>
         </FormGroup>
         <Row>

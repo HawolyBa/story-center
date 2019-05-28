@@ -16,11 +16,12 @@ import Loading from '../../shared/Loading';
 class Chapter extends Component {
 
   state = {
-    windowWidth: window.innerWidth
+    windowWidth: window.innerWidth,
+    windowHeight: window.innerHeight
   }
 
   updateDimensions = () => {
-    this.setState({ innerWidth: window.innerWidth });
+    this.setState({ windowWidth: window.innerWidth, windowHeight: window.innerHeight });
   }
 
   componentDidMount() {
@@ -46,7 +47,7 @@ class Chapter extends Component {
   render() {
     return !this.props.loading && this.props.chapter.status ?
     !this.props.notFound && this.props.chapter.status === 'published' ?
-      <main className="inner-main">
+      <main className="inner-main inner-main-story">
         <div className="story chapter">
           <StoryBanner 
             story={this.props.story} 
@@ -55,6 +56,7 @@ class Chapter extends Component {
           <ChapterDetails 
             chapterNotFound={this.props.chapterNotFound} 
             innerWidth={this.state.windowWidth}
+            innerHeight={this.state.windowHeight}
             loading={this.props.loading} 
             story={this.props.story} 
             params={this.props.match.params} 

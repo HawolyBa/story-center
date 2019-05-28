@@ -3,6 +3,7 @@ import React, { Fragment, useState } from 'react'
 import LocationModal from '../shared/LocationModal'
 import LocationCards from '../shared/LocationCards'
 import DataByStory from '../shared/DataByStory'
+import NewLocation from '../shared/NewLocation'
 
 const Locations = ({ id, locations, deleteLocation }) => {
 
@@ -50,14 +51,22 @@ const Locations = ({ id, locations, deleteLocation }) => {
       <LocationModal deleteLocation={deleteLoc} currentLocation={locationState.currentLocation} toggle={toggle} modal={locationState.modal} id={id} />
       { activeTab === 'allLocations' ? 
       <div id ="allLocations">
-        <h5 className="mb-4">{locations.allLocations ? locations.allLocations.length : 0} location{locations && locations.allLocations.length > 1 ? 's': ''}</h5>
-        <LocationCards lg="2" md="3" xs="6" locations={locations.allLocations} toggle={toggle} />
+        <div className="flex frw spb ac">
+          <h5>{locations.allLocations ? locations.allLocations.length : 0} location{locations && locations.allLocations.length > 1 ? 's': ''}</h5>
+          <button className="custom-btn"><i className="fas fa-plus-circle"></i> <NewLocation /></button>
+        </div>
+        <hr/>
+        {locations.allLocations.length > 0 ? 
+          <LocationCards lg="2" md="3" xs="6" locations={locations.allLocations} toggle={toggle} />:
+          <p>No location for the moment</p>
+        }
       </div>:
       <Fragment>
       { 
-        locations.locByStory && locations.locByStory.map(loc => (
+        locations.locByStory.length > 0 ? locations.locByStory.map(loc => (
           <DataByStory lg="2" md="3" xs="6" key={loc.id} toggle={toggle} type="locations" data={loc}/>
-        ))
+        )):
+        <p>No location in your stories</p>
       }
       </Fragment>
       }

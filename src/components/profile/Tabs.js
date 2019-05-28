@@ -10,7 +10,7 @@ import setting_icon from '../../images/tabs/gears.png'
 const Tabs = ({ changeTab, id, changeTabSelect, auth, activeTab }) => {
   return (
     <Fragment>
-      <div className="floating-tabs flex fc ac js">
+      <div className="floating-tabs flex frn ac jc mb-5">
         <img
           href="#"
           id="stories"
@@ -19,7 +19,7 @@ const Tabs = ({ changeTab, id, changeTabSelect, auth, activeTab }) => {
           src={story_icon}
           alt="stories"
         />
-        <CustomTooltip placement="left" target="stories">
+        <CustomTooltip placement="top" target="stories">
           Stories
         </CustomTooltip>
         <img
@@ -29,7 +29,7 @@ const Tabs = ({ changeTab, id, changeTabSelect, auth, activeTab }) => {
           src={character_icon}
           alt="characters"
         />
-        <CustomTooltip placement="left" target="characters">
+        <CustomTooltip placement="top" target="characters">
           Characters
         </CustomTooltip>
         <img
@@ -39,7 +39,7 @@ const Tabs = ({ changeTab, id, changeTabSelect, auth, activeTab }) => {
           src={location_icon}
           alt="locations"
         />
-        <CustomTooltip placement="left" target="locations">
+        <CustomTooltip placement="top" target="locations">
           Locations
         </CustomTooltip>
         <img
@@ -49,7 +49,7 @@ const Tabs = ({ changeTab, id, changeTabSelect, auth, activeTab }) => {
           src={follower_icon}
           alt="followers"
         />
-        <CustomTooltip placement="left" target="followers">
+        <CustomTooltip placement="top" target="followers">
           Followers
         </CustomTooltip>
         <img
@@ -59,7 +59,7 @@ const Tabs = ({ changeTab, id, changeTabSelect, auth, activeTab }) => {
           src={favorite_icon}
           alt="favorites"
         />
-        <CustomTooltip placement="left" target="favorites">
+        <CustomTooltip placement="top" target="favorites">
           Favorites
         </CustomTooltip>
         {!id && (
@@ -71,13 +71,13 @@ const Tabs = ({ changeTab, id, changeTabSelect, auth, activeTab }) => {
             src={setting_icon}
             alt="settings"
             />
-            <CustomTooltip placement="left" target="settings">
+            <CustomTooltip placement="top" target="settings">
               Settings
             </CustomTooltip>
           </React.Fragment>
         ) }
       </div>
-      <div className="select responsive-tabs">
+      <div className="select responsive-tabs mb-4">
         <select name="tab" onChange={changeTabSelect}>
           <option value="stories">Stories</option>
           <option value="characters">Characters</option>

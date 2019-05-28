@@ -169,7 +169,7 @@ class EditStory extends Component {
     const { categories, story, match, auth, UI, loading, notFound, errors } = this.props
     const { checked, mature, title, language, category, copyright, summary, tags, status, thumb, filename, imageCopyright, imagesLoading, banners, banner } = this.state
     return (
-      <main className="inner-main">
+      <main className="inner-main inner-main-story">
       { !loading ?
         !notFound ?
         story && auth.uid === story.authorId ? 
@@ -229,7 +229,7 @@ class EditStory extends Component {
                   {
                     UI.loading ?
                     <Sentry/>:
-                    <Button onClick={this.onSubmit} type="submit" className="square-btn primary-btn">Edit</Button>
+                    <Button onClick={this.onSubmit} type="submit" className="square-btn primary-btn">Save</Button>
                   }
                   </FormGroup>
                   <FormGroup>

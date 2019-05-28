@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
+import { Link } from 'react-router-dom'
 import CharacterCards from '../shared/CharacterCards'
 import DataByStory from '../shared/DataByStory'
 
-const Characters = ({ characters, auth }) => {
+const Characters = ({ characters, auth, id }) => {
 
   const [activeTab, setActiveTab] = useState('allCharacters')
 
@@ -28,16 +29,25 @@ const Characters = ({ characters, auth }) => {
       <div className="profile-cards">
       { activeTab === 'allCharacters' ?
       <div id="allCharacters">
-        <h5>{characters.allCharacters.length} character{characters.allCharacters.length > 1 ? 's' : ''}</h5>
-        <CharacterCards lg='2' md='3' xs='6' auth={auth} type='characters' characters={characters.allCharacters}/>
+        <div className="flex frw spb ac">
+          <h5>{characters.allCharacters.length} character{characters.allCharacters.length > 1 ? 's' : ''}</h5>
+          <Link className="custom-btn" to='/character/add'><i className="fas fa-plus-circle"></i> Add a new character</Link>
+        </div>
+        <hr/>
+        { characters.allCharacters.length > 0 ? 
+          <CharacterCards lg='2' md='3' xs='6' auth={auth} type='characters' characters={characters.allCharacters}/>:
+          <p>No character for the moment</p>
+        }
       </div>:
       activeTab === 'charactersByStory' ?
       <div className="chara-by-story">
-      {characters && characters.charaByStory.map(chara => {
+      {characters.charaByStory.length > 0 ? characters.charaByStory.map(chara => {
         return chara.characters && chara.characters.length > 0 ?
           <DataByStory lg='2' md='3' xs='6' auth={auth} key={chara.id} type="characters" data={chara}/>:
-        null
-      })}
+          null
+      }):
+        <p>No character for the moment</p>
+      }
       </div>:
         null}
       </div>

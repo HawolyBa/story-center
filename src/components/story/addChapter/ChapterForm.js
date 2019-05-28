@@ -6,9 +6,10 @@ import SimpleBar from 'simplebar-react';
 import { Link } from 'react-router-dom'
 import LocationsCards from '../../shared/LocationsCards';
 
-const ChapterForm = ({ body, onSubmit, onChange, handleEditorChange, onSelect, charactersSelected, pathname, addCharacterToStory, match, locationsSelected, addLocations, onLocationSelect, charactersInSelect, locationsInSelect, chapter, removeFromCharacters, removeFromLocations, errors, status }) => {
+const ChapterForm = ({ body, onSubmit, onChange, handleEditorChange, onSelect, charactersSelected, pathname, addCharacterToStory, match, locationsSelected, addLocations, onLocationSelect, charactersInSelect, locationsInSelect, chapter, removeFromCharacters, removeFromLocations, errors, status, innerWidth, innerHeight }) => {
+  const height = innerHeight <= 720 ? 'calc(100vh - 90px)': '80vh'
   return (
-    <SimpleBar style={{ height: '80vh' }}>
+    <SimpleBar style={{ height: height }}>
       <div className="edit-story add-story">
         <div className="upper-band flex as spb">
           {pathname.includes('edit') && status && status === 'published' ? 
@@ -117,7 +118,7 @@ const ChapterForm = ({ body, onSubmit, onChange, handleEditorChange, onSelect, c
           </Col>
         </Row>
         <hr/>
-          <Button onClick={onSubmit} className="mt-3 square-btn primary-btn">Submit</Button>
+          <Button onClick={onSubmit} className="mt-3 square-btn primary-btn">{match.path.includes('edit') ? 'Save': 'Create'}</Button>
         </Form>
       </div>
     </SimpleBar>

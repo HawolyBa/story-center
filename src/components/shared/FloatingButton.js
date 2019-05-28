@@ -55,7 +55,7 @@ class FloatingButton extends Component {
               </Link>
               <Link onClick={this.toggle} className="column" to={'/character/add'}>
                 <img src={mask} alt="mask-icon"/>
-                Add a charatcer
+                Add a character
               </Link>
               <div className="column" onClick={this.triggerClick}>
                 <img src={location} alt="location-icon" />

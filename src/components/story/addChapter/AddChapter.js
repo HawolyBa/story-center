@@ -12,6 +12,8 @@ import ChapterForm from './ChapterForm';
 import Loading from '../../shared/Loading';
 import NotFound from '../../shared/NotFound';
 import Private from '../../shared/Private';
+import ErrorBoundary from '../../shared/ErrorBoundary'
+
 
 
 class AddChapter extends Component {
@@ -24,7 +26,13 @@ class AddChapter extends Component {
     body: '',
     title: '',
     chap_number: '',
-    status: "draft"
+    status: "draft",
+    windowWidth: window.innerWidth,
+    windowHeight: window.innerHeight
+  }
+
+  updateDimensions = () => {
+    this.setState({ windowWidth: window.innerWidth, windowHeight: window.innerHeight });
   }
 
   componentDidMount() {
@@ -33,6 +41,7 @@ class AddChapter extends Component {
       this.props.getUserCharacters(this.props.auth.uid)
       this.props.getStoryLocations(this.props.match.params.id)
     }
+    window.addEventListener("resize", this.updateDimensions)
   }
 
   static getDerivedStateFromProps (nextProps, prevState) {
@@ -43,6 +52,7 @@ class AddChapter extends Component {
 
   componentWillUnmount() {
     this.props.cleanup()
+    window.removeEventListener("resize", this.updateDimensions);
   }
 
   onChange = e => {
@@ -65,9 +75,11 @@ class AddChapter extends Component {
     e.preventDefault()
     const { charaId, idSelected } = this.state
     const { characters } = this.props
-    const charactersSelected = charaId && characters && characters.filter(char => char.id === charaId)[0]
-    if (!idSelected.includes(charaId)){
-      this.setState({ charactersSelected: [...this.state.charactersSelected, charactersSelected ], idSelected: [...this.state.idSelected, charaId]})
+    if (charaId) {
+      const charactersSelected = charaId && characters && characters.filter(char => char.id === charaId)[0]
+      if (!idSelected.includes(charaId)){
+        this.setState({ charactersSelected: [...this.state.charactersSelected, charactersSelected ], idSelected: [...this.state.idSelected, charaId]})
+      }
     }
   }
 
@@ -75,9 +87,11 @@ class AddChapter extends Component {
     e.preventDefault()
     const { locationId, idLocations } = this.state
     const { locations } = this.props
-    const locationsSelected = locationId && locations && locations.filter(loca => loca.id === locationId)[0]
-    if (!idLocations.includes(locationId)){
-      this.setState({ locationsSelected: [...this.state.locationsSelected, locationsSelected ], idLocations: [...this.state.idLocations, locationId]})
+    if (locationId) {
+      const locationsSelected = locationId && locations && locations.filter(loca => loca.id === locationId)[0]
+      if (!idLocations.includes(locationId)){
+        this.setState({ locationsSelected: [...this.state.locationsSelected, locationsSelected ], idLocations: [...this.state.idLocations, locationId]})
+      }
     }
   }
 
@@ -110,13 +124,16 @@ class AddChapter extends Component {
     const locationsInSelect = locations && locations.filter(loca => !idLocations.includes(loca.id))
     const pathname = match.path
     return (
-      <main className="inner-main">
+      <main className="inner-main inner-main-story">
+        <ErrorBoundary>
         { !this.props.loading ?
           !this.props.notFound ?
           (this.props.auth && this.props.story && this.props.story.authorId === this.props.auth.uid) ? 
         <div className="story add-chapter">
           <StoryBanner story={story} id={this.props.match.params.id}/>
           <ChapterForm
+            innerWidth={this.state.windowWidth}
+            innerHeight={this.state.windowHeight}
             errors={errors}
             removeFromCharacters={this.removeFromCharacters}
             removeFromLocations={this.removeFromLocations}
@@ -142,6 +159,7 @@ class AddChapter extends Component {
         <NotFound/>:
         <Loading/>
         }
+        </ErrorBoundary>
       </main>
     )
   }
