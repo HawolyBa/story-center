@@ -12,6 +12,8 @@
     a, .far { color: $secondary }
     nav#main-nav .dropdown-item a { color: $black }
     .search-form input { background-color: #424242; color: $secondary }
+
+    #menu-icon .menu-bar { background-color: $secondary }
   }
 
   main.inner-main-profile {

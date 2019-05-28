@@ -198,7 +198,7 @@
       cursor: pointer;
 
       .featured-tag {
-        background-color: darken($primary, 10%);
+        background-image: $gradient;
         color: $secondary;
         text-transform: uppercase;
         padding: 10px;

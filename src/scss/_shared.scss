@@ -643,14 +643,16 @@ select:-webkit-autofill:focus {
     border-radius: 50%;
     text-align: center;
     color: $secondary;
-    background-color: $primary;
+    background-image: $gradient;
     cursor: pointer;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   }
   .floating-twitter {
+    background-image: none;
     background-color: #1DA1F2
   }
   .floating-facebook {
+    background-image: none;
     background-color: #3C5A99
   }
 }

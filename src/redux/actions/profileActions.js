@@ -487,7 +487,7 @@ export const changeNightmode = () => (dispatch, getState, { getFirebase, getFire
 
 export const getNotifications = () => (dispatch, getState, { getFirebase, getFirestore }) => {
 
-  getFirestore().collection('notifications').where('recipient', '==', getFirebase().auth().currentUser.uid).where('read', '==', false).orderBy('createdAt', 'desc').limit(10)
+  getFirestore().collection('notifications').where('recipient', '==', getFirebase().auth().currentUser.uid).where('read', '==', false).orderBy('createdAt', 'desc')
     .onSnapshot(data => {
       let result = []
       data.forEach(doc => {

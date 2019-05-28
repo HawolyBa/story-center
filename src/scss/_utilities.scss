@@ -45,7 +45,7 @@ h3 {
   border: 2px solid $primary;
   font-size: 0.9em;
   transition: all 0.5s ease;
-  background-image: linear-gradient(to bottom, $primary, darken($primary, 4%), darken($primary, 4%), darken($primary, 12%), darken($primary, 16%));
+  background-image: $gradient;
   box-shadow: $boxShadow;
   &:hover {
     background-image: linear-gradient(to bottom, #303030, #2f3238, #27363f, #1a3b41, #103f3c);
@@ -141,6 +141,11 @@ h3 {
   background-color: transparent;
   color: $secondary;
   border: 1px solid $primary
+}
+
+.outline-custom-btn {
+  background: none;
+  color: $black
 }
 
 // ---------------------------------- GENERAL -------------------------

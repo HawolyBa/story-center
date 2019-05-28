@@ -18,7 +18,7 @@ class Notifications extends Component {
             <h3><span className="notif-number">{unreadNumber}</span> notifications</h3>
             <div>
               <button className="custom-btn square btn mr-3" onClick={this.props.dismissAll}>Clear all</button>
-              <button className="square btn secondary-btn" onClick={this.props.markAllAsRead}>Mark all as read</button>
+              <button className="custom-btn outline-custom-btn" onClick={this.props.markAllAsRead}>Mark all as read</button>
             </div>
           </div>
           <hr />
@@ -58,7 +58,7 @@ const mapStateToProps = (state) => ({
   notifications: state.firebase.auth && state.firestore.ordered.notifications && state.firestore.ordered.notifications.filter(not => not.recipient === state.firebase.auth.uid).sort((a,b) => {
     a = new Date(a.createdAt);
     b = new Date(b.createdAt);
-    return a > b ? -1 : a < b ? 1 : 0;
+    return b > a ? -1 : b < a ? 1 : 0;
   })
 })
 export default compose(connect(mapStateToProps, { markAllAsRead, markOneAsRead, dismissAll }), firestoreConnect([{ collection: 'notifications' }]))(Notifications)

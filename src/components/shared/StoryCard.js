@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { defaultBanner } from '../default/defaultImages'
 
 const StoryCard = ({ story, type, auth }) => {
+  console.log(story.authorId)
   return (
     <Col lg="2" md="4" xs="6">
       <Link to={`/story/${story.id}`}>

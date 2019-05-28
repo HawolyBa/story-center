@@ -799,7 +799,8 @@ export const getPublicStories = (id) => (dispatch, getState, { getFirebase, getF
           banner: doc.data().banner,
           title: doc.data().title,
           likesCount: doc.data().likesCount,
-          note: doc.data().note
+          note: doc.data().note,
+          authorId: doc.data().authorId
         })
       })
       return dispatch({ type: types.GET_STORIES, payload: result })
