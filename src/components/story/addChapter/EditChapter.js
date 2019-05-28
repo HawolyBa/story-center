@@ -95,12 +95,12 @@ class EditChapter extends Component {
     e.preventDefault()
     const { charaId, idSelected } = this.state
     const { characters } = this.props
-    
+    if (charaId) {
       const charactersSelected = charaId && characters && characters.filter(char => char.id === charaId)[0]
       if (!idSelected.includes(charaId)){
         this.setState({ charactersSelected: this.state.charactersSelected ? [...this.state.charactersSelected, charactersSelected ]: charactersSelected, idSelected: [...this.state.idSelected, charaId]})
       }
-    
+    }
   }
 
   addLocations = e => {

@@ -18,6 +18,7 @@ import Banner from './Banner'
 import Favorites from './Favorites'
 import Settings from './Settings'
 import Flash from '../shared/FlashMessage'
+import Tabs from "./Tabs";
 import ProfileLoading from './ProfileLoading'
 
 class PrivateProfile extends Component {
@@ -221,6 +222,7 @@ class PrivateProfile extends Component {
         <div className="profile-content">
         {!loading ?
           <React.Fragment>
+          <Tabs activeTab={activeTab} changeTab={this.changeTab} changeTabSelect={this.changeTabSelect} id={id} />
           {
             activeTab === 'stories' ?
             <Stories auth={auth} stories={user.stories}/>:

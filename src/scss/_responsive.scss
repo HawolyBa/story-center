@@ -50,13 +50,13 @@
     .profile-content, section.banner .inner-banner { width: 100%;}
     section.banner .inner-banner { padding: 15px }
     section.settings {width: 700px}
-    .floating-tabs {
-      flex-direction: row;
-      top: -15%;
-      left: 50%;
-      position: absolute;
-      img { margin-right: 10px }
-    }
+    // .floating-tabs {
+    //   flex-direction: row;
+    //   top: -15%;
+    //   left: 50%;
+    //   position: absolute;
+    //   img { margin-right: 10px }
+    // }
   }
 
   main.inner-main { width: 100%; border-radius: 0; box-shadow: none }
@@ -250,11 +250,15 @@
         align-items: center
       }
       .left-col, .right-col { width: 100% }
-      .responsive-tabs { display: block }
       .circular--portrait { margin: 0 auto 20px auto }
       .social { display: inline-block; margin: 10px auto }
     }
     .floating-tabs { display: none; }
+    .responsive-tabs { 
+      display: block; 
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0,0,0,0.22); 
+      margin-top: -30px
+    }
   }
 
   .modal-title { font-size: 0.9rem }

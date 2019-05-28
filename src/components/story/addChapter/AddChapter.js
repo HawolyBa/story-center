@@ -123,9 +123,9 @@ class AddChapter extends Component {
     const charactersInSelect = characters && characters.filter(char => !idSelected.includes(char.id))
     const locationsInSelect = locations && locations.filter(loca => !idLocations.includes(loca.id))
     const pathname = match.path
-    console.log(this.state)
     return (
       <main className="inner-main inner-main-story">
+        <ErrorBoundary>
         { !this.props.loading ?
           !this.props.notFound ?
           (this.props.auth && this.props.story && this.props.story.authorId === this.props.auth.uid) ? 
@@ -159,6 +159,7 @@ class AddChapter extends Component {
         <NotFound/>:
         <Loading/>
         }
+        </ErrorBoundary>
       </main>
     )
   }

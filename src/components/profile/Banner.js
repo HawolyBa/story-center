@@ -1,5 +1,4 @@
 import React from "react";
-import Tabs from "./Tabs";
 import { Button } from 'reactstrap'
 import { Sentry } from 'react-activity';
 import 'react-activity/lib/Sentry/Sentry.css';
@@ -78,7 +77,6 @@ const Banner = ({ changeTab, user, changeAvatar, triggerClick, id, auth, toggleF
             }
           </div>
         </div>
-          <Tabs activeTab={activeTab} changeTab={changeTab} changeTabSelect={changeTabSelect} id={id} />
       </div>:
       <ProfileLoading/>}
     </section>

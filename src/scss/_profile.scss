@@ -694,6 +694,7 @@
 main.inner-main-profile {
   .profile-loading { height: 100%; }
   .activeTab { transform: scale(1.2) }
+  .responsive-tabs { display: none }
   section.banner {
     width: 100%;
     height: 250px;
@@ -739,7 +740,6 @@ main.inner-main-profile {
       margin: 0 auto;
       height: 100%
     }
-    .responsive-tabs { display: none }
     .left-col { width: 20% }
     .right-col { width: 80% }
     .stats {
@@ -775,13 +775,9 @@ main.inner-main-profile {
   }
 
   .floating-tabs {
-    position: fixed;
-    bottom: 250px;
-    right: 50px;
-    z-index: 9;
     img { 
-      width: 50px; 
-      margin-bottom: 15px; 
+      width: 50px;
+      margin-right: 15px;
       cursor: pointer; 
       transition: transform 0.2s ease;
       border-radius: 50%;
