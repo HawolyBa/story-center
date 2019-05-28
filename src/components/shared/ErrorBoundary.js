@@ -19,9 +19,10 @@ class ErrorBoundary extends Component {
     render() {
         if (this.state.error) {
             return (
-              <main className="inner-main p-3">
-              <a className="text-center" onClick={() => Sentry.showReportDialog({ eventId: this.state.eventId })}>Report feedback</a>
-              </main>
+                <div className="flex fc jc ac" style={{height: '100%', background: 'white'}}>
+                    <h2>Something went wrong</h2>
+                    <button className="custom-btn" onClick={() => Sentry.showReportDialog({ eventId: this.state.eventId })}>Report feedback</button>
+                </div>
             );
         } else {
             return this.props.children;

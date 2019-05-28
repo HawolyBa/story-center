@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { compose } from 'redux'
+import { firestoreConnect } from 'react-redux-firebase';
 import { getStoryLocations, addChapter, getChapter, editChapter, getStory, cleanup } from '../../../redux/actions/storyActions'
 import { getUserCharacters } from '../../../redux/actions/charactersActions'
 import { arrayOf, array, string, bool, object, func, shape } from 'prop-types'
@@ -10,8 +12,7 @@ import ChapterForm from './ChapterForm';
 import Private from '../../shared/Private';
 import Loading from '../../shared/Loading';
 import NotFound from '../../shared/NotFound';
-import { compose } from 'redux'
-import { firestoreConnect } from 'react-redux-firebase';
+import ErrorBoundary from '../../shared/ErrorBoundary'
 
 class EditChapter extends Component {
 
@@ -94,12 +95,12 @@ class EditChapter extends Component {
     e.preventDefault()
     const { charaId, idSelected } = this.state
     const { characters } = this.props
-    if (charaId) {
+    
       const charactersSelected = charaId && characters && characters.filter(char => char.id === charaId)[0]
       if (!idSelected.includes(charaId)){
         this.setState({ charactersSelected: this.state.charactersSelected ? [...this.state.charactersSelected, charactersSelected ]: charactersSelected, idSelected: [...this.state.idSelected, charaId]})
       }
-    }
+    
   }
 
   addLocations = e => {
@@ -144,40 +145,42 @@ class EditChapter extends Component {
     const pathname = match.path
     return (
       <main className="inner-main inner-main-story">
-        {!loading && !chapterLoading ? 
-        !notFound && !chapterNotFound ?
-        (auth && chapter) && auth.uid === chapter.authorId ?
-        <div className="add-chapter story">
-          <StoryBanner story={this.props.story} id={this.props.match.params.id}/>
-          <ChapterForm
-            innerWidth={this.state.windowWidth}
-            innerHeight={this.state.windowHeight}
-            errors={errors}
-            body={body}
-            status={status}
-            chapter={chapter}
-            removeFromCharacters={this.removeFromCharacters}
-            removeFromLocations={this.removeFromLocations}
-            onSubmit={this.onSubmit}
-            onChange={this.onChange}
-            handleEditorChange={this.handleEditorChange}
-            onSelect={this.onSelect}
-            addLocations={this.addLocations}
-            addCharacterToStory={this.addCharacterToStory}
-            onLocationSelect={this.onLocationSelect}
-            match={match}
-            charactersInSelect={charactersInSelect}
-            charactersSelected={charactersSelected}
-            pathname={pathname}
-            characters={chapter.characters}
-            locations={chapter.locations}
-            locationsSelected={locationsSelected}
-            locationsInSelect={locationsInSelect}
-          />
-        </div>:
-        <Private data={auth} type="Unauthorized" />:
-        <NotFound />:
-        <Loading /> }
+        <ErrorBoundary>
+          {!loading && !chapterLoading ? 
+          !notFound && !chapterNotFound ?
+          (auth && chapter) && auth.uid === chapter.authorId ?
+          <div className="add-chapter story">
+            <StoryBanner story={this.props.story} id={this.props.match.params.id}/>
+            <ChapterForm
+              innerWidth={this.state.windowWidth}
+              innerHeight={this.state.windowHeight}
+              errors={errors}
+              body={body}
+              status={status}
+              chapter={chapter}
+              removeFromCharacters={this.removeFromCharacters}
+              removeFromLocations={this.removeFromLocations}
+              onSubmit={this.onSubmit}
+              onChange={this.onChange}
+              handleEditorChange={this.handleEditorChange}
+              onSelect={this.onSelect}
+              addLocations={this.addLocations}
+              addCharacterToStory={this.addCharacterToStory}
+              onLocationSelect={this.onLocationSelect}
+              match={match}
+              charactersInSelect={charactersInSelect}
+              charactersSelected={charactersSelected}
+              pathname={pathname}
+              characters={chapter.characters}
+              locations={chapter.locations}
+              locationsSelected={locationsSelected}
+              locationsInSelect={locationsInSelect}
+            />
+          </div>:
+          <Private data={auth} type="Unauthorized" />:
+          <NotFound />:
+          <Loading /> }
+        </ErrorBoundary>
       </main>
     )
   }
