@@ -12,6 +12,8 @@ import ChapterForm from './ChapterForm';
 import Loading from '../../shared/Loading';
 import NotFound from '../../shared/NotFound';
 import Private from '../../shared/Private';
+import ErrorBoundary from '../../shared/ErrorBoundary'
+
 
 
 class AddChapter extends Component {
@@ -73,9 +75,11 @@ class AddChapter extends Component {
     e.preventDefault()
     const { charaId, idSelected } = this.state
     const { characters } = this.props
-    const charactersSelected = charaId && characters && characters.filter(char => char.id === charaId)[0]
-    if (!idSelected.includes(charaId)){
-      this.setState({ charactersSelected: [...this.state.charactersSelected, charactersSelected ], idSelected: [...this.state.idSelected, charaId]})
+    if (charaId) {
+      const charactersSelected = charaId && characters && characters.filter(char => char.id === charaId)[0]
+      if (!idSelected.includes(charaId)){
+        this.setState({ charactersSelected: [...this.state.charactersSelected, charactersSelected ], idSelected: [...this.state.idSelected, charaId]})
+      }
     }
   }
 
@@ -83,9 +87,11 @@ class AddChapter extends Component {
     e.preventDefault()
     const { locationId, idLocations } = this.state
     const { locations } = this.props
-    const locationsSelected = locationId && locations && locations.filter(loca => loca.id === locationId)[0]
-    if (!idLocations.includes(locationId)){
-      this.setState({ locationsSelected: [...this.state.locationsSelected, locationsSelected ], idLocations: [...this.state.idLocations, locationId]})
+    if (locationId) {
+      const locationsSelected = locationId && locations && locations.filter(loca => loca.id === locationId)[0]
+      if (!idLocations.includes(locationId)){
+        this.setState({ locationsSelected: [...this.state.locationsSelected, locationsSelected ], idLocations: [...this.state.idLocations, locationId]})
+      }
     }
   }
 
@@ -117,6 +123,7 @@ class AddChapter extends Component {
     const charactersInSelect = characters && characters.filter(char => !idSelected.includes(char.id))
     const locationsInSelect = locations && locations.filter(loca => !idLocations.includes(loca.id))
     const pathname = match.path
+    console.log(this.state)
     return (
       <main className="inner-main inner-main-story">
         { !this.props.loading ?

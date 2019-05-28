@@ -94,9 +94,11 @@ class EditChapter extends Component {
     e.preventDefault()
     const { charaId, idSelected } = this.state
     const { characters } = this.props
-    const charactersSelected = charaId && characters && characters.filter(char => char.id === charaId)[0]
-    if (!idSelected.includes(charaId)){
-      this.setState({ charactersSelected: this.state.charactersSelected ? [...this.state.charactersSelected, charactersSelected ]: charactersSelected, idSelected: [...this.state.idSelected, charaId]})
+    if (charaId) {
+      const charactersSelected = charaId && characters && characters.filter(char => char.id === charaId)[0]
+      if (!idSelected.includes(charaId)){
+        this.setState({ charactersSelected: this.state.charactersSelected ? [...this.state.charactersSelected, charactersSelected ]: charactersSelected, idSelected: [...this.state.idSelected, charaId]})
+      }
     }
   }
 
@@ -104,9 +106,11 @@ class EditChapter extends Component {
     e.preventDefault()
     const { locationId, idLocations } = this.state
     const { locations } = this.props
-    const locationsSelected = locationId && locations && locations.filter(loca => loca.id === locationId)[0]
-    if (!idLocations.includes(locationId)){
-      this.setState({ locationsSelected: this.state.locationsSelected ? [...this.state.locationsSelected, locationsSelected ]: locationsSelected, idLocations: [...this.state.idLocations, locationId]})
+    if (locationId) {
+      const locationsSelected = locationId && locations && locations.filter(loca => loca.id === locationId)[0]
+      if (!idLocations.includes(locationId)){
+        this.setState({ locationsSelected: [...this.state.locationsSelected, locationsSelected ], idLocations: [...this.state.idLocations, locationId]})
+      }
     }
   }
 
