@@ -249,6 +249,12 @@ header#main-header {
     }
   }
 
+  .notification-dropdown {
+    .dropdown-item:hover, .dropdown-item:focus { background-color: transparent}
+  }
+
+  .dropdown-item.active, .dropdown-item:active { background-color: $primary; a { color: $secondary }}
+
   .dropdown-menu { font-size: 0.8rem }
   .mobile-link { display: none }
 

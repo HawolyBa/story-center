@@ -47,8 +47,8 @@ const Banner = ({ changeTab, user, changeAvatar, triggerClick, id, auth, toggleF
             </span>
             <span>
               <strong>{user.favorites.followings && user.favorites.followings.length}</strong> 
-              {" "} favorite author
-              {user.favorites.followings && user.favorites.followings.length > 1 ? "s" : ""}
+              {" "} following
+              {user.favorites.followings && user.favorites.followings.length > 1 ? "s" : ""}{" "}
             </span>
           </div>
           <hr/>

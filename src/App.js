@@ -5,7 +5,6 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import store from './redux/store'
 
-
 import Layout from './components/shared/Layout'
 import AuthRoute from './components/authentication/AuthRoute'
 import Authentication from './components/authentication/Authentication'
@@ -35,13 +34,18 @@ import NotFound from './components/shared/NotFound';
 import ScrollToTop from './components/shared/ScrollToTop';
 import Guidances from './components/static/Guidances';
 import Notifications from './components/notifications/Notifications';
+import Loading from './components/hoc/Loading'
+
+
 
 class App extends Component {
+
   render() {
     return (
       <Provider store={store}>
         <BrowserRouter >
             <ScrollToTop>
+              <Loading />
               <Layout>
                 <Switch>
                   <Route exact path='/' component={Home}/>

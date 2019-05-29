@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { addCharacter, getUserCharacters } from '../../redux/actions/charactersActions'
 import { cleanup } from '../../redux/actions/storyActions'
+import { setProgressBar } from '../../redux/actions/profileActions'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
@@ -27,6 +28,7 @@ class AddCharacter extends Component {
 
   componentDidMount() {
     this.props.getUserCharacters(this.props.auth.uid)
+    this.props.setProgressBar('')
   }
 
   componentWillUnmount() {
@@ -160,4 +162,4 @@ const mapStateToProps = state => ({
   errors: state.UI.errors
 })
 
-export default connect(mapStateToProps, { addCharacter, getUserCharacters, cleanup })(AddCharacter)
+export default connect(mapStateToProps, { setProgressBar, addCharacter, getUserCharacters, cleanup })(AddCharacter)

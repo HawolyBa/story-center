@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
 import { getStory, editStory, deleteStory, searchImages, nextpage, cleanup } from '../../../redux/actions/storyActions'
+import { setProgressBar } from '../../../redux/actions/profileActions'
 import { string, bool, func, shape, array, object } from 'prop-types'
 import { Form, Button, FormGroup } from 'reactstrap'
 import { languages, copyrights, status as statuses } from './metadatas'
@@ -80,6 +81,11 @@ class EditStory extends Component {
         imageCopyright: this.props.story.imageCopyright,
         thumb: this.props.story.banner
       })
+    }
+
+    if (this.props.loading !== prevProps.loading) {
+      const open = this.props.loading === false ? '' : 'OPEN'
+      this.props.setProgressBar(open)
     }
   }
 
@@ -318,7 +324,8 @@ const mapDispatchToProps = {
   deleteStory, 
   searchImages,
   nextpage, 
-  cleanup
+  cleanup,
+  setProgressBar
 }
 
 export default compose(connect(mapStateToProps, mapDispatchToProps), firestoreConnect([ {collection: 'categories'}, { collection: 'stories' } ]))(EditStory)

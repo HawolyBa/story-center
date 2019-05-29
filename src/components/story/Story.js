@@ -4,6 +4,7 @@ import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
 import { getStory, deleteChapter, cleanup } from '../../redux/actions/storyActions'
 import { addStoryToFavorite, removeStoryFormFavorite } from '../../redux/actions/listActions'
+import { setProgressBar } from '../../redux/actions/profileActions'
 import PropTypes from 'prop-types'
 
 import StoryBanner from './StoryBanner'
@@ -40,6 +41,11 @@ class Story extends Component {
 
     if (nextProps.match.params.id !== this.props.match.params.id) {
       this.props.getStory(nextProps.match.params.id)
+    }
+
+    if (this.props.loading !== nextProps.loading) {
+      const open = nextProps.loading === false ? '' : 'OPEN'
+      this.props.setProgressBar(open)
     }
   }
 
@@ -126,5 +132,5 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default compose(connect(mapStateToProps, { getStory, deleteChapter, addStoryToFavorite, removeStoryFormFavorite, cleanup }), firestoreConnect([{collection: 'stories'}, {collection: 'storiesLikes'}]))(Story)
+export default compose(connect(mapStateToProps, { getStory, deleteChapter, addStoryToFavorite, removeStoryFormFavorite, cleanup, setProgressBar }), firestoreConnect([{collection: 'stories'}, {collection: 'storiesLikes'}]))(Story)
 

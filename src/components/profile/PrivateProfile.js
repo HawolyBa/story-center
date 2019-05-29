@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { firestoreConnect } from 'react-redux-firebase';
 import { verifyEmail, deleteAccount } from '../../redux/actions/authActions'
-import { changeImage, updateUserProfile} from '../../redux/actions/profileActions'
+import { changeImage, updateUserProfile, setProgressBar} from '../../redux/actions/profileActions'
 import { deleteLocation, getPrivateLocations, cleanup, getFavoriteStories, getPrivateStories } from '../../redux/actions/storyActions'
 import { getPrivateCharacters, getFavoriteCharacters } from '../../redux/actions/charactersActions'
 import { getFollowers, getFollowings } from '../../redux/actions/listActions'
@@ -22,7 +22,6 @@ import Tabs from './Tabs';
 import ProfileLoading from './ProfileLoading'
 
 class PrivateProfile extends Component {
-
   state = {
     userInfo: {
       biography: ''
@@ -63,6 +62,11 @@ class PrivateProfile extends Component {
     if (prevProps.newImage !== this.props.newImage) {
       const { newImage } = this.props
       this.setState({ orientation: newImage.imageWidth > newImage.imageHeight ? 'circular--landscape' : newImage.imageWidth < newImage.imageHeight ? 'circular--portrait' : 'circular--square' })
+    }
+
+    if (this.props.loading !== prevProps.loading) {
+      const open = this.props.loading === false ? '': 'OPEN'
+      this.props.setProgressBar(open)
     }
   }
 
@@ -194,6 +198,12 @@ class PrivateProfile extends Component {
     document.getElementById('changeAvatar').click()
   }
 
+  deleteLocation = (id, e) => {
+    e.preventDefault()
+    const confirm = window.confirm('Do you really want to delete this location ?')
+    if (confirm) this.props.deleteLocation(id)
+  }
+
   render() {
     
   const { user, auth, loading, UI } = this.props
@@ -227,7 +237,7 @@ class PrivateProfile extends Component {
             activeTab === 'characters' ?
             <Characters id={id} auth={auth} characters={user.characters}/>:
             activeTab === 'locations' ?
-            <Locations deleteLocation={this.props.deleteLocation} locations={user.locations} id={id}/>:
+            <Locations type='private' deleteLocation={this.deleteLocation} locations={user.locations} id={id}/>:
             activeTab === 'followers' ?
             <Followers followers={user.followers}/>:
             activeTab === 'favorites' ?
@@ -280,4 +290,4 @@ const mapStateToProps = state => ({
   newImage: state.profile.newImage
 });
 
-export default compose(connect(mapStateToProps, { getFavoriteCharacters, getFavoriteStories, getFollowings, changeImage, updateUserProfile, deleteAccount, verifyEmail, deleteLocation, cleanup, getPrivateCharacters, getPrivateLocations, getFollowers, getPrivateStories }), firestoreConnect([{collection: 'users'}]))(PrivateProfile);
+export default compose(connect(mapStateToProps, { getFavoriteCharacters, getFavoriteStories, getFollowings, changeImage, updateUserProfile, deleteAccount, verifyEmail, deleteLocation, cleanup, getPrivateCharacters, getPrivateLocations, getFollowers, getPrivateStories, setProgressBar }), firestoreConnect([{collection: 'users'}]))(PrivateProfile);

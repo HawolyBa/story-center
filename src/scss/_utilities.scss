@@ -15,6 +15,9 @@ h3 {
 }
 
 // ---------------------------------- BUTTONS -------------------------
+button:focus {
+  outline: none
+}
 
 .custom-btn[type='submit'] {
   border-radius: 50px;
@@ -216,6 +219,7 @@ h3 {
 .ta-right { text-align: right }
 .ta-left { text-align: left }
 .c-pointer { cursor: pointer; }
+.capitalize { text-transform: capitalize}
 
 .dot {
   @include circle(15px, red, white);
@@ -315,3 +319,24 @@ h3 {
 //   margin: auto;
 //   opacity: 0.5;
 // }
+
+// ---------------------------------- KEYFRAMES -------------------------
+@keyframes bot-to-top {
+    0%   {bottom:-40px}
+    50%  {bottom:40px}
+}
+
+@keyframes scale-in {
+    from {transform: scale(0);opacity: 0;}
+    to {transform: scale(1);opacity: 1;}
+}
+
+@keyframes rotate-in {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+}
+
+@keyframes rotate-out {
+    from {transform: rotate(360deg);}
+    to {transform: rotate(0deg);}
+}

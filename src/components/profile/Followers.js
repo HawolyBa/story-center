@@ -16,8 +16,6 @@ const Followers = ({followers}) => {
                 <div className="image" style={{ background: `url(${follower.image}) no-repeat center / cover` }}/>
                 <figcaption>
                   <h4>{follower.username}</h4>
-                  <hr/>
-                  <button className="follow-btn follow-btn-outlined">Unfollow</button>
                 </figcaption>
               </figure>
             </Link>

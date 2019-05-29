@@ -491,6 +491,7 @@ export const getPopularStories = () => async (dispatch, getState, { getFirebase,
     .collection('stories')
     .where('public', '==', true)
     .orderBy('note', 'desc')
+    .limit(10)
     .get()
     .then(data => {
       let result = []
@@ -838,9 +839,13 @@ export const getPrivateLocations = () => (dispatch, getState, { getFirebase, get
           image: doc.data().image,
           name: doc.data().name,
           description: doc.data().description,
-          imageCopyright: doc.data().imageCopyright
+          imageCopyright: doc.data().imageCopyright,
+          storyTitle: locFromChapters.find(loc => loc.id === doc.data().storyId).title,
+          storyId: doc.data().storyId
         })
       })
+
+      
       
       result.locByStory = locFromChapters.map(story => ({
         ...story, locations: story.locations.map(loc => ({
@@ -848,10 +853,11 @@ export const getPrivateLocations = () => (dispatch, getState, { getFirebase, get
           image: result.allLocations.find(doc => doc.id === loc).image,
           name: result.allLocations.find(doc => doc.id === loc).name,
           description: result.allLocations.find(doc => doc.id === loc).description,
-          imageCopyright: result.allLocations.find(doc => doc.id === loc).imageCopyright
+          imageCopyright: result.allLocations.find(doc => doc.id === loc).imageCopyright,
+          storyTitle: story.title,
+          storyId: story.id
         }))
       }))
-      
       return dispatch({ type: types.GET_LOCATIONS, payload: result })
     })
 }
@@ -893,7 +899,9 @@ export const getPublicLocations = id => (dispatch, getState, { getFirebase, getF
           description: doc.data().description,
           image: doc.data().image,
           createdAt: doc.data().createdAt,
-          imageCopyright: doc.data().imageCopyright
+          imageCopyright: doc.data().imageCopyright,
+          storyTitle: locFromChapters.find(loc => loc.id === doc.data().storyId).title,
+          storyId: doc.data().storyId
         })
       })
 
@@ -906,7 +914,9 @@ export const getPublicLocations = id => (dispatch, getState, { getFirebase, getF
               description: result.allLocations.find(doc => doc.id === loc).description,
               image: result.allLocations.find(doc => doc.id === loc).image,
               createdAt: result.allLocations.find(doc => doc.id === loc).createdAt,
-              imageCopyright: result.allLocations.find(doc => doc.id === loc).imageCopyright
+              imageCopyright: result.allLocations.find(doc => doc.id === loc).imageCopyright,
+              storyTitle: story.title,
+              storyId: story.id
             }
           } else return null
         })

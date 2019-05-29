@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
 import { addStory, searchImages, nextpage, cleanup } from '../../../redux/actions/storyActions'
+import { setProgressBar } from '../../../redux/actions/profileActions'
 import { Form, Button, FormGroup } from 'reactstrap'
 import { languages, copyrights } from './metadatas'
 import { sortAlpha, formatTags } from '../../../utils/helpers'
@@ -44,6 +45,7 @@ export class AddStory extends Component {
 
   componentDidMount() {
     this._isMounted = true;
+    this.props.setProgressBar('')
   }
 
   componentWillReceiveProps(nextProps, nextState) {
@@ -237,4 +239,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default compose(connect(mapStateToProps, { addStory, searchImages, nextpage, cleanup }), firestoreConnect([ {collection: 'categories'}, {collection: 'stories'} ]))(AddStory)
+export default compose(connect(mapStateToProps, { setProgressBar, addStory, searchImages, nextpage, cleanup }), firestoreConnect([ {collection: 'categories'}, {collection: 'stories'} ]))(AddStory)

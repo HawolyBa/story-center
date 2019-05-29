@@ -607,3 +607,8 @@ export const dismissAll = () => (dispatch, getState, { getFirebase, getFirestore
       return batch.commit()
     })
 }
+
+export const setProgressBar = isOpen => ({
+  type: types.SET_PROGRESS_BAR,
+  payload: isOpen
+})

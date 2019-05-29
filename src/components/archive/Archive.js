@@ -4,7 +4,7 @@ import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
 import { getArchiveStories, getStoriesByTag, getStoriesByCategory, getStoriesBySearch, cleanup } from '../../redux/actions/storyActions'
 import { getCharactersBySearch } from '../../redux/actions/charactersActions'
-import { getUsersBySearch } from '../../redux/actions/profileActions'
+import { getUsersBySearch, setProgressBar } from '../../redux/actions/profileActions'
 import { array, object, func } from 'prop-types'
 import Filter from './Filter'
 import Pagination from '../shared/Pagination'
@@ -47,6 +47,11 @@ class Archive extends Component {
   componentDidUpdate(prevProps) {
     if (prevProps.match.params !== this.props.match.params) {
       this.getStories()
+    }
+
+    if (this.props.loading !== prevProps.loading) {
+      const open = this.props.loading === false ? '' : 'OPEN'
+      this.props.setProgressBar(open)
     }
   }
 
@@ -135,4 +140,4 @@ const mapStateToProps = state => ({
 })
 
 
-export default compose(connect(mapStateToProps, { getArchiveStories, getStoriesByTag, getStoriesByCategory, getStoriesBySearch, getCharactersBySearch, getUsersBySearch, cleanup }), firestoreConnect([ {collection: 'stories'}, {collection: 'categories'} ]))(Archive)
+export default compose(connect(mapStateToProps, { setProgressBar, getArchiveStories, getStoriesByTag, getStoriesByCategory, getStoriesBySearch, getCharactersBySearch, getUsersBySearch, cleanup }), firestoreConnect([ {collection: 'stories'}, {collection: 'categories'} ]))(Archive)

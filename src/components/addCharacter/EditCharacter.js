@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
 import { getCharacter, getUserCharacters, updateCharacter, deleteRelation, deleteCharacter } from '../../redux/actions/charactersActions'
+import { setProgressBar } from '../../redux/actions/profileActions'
 import { cleanup } from '../../redux/actions/storyActions'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
@@ -34,6 +35,11 @@ class EditCharacter extends Component {
     if (nextProps.character !== this.props.character) {
       const { relatives, image, authorName, authorId, createdAt, id, stories, ...remain } = nextProps.character
       this.setState({ ...remain, checked: nextProps.character.public, relatives: nextProps.character.relatives.map(rel => ({ character_id: rel.character_id, relation: rel.relation })), likes: nextProps.character.likes.join(', '), dislikes: nextProps.character.dislikes.join(', ') })
+    }
+
+    if (this.props.loading !== nextProps.loading) {
+      const open = nextProps.loading === false ? '' : 'OPEN'
+      this.props.setProgressBar(open)
     }
   }
 
@@ -206,4 +212,4 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default compose(connect(mapStateToProps, { getCharacter, getUserCharacters, updateCharacter, deleteRelation, deleteCharacter, cleanup }), firestoreConnect([ {collection: 'characters'} ]))(EditCharacter)
+export default compose(connect(mapStateToProps, { setProgressBar, getCharacter, getUserCharacters, updateCharacter, deleteRelation, deleteCharacter, cleanup }), firestoreConnect([ {collection: 'characters'} ]))(EditCharacter)

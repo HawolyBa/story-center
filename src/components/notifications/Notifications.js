@@ -3,9 +3,13 @@ import { array, func } from 'prop-types'
 import { connect } from 'react-redux'
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
-import { markAllAsRead, markOneAsRead, dismissAll } from '../../redux/actions/profileActions'
+import { markAllAsRead, markOneAsRead, dismissAll, setProgressBar } from '../../redux/actions/profileActions'
 
 class Notifications extends Component {
+
+  componentDidMount() {
+    this.props.setProgressBar('')
+  }
 
   render() {
     const { notifications } = this.props
@@ -61,4 +65,4 @@ const mapStateToProps = (state) => ({
     return b > a ? -1 : b < a ? 1 : 0;
   })
 })
-export default compose(connect(mapStateToProps, { markAllAsRead, markOneAsRead, dismissAll }), firestoreConnect([{ collection: 'notifications' }]))(Notifications)
+export default compose(connect(mapStateToProps, { setProgressBar, markAllAsRead, markOneAsRead, dismissAll }), firestoreConnect([{ collection: 'notifications' }]))(Notifications)

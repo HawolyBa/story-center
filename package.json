@@ -23,6 +23,7 @@
     "react-share": "^3.0.0",
     "react-star-ratings": "^2.3.0",
     "react-switch": "^3.0.4",
+    "react-topbar-progress-indicator": "^2.0.0",
     "reactstrap": "^7.1.0",
     "redux": "^4.0.1",
     "redux-firestore": "^0.6.3",

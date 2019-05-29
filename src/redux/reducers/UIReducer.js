@@ -3,7 +3,8 @@ import types from "../types";
 const initialState = {
   errors: {},
   loading: false,
-  imagesLoading: false
+  imagesLoading: false,
+  progressBarStatus: 'OPEN'
 }
 
 export default function(state = initialState, action) {
@@ -47,6 +48,8 @@ export default function(state = initialState, action) {
     case types.CLEANUP: {
       return initialState
     }
+    case types.SET_PROGRESS_BAR:
+      return Object.assign({}, state, { progressBarStatus: action.payload });
     default: 
       return state
   }

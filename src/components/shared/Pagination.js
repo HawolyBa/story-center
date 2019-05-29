@@ -37,8 +37,6 @@ class Pagination extends Component {
     })
     
 
-
-
   // Logic for displaying page numbers
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(data.length / datasPerPage); i++) {
@@ -61,7 +59,7 @@ class Pagination extends Component {
     return !wait ?
       data.length >= 1 ?
       <section className={`archive-${type}`}>
-        <h3>{type}</h3>
+        <h3><span className="capitalize">{type}</span> ({data.length})</h3>
         <Row>
           {renderDatas}
         </Row>

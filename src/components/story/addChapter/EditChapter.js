@@ -6,6 +6,7 @@ import { getStoryLocations, addChapter, getChapter, editChapter, getStory, clean
 import { getUserCharacters } from '../../../redux/actions/charactersActions'
 import { arrayOf, array, string, bool, object, func, shape } from 'prop-types'
 import { replaceAll } from '../../../utils/helpers'
+import { setProgressBar } from '../../../redux/actions/profileActions'
 
 import StoryBanner from '../StoryBanner'
 import ChapterForm from './ChapterForm';
@@ -67,6 +68,14 @@ class EditChapter extends Component {
       }
     }
     window.addEventListener("resize", this.updateDimensions)
+  }
+
+
+  componentDidUpdate(prevProps) {
+    if (this.props.loading !== prevProps.loading) {
+      const open = this.props.loading === false ? '' : 'OPEN'
+      this.props.setProgressBar(open)
+    }
   }
 
   componentWillUnmount() {
@@ -249,5 +258,5 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default compose(connect(mapStateToProps, { getUserCharacters, getStoryLocations, addChapter, getChapter, editChapter, getStory, cleanup }), firestoreConnect([{collection: 'chapters'}]))(EditChapter)
+export default compose(connect(mapStateToProps, { setProgressBar, getUserCharacters, getStoryLocations, addChapter, getChapter, editChapter, getStory, cleanup }), firestoreConnect([{collection: 'chapters'}]))(EditChapter)
 

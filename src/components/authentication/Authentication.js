@@ -4,6 +4,7 @@ import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
 import { login, register, resetPassword } from '../../redux/actions/authActions'
 import { cleanup } from '../../redux/actions/storyActions'
+import { setProgressBar } from '../../redux/actions/profileActions'
 import PropTypes from 'prop-types'
 
 import Login from './Login';
@@ -23,6 +24,7 @@ const Authentication = (props) => {
   useEffect(() => {
     setErrors(props.UI.errors)
     setAlerts(props.alerts)
+    props.setProgressBar('')
   }, [props.UI.errors, props.alerts])
 
   const login = e => {
@@ -107,4 +109,4 @@ const mapStateToProps = state => ({
   alerts: state.alerts
 })
 
-export default compose(connect(mapStateToProps, { login, register, resetPassword, cleanup }), firestoreConnect([ { collection: 'users' } ]))(Authentication)
+export default compose(connect(mapStateToProps, { setProgressBar, login, register, resetPassword, cleanup }), firestoreConnect([ { collection: 'users' } ]))(Authentication)

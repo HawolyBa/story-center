@@ -6,6 +6,7 @@ import { getPopularStories, getPopularTags, getLatestStories, cleanup, getFeatur
 import { getRandomUsers, getPopularUsers } from '../../redux/actions/listActions'
 import { login, resetPassword } from '../../redux/actions/authActions'
 import { getPopularCharacters } from '../../redux/actions/charactersActions'
+import { setProgressBar } from '../../redux/actions/profileActions'
 import { string, arrayOf, shape, number, object, func, array } from 'prop-types'
 import { Form, Label, FormGroup, Row, Container } from 'reactstrap'
 import {Link} from 'react-router-dom'
@@ -36,6 +37,13 @@ class Home extends Component {
     this.props.getLatestStories()
     this.props.getPopularCharacters()
     this.props.getPopularTags()
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.loading !== prevProps.loading) {
+      const open = this.props.loading === false ? '' : 'OPEN'
+      this.props.setProgressBar(open)
+    }
   }
 
   componentWillUnmount() {
@@ -88,7 +96,7 @@ class Home extends Component {
   }
 
   render() {
-    const { categories, stories, popularStories, popularCharacters, authError, auth, profile, popularUsers, popularTags, loading, featuredStories } = this.props
+    const { categories, stories, popularStories, popularCharacters, authError, auth, profile, popularUsers, popularTags, loading, featuredStories, errors } = this.props
     return (
       <main className="inner-main">
       {!loading ?
@@ -146,10 +154,11 @@ class Home extends Component {
               <div className="login">
                 {!auth.uid ? <Form onSubmit={this.login} className="login-form">
                   <h2>Login</h2>
-                  { authError ? <div className="alert alert-danger login-failed">{authError}</div>: null }
+                  { errors.general ? <small className="warning">{errors.general}</small>: null }
                   <FormGroup>
                     <Label>Email address</Label>
                     <input onChange={this.onChange} type="email" name="email" id="email"/>
+                    { errors.email && <small className="warning">{errors.email}</small>}
                   </FormGroup>
                   <FormGroup>
                     <Label>Password</Label>
@@ -281,8 +290,9 @@ const mapStateToProps = state => {
     popularTags: state.story.popularTags,
     loading: state.story.loading,
     featuredStories: state.story.featuredStories,
-    alerts: state.alerts
+    alerts: state.alerts,
+    errors: state.UI.errors
   }
 }
 
-export default compose(connect(mapStateToProps, { getPopularStories, getRandomUsers, login, getPopularUsers, getPopularCharacters, getPopularTags, getLatestStories, cleanup, getFeaturedStories, resetPassword }), firestoreConnect([{collection: 'categories'}]))(Home)
+export default compose(connect(mapStateToProps, { setProgressBar, getPopularStories, getRandomUsers, login, getPopularUsers, getPopularCharacters, getPopularTags, getLatestStories, cleanup, getFeaturedStories, resetPassword }), firestoreConnect([{collection: 'categories'}]))(Home)

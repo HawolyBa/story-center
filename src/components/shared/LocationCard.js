@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Col, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { defaultLocationImage } from '../default/defaultImages'
-
+import { Link } from 'react-router-dom'
 class LocationCard extends Component {
 
   state = {
@@ -17,7 +17,7 @@ class LocationCard extends Component {
   }
 
   render() {
-    const { location, lg, md, xs } = this.props
+    const { location, lg, md, xs, type, deleteLocation } = this.props
     const { currentLocation, modal } = this.state
     return (
       <React.Fragment>
@@ -27,10 +27,16 @@ class LocationCard extends Component {
             <img className="modal-image" src={currentLocation && currentLocation.image ? currentLocation.image : defaultLocationImage} alt={currentLocation && currentLocation.name} />
             <hr />
             <p>Description: {currentLocation && currentLocation.description}</p>
+            { (type === 'public' || type === 'private') &&
+              <p>Story: <Link className="td-underline" to={`/story/${currentLocation && currentLocation.storyId}`}>{currentLocation && currentLocation.storyTitle}</Link></p>
+            }
+            <small>Image copyright: {currentLocation && currentLocation.imageCopyright}</small><br />
           </ModalBody>
+          {type === 'private' &&
           <ModalFooter>
-            <small>Image copyright: {currentLocation && currentLocation.imageCopyright}</small>
+            <button onClick={deleteLocation.bind(this, currentLocation && currentLocation.id)} className="custom-btn danger-btn">Delete location</button>
           </ModalFooter>
+          }
         </Modal>
         <Col lg={lg} md={md} xs={xs} onClick={this.toggle}>
           <figure className="item-card location-card">

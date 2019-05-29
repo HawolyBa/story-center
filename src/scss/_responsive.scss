@@ -6,6 +6,8 @@
   .home {
     .home-story-cards {
       grid-template-columns: repeat(4, 1fr);
+
+      a:nth-last-child(-n+2) { display: none}
     }
   }
 
@@ -35,6 +37,7 @@
   .home {
     .home-story-cards {
       grid-template-columns: repeat(3, 1fr);
+      a:nth-last-child(-n+1) { display: block}
     }
   } 
   main.inner-main-profile {
@@ -104,7 +107,6 @@
       
     }
 
-    
     .popular-characters {
       .col-6 {
         &:nth-last-child(-n+2) { display: block}
@@ -287,6 +289,7 @@
   .home {
     .home-story-cards {
       grid-template-columns: repeat(2, 1fr);
+      a:nth-last-child(-n+2) { display: block}
     }
 
     .call-to-action {

@@ -4,6 +4,7 @@ import { compose } from 'redux'
 import { firestoreConnect } from 'react-redux-firebase';
 import {  getStoryLocations, addChapter, getStory, cleanup } from '../../../redux/actions/storyActions'
 import { getUserCharacters } from '../../../redux/actions/charactersActions'
+import { setProgressBar } from '../../../redux/actions/profileActions'
 import { arrayOf, string, bool, object, func, shape } from 'prop-types'
 import { replaceAll } from '../../../utils/helpers'
 
@@ -48,6 +49,13 @@ class AddChapter extends Component {
     if ( nextProps.chapterId !== '' ) {
       window.location.pathname = `/story/${nextProps.match.params.id}/chapter/${nextProps.chapterId}`
     } else return null
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.loading !== prevProps.loading) {
+      const open = this.props.loading === false ? '' : 'OPEN'
+      this.props.setProgressBar(open)
+    }
   }
 
   componentWillUnmount() {
@@ -207,5 +215,5 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default compose(connect(mapStateToProps, { getUserCharacters, getStoryLocations, addChapter, getStory, cleanup }), firestoreConnect([ {collection: 'chapters'} ]))(AddChapter)
+export default compose(connect(mapStateToProps, { setProgressBar, getUserCharacters, getStoryLocations, addChapter, getStory, cleanup }), firestoreConnect([ {collection: 'chapters'} ]))(AddChapter)
 

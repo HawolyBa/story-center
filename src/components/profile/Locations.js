@@ -5,7 +5,7 @@ import LocationCards from '../shared/LocationCards'
 import DataByStory from '../shared/DataByStory'
 import NewLocation from '../shared/NewLocation'
 
-const Locations = ({ id, locations, deleteLocation }) => {
+const Locations = ({ id, locations, deleteLocation, type }) => {
 
   const [locationState, setLocationState] = useState({modal: false, currentLocation: '' })
   const [activeTab, setActiveTab] = useState('allLocations')
@@ -57,14 +57,14 @@ const Locations = ({ id, locations, deleteLocation }) => {
         </div>
         <hr/>
         {locations.allLocations.length > 0 ? 
-          <LocationCards lg="2" md="3" xs="6" locations={locations.allLocations} toggle={toggle} />:
+          <LocationCards type={type} deleteLocation={deleteLocation} id={id} lg="2" md="3" xs="6" locations={locations.allLocations} toggle={toggle} />:
           <p>No location for the moment</p>
         }
       </div>:
       <Fragment>
       { 
         locations.locByStory.length > 0 ? locations.locByStory.map(loc => (
-          <DataByStory lg="2" md="3" xs="6" key={loc.id} toggle={toggle} type="locations" data={loc}/>
+          <DataByStory comp={type} deleteLocation={deleteLocation} id={id} lg="2" md="3" xs="6" key={loc.id} toggle={toggle} type="locations" data={loc}/>
         )):
         <p>No location in your stories</p>
       }

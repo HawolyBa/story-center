@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
 import { getStory, getChapter, cleanup } from '../../../redux/actions/storyActions'
+import { setProgressBar } from '../../../redux/actions/profileActions'
 import { string, shape, array, number, object, bool, func } from 'prop-types'
 import 'simplebar';
 import 'simplebar/dist/simplebar.min.css';
@@ -36,6 +37,11 @@ class Chapter extends Component {
       document.querySelector('.inner-main').scrollTop = 0
       this.props.getChapter(this.props.match.params.id, this.props.match.params.chapid)
       this.props.getStory(this.props.match.params.id)
+    }
+
+    if (this.props.loading !== prevProps.loading) {
+      const open = this.props.loading === false ? '' : 'OPEN'
+      this.props.setProgressBar(open)
     }
   }
 
@@ -158,4 +164,4 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default compose(connect(mapStateToProps, { getChapter, getStory, cleanup }), firestoreConnect([{ collection: 'users' }, { collection: 'categories' }, {collection: 'stories'}]))(Chapter)
+export default compose(connect(mapStateToProps, { getChapter, getStory, cleanup, setProgressBar }), firestoreConnect([{ collection: 'users' }, { collection: 'categories' }, {collection: 'stories'}]))(Chapter)

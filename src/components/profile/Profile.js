@@ -5,6 +5,7 @@ import { firestoreConnect } from 'react-redux-firebase';
 import { followUser, unfollowUser, getFollowers, getFollowings } from '../../redux/actions/listActions'
 import { cleanup, getPublicLocations, getFavoriteStories, getPublicStories } from '../../redux/actions/storyActions'
 import { getPublicCharacters, getFavoriteCharacters } from '../../redux/actions/charactersActions'
+import { setProgressBar } from '../../redux/actions/profileActions'
 import { array, bool, object, func, shape } from "prop-types";
 
 
@@ -55,10 +56,10 @@ class Profile extends Component {
       // window.addEventListener("resize", this.resizeAllGridItems);
       this.setState({ activeTab: 'stories' })
     }
-    // if (!this.props.loading && this.state.activeTab === 'stories') {
-    //   document.querySelector("#stories").style.background = "#303030";
-    //   document.querySelector("#stories").style.color = "#fefefe";
-    // }
+    if (this.props.loading !== prevProps.loading) {
+      const open = this.props.loading === false ? '' : 'OPEN'
+      this.props.setProgressBar(open)
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -173,11 +174,11 @@ class Profile extends Component {
           activeTab === 'characters' ?
           <Characters characters={user.characters}/>:
           activeTab === 'locations' ?
-          <Locations deleteLocation={this.props.deleteLocation} locations={user.locations} id={id}/>:
+          <Locations type='public' deleteLocation={this.props.deleteLocation} locations={user.locations} id={id}/>:
           activeTab === 'followers' ?
           <Followers followers={user.followers}/>:
           activeTab === 'favorites' ?
-                        <Favorites favorites={user.favorites} auth={auth} id={id}/>:
+          <Favorites favorites={user.favorites} auth={auth} id={id}/>:
           <div></div>
         }
         </React.Fragment>:
@@ -234,4 +235,4 @@ const mapStateToProps = (state, ownProps) => {
   }
 };
 
-export default compose(connect(mapStateToProps, { getFavoriteStories, getFollowings, getFollowers, followUser, unfollowUser, cleanup, getPublicCharacters, getPublicLocations, getPublicStories, getFavoriteCharacters }), firestoreConnect([{collection: 'usersLikes'}, {collection: 'users'}]))(Profile);
+export default compose(connect(mapStateToProps, { getFavoriteStories, getFollowings, getFollowers, followUser, unfollowUser, cleanup, getPublicCharacters, getPublicLocations, getPublicStories, getFavoriteCharacters, setProgressBar }), firestoreConnect([{collection: 'usersLikes'}, {collection: 'users'}]))(Profile);

@@ -5,6 +5,7 @@ import { compose } from 'redux'
 import { getCharacter } from '../../redux/actions/charactersActions'
 import { cleanup as characterCleanup } from '../../redux/actions/storyActions'
 import { addCharacterToFavorite, removeCharacterFromFavorite } from '../../redux/actions/listActions'
+import { setProgressBar } from '../../redux/actions/profileActions'
 import { string, func, array, object, shape, number } from 'prop-types'
 
 import CharacterDetails from './CharacterDetails';
@@ -49,6 +50,11 @@ class Character extends Component {
     if (prevProps.match.params.id !== this.props.match.params.id) {
       this.setState({ loaded: false})
       this.props.getCharacter(this.props.match.params.id)
+    }
+
+    if (this.props.loading !== prevProps.loading) {
+      const open = this.props.loading === false ? '' : 'OPEN'
+      this.props.setProgressBar(open)
     }
   }
 
@@ -153,4 +159,4 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 
-export default compose(connect(mapStateToProps, { getCharacter, addCharacterToFavorite, removeCharacterFromFavorite, characterCleanup }), firestoreConnect([ { collection: 'charactersLikes' } ]))(Character)
+export default compose(connect(mapStateToProps, { setProgressBar, getCharacter, addCharacterToFavorite, removeCharacterFromFavorite, characterCleanup }), firestoreConnect([ { collection: 'charactersLikes' } ]))(Character)

@@ -27,12 +27,12 @@ const LoginLinks = ({ logout, toggle, isOpen, isOpenNotification, auth, profile,
           <DropdownItem onClick={logout}>Logout</DropdownItem>
         </DropdownMenu>
       </Dropdown>
-      <Dropdown direction="left" isOpen={isOpenNotification} toggle={toggleNotif}>
+      <Dropdown direction="left" isOpen={isOpenNotification} toggle={toggleNotif} className="notification-dropdown">
         <DropdownToggle caret tag="span" data-toggle="dropdown" aria-expanded={isOpenNotification}>
         <span className="notif"><i className="far fa-bell"></i>{notificationLenght > 0 && <span>{notificationLenght}</span>}</span>
         </DropdownToggle>
         <DropdownMenu>
-          <DropdownItem header>Notifications / <span className="c-pointer" onClick={markedAsSeen}>Mark as read</span></DropdownItem>
+          <DropdownItem header>Notifications / <span className="c-pointer td-underline bold" onClick={markedAsSeen}>Mark as read</span></DropdownItem>
           {notificationLenght > 0 ? notifica.map(notif => (
             <DropdownItem key={notif.id}>{notif.message}</DropdownItem>
           )):  <DropdownItem>No notification</DropdownItem>}
