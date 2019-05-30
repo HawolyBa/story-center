@@ -149,7 +149,7 @@ export const getPopularUsers = () => async (dispatch, getState, { getFirebase, g
 
 export const addStoryToFavorite = (id, isFavorite) => (dispatch, getState, { getFirebase, getFirestore }) => {
   if (isFavorite) return dispatch({ type: types.LIKE_ERROR, payload: {message: 'You already liked this story', alert: 'danger'} })
-  if (!getFirebase().auth().currentUser) return dispatch({ type: types.LIKE_ERROR, payload: {message: 'You need to login to like a story', alert: 'danger'} })
+  if (!getFirebase().auth().currentUser) return dispatch({ type: types.LIKE_ERROR, payload: {message: 'You need to be logged in to like a story', alert: 'danger'} })
   if (!getFirebase().auth().currentUser.emailVerified) return dispatch({ type: types.LIKE_ERROR, payload: {message: 'You need to verify your email first', alert: 'danger'} })
 
   getFirestore().collection('storiesLikes').add({
@@ -177,7 +177,7 @@ export const removeStoryFormFavorite = (id, isFavorite) => (dispatch, getState, 
 
 export const addCharacterToFavorite = (id, isFavorite) => (dispatch, getState, { getFirebase, getFirestore }) => {
   if (isFavorite) return dispatch({ type: types.LIKE_ERROR, payload: {message: 'You already liked this character', alert: 'danger'} })
-  if (!getFirebase().auth().currentUser) return dispatch({ type: types.LIKE_ERROR, payload: {message: 'You need to login to like a character', alert: 'danger'} })
+  if (!getFirebase().auth().currentUser) return dispatch({ type: types.LIKE_ERROR, payload: {message: 'You need to be logged in to like a character', alert: 'danger'} })
   if (!getFirebase().auth().currentUser.emailVerified) return dispatch({ type: types.LIKE_ERROR, payload: {message: 'You need to verify your email first', alert: 'danger'} })
 
   getFirestore().collection('charactersLikes').add({
@@ -205,7 +205,7 @@ export const removeCharacterFromFavorite = (id, isFavorite) => (dispatch, getSta
 
 export const followUser = (id, isFavorite, newFollower) => (dispatch, getState, { getFirebase, getFirestore }) => {
   if (isFavorite) return dispatch({ type: types.LIKE_ERROR, payload: {message: 'You are already following this user', alert: 'danger'} })
-  if (!getFirebase().auth().currentUser) return dispatch({ type: types.LIKE_ERROR, payload: {message: 'You need to login to follow users', alert: 'danger'} })
+  if (!getFirebase().auth().currentUser) return dispatch({ type: types.LIKE_ERROR, payload: {message: 'You need to be logged in to follow users', alert: 'danger'} })
   if (!getFirebase().auth().currentUser.emailVerified) return dispatch({ type: types.LIKE_ERROR, payload: {message: 'You need to verify your email first', alert: 'danger'} })
 
   getFirestore().collection('usersLikes').add({

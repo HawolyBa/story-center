@@ -86,13 +86,28 @@ class PrivateProfile extends Component {
 
   changeAvatar = (e) => {
     const image = e.target.files[0]
+    const reader = new FileReader();
+
     if (image.name.includes('jpg') || image.name.includes('png') || image.name.includes('jpeg')) {
-      this.props.changeImage(image)
+      reader.onload = (imgFile => {
+        const img = new Image();
+        img.src = imgFile.target.result
+
+        img.onload = () => {
+          if (img.width > 1200 || img.height > 1200) {
+            this.setState({ flash: true, message: 'Your image does not respect the size requirements', alert: 'danger' })
+            setTimeout(() => this.setState({ flash: false }), 3000)
+          } else {
+            this.props.changeImage(image)
+          }
+        }
+      })
+      
+      reader.readAsDataURL(image);
     } else {
       this.setState({ flash: true, message: 'Invalid image format', alert: 'danger' })
       setTimeout(() => this.setState({ flash: false }), 3000)
     }
-    
   }
 
   changeTab = (tabClicked, i) => {

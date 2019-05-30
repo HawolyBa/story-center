@@ -14,19 +14,14 @@ const ChapterForm = ({ body, onSubmit, onChange, handleEditorChange, onSelect, c
         <div className="upper-band flex as spb">
           {pathname.includes('edit') && status && status === 'published' ? 
           <Link className="square-btn primary-btn outlined" to={`/story/${match.params.id}/chapter/${match.params.chapid}`}>
-          Back to chapter
+            <i className="fas fa-long-arrow-alt-left"></i>Back to chapter
           </Link> 
           : 
-          pathname.includes('add') ?
+          pathname.includes('add') || (pathname.includes('edit') && status && status === 'draft') ?
           <Link className="square-btn primary-btn outlined" to={`/story/${match.params.id}`}>
-            Back to story
+            <i className="fas fa-long-arrow-alt-left"></i>Back to story
           </Link>: 
           null}
-          {pathname.includes('edit') && status && status === 'draft' &&
-            <Link className="square-btn primary-btn outlined" to={`/story/${match.params.id}`}>
-              Back to story
-            </Link> 
-          }
         </div>
         <hr/>
         <h2 className="text-center">{pathname.includes('add') ? 'Add a new chapter': 'Edit your chapter'}</h2>
@@ -34,14 +29,14 @@ const ChapterForm = ({ body, onSubmit, onChange, handleEditorChange, onSelect, c
           <Row>
             <Col md="2">
               <FormGroup>
-                <Label>Number</Label>
+                <Label>Number <i>(required)</i></Label>
                 <input defaultValue={chapter ? chapter.number: ''} onInput={onChange} name="chap_number" type="number"/>
                 { errors && errors.number && <p className="warning">{errors.number}</p> }
               </FormGroup>
             </Col>
             <Col md="7">
               <FormGroup>
-                <Label>Enter a title</Label>
+                <Label>Enter a title <i>(required)</i></Label>
                 <input defaultValue={chapter ? chapter.title : ''} type="text" onInput={onChange} name="title" />
                 {errors && errors.title && <p className="warning">{errors.title}</p>}
               </FormGroup>

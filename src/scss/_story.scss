@@ -543,6 +543,9 @@
       p { text-align: justify; margin-bottom: 10px; font-family: 'Georgia', sans-serif; font-size: 15px }
     }
 
+    .chapter-content.one-shot h3 { font-size: 1rem }
+    .chapter-content.one-shot h3.title { font-size: 1.8rem }
+
     nav.chapter-nav {
       .square-btn { 
         color: $black;

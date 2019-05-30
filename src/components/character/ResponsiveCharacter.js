@@ -18,7 +18,7 @@ const ResponsiveCharacter = ({ character, auth, isFavorite, changeRating, charaA
               <div className="image mb-4" onClick={toggle}>
                 <img className='c-pointer' src={character && character.image ? character.image : defaultAvatar} alt={character && character.firstname} />
               </div>
-              {charaAuthorId === auth.uid ? <Link className="square-btn outlined mb-4" to={`/character/edit/${id}`}>Edit</Link> : null}
+              {charaAuthorId === auth.uid ? <Link className="square-btn outlined mb-4" to={`/character/edit/${id}`}><i className="far fa-edit"></i> Edit</Link> : null}
               <Report type="character" data={character} />
             </div>
             <div className="title">

@@ -7,6 +7,7 @@ import { setProgressBar } from '../../../redux/actions/profileActions'
 import { string, shape, array, number, object, bool, func } from 'prop-types'
 import 'simplebar';
 import 'simplebar/dist/simplebar.min.css';
+import { Redirect } from 'react-router-dom'
 
 import StoryBanner from '../StoryBanner';
 import ChapterDetails from './ChapterDetails'
@@ -51,9 +52,11 @@ class Chapter extends Component {
   }
 
   render() {
-    return !this.props.loading && this.props.chapter.status ?
-    !this.props.notFound && this.props.chapter.status === 'published' ?
+    return (
       <main className="inner-main inner-main-story">
+        {!this.props.loading && this.props.chapter.status ?
+        !this.props.notFound && this.props.chapter.status === 'published' ?
+        !this.props.story.oneShot ?
         <div className="story chapter">
           <StoryBanner 
             story={this.props.story} 
@@ -74,10 +77,13 @@ class Chapter extends Component {
             next={this.props.next}
             auth={this.props.auth}
           />
-        </div>
-      </main>:
-    <NotFound/>:
-    <Loading/>
+        </div>:
+        <Redirect to={`/story/${this.props.story.id}`}/>:
+        <NotFound/>:
+        <Loading/>
+        }
+      </main>
+    )
   }
 }
 

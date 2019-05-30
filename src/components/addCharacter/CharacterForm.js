@@ -26,6 +26,7 @@ const CharacterForm = ({ onChange, onSubmit, handleImageChange, addRelation, rel
           {filename && <FormText color="muted">By adding your own illustration, you acknowledge that you own the rights to the image or have an authorization to use it.</FormText>}
           <CustomTooltip placement="top" target="illustration">
             <small>
+              <strong>Format accepted</strong>: jpg, png<br />
               <strong>Minimum width</strong>: 300px<br />
               <strong>Maximum width</strong>: 1200px<br />
               <strong>Minimum height</strong>: 200px<br />
@@ -41,7 +42,7 @@ const CharacterForm = ({ onChange, onSubmit, handleImageChange, addRelation, rel
       <Row>
         <Col md="4">
           <FormGroup>
-            <Label>Image copyright</Label>
+            <Label>Image copyright <i>(required if you add an illustration)</i></Label>
             <input defaultValue={character && character.imageCopyright ? character.imageCopyright: ''} type="text" name="imageCopyright" onChange={onChange} />
             {errors && errors.imageCopyright && <p className="warning">{errors.imageCopyright}</p>}
           </FormGroup>

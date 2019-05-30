@@ -55,7 +55,7 @@ const initialState = {
   banners: {
     photos: []
   },
-  featuredStories: []
+  featuredStories: [],
 }
 
 export default function(state = initialState, action) {

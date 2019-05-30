@@ -9,7 +9,7 @@ const CharacterDescription = ({ charaAuthorId, id, auth, character }) => {
     <section className="character-description">
       <SimpleBar style={{ height: '80vh' }}>
         <div className="chara-stories">
-          {charaAuthorId === auth.uid ? <Link className="square-btn outlined" to={`/character/edit/${id}`}>Edit</Link>: null}
+          {charaAuthorId === auth.uid ? <Link className="square-btn outlined" to={`/character/edit/${id}`}><i className="far fa-edit"></i> Edit</Link>: null}
           <hr/>
           <CharaStories charaStories={character.stories} />
           <hr/>

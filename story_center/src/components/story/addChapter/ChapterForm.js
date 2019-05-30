@@ -13,12 +13,12 @@ const ChapterForm = ({ body, onSubmit, onChange, handleEditorChange, onSelect, c
       <div className="upper-band flex as spb">
         {pathname.includes('edit') ? 
         <Link className="square-btn primary-btn outlined" to={`/story/${match.params.id}/chapter/${match.params.chapid}`}>
-        Back to chapter
+        <i className="fas fa-long-arrow-alt-left"></i> Back to chapter
         </Link> 
         : 
         pathname.includes('add') ?
         <Link className="square-btn primary-btn outlined" to={`/story/${match.params.id}`}>
-          Back to story
+          <i className="fas fa-long-arrow-alt-left"></i> Back to story
         </Link>: 
         null}
       </div>

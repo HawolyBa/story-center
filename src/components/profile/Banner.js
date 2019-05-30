@@ -5,8 +5,9 @@ import 'react-activity/lib/Sentry/Sentry.css';
 import { defaultAvatar } from '../default/defaultImages'
 import Report from '../shared/Report';
 import ProfileLoading from './ProfileLoading'
+import CustomTooltip from '../hoc/CustomTooltip'
 
-const Banner = ({ changeTab, user, changeAvatar, triggerClick, id, auth, toggleFollow, verifyEmail, isFavorite, changeTabSelect, UI, loading, handleSize, orientation, activeTab}) => {
+const Banner = ({ user, changeAvatar, triggerClick, id, auth, toggleFollow, verifyEmail, isFavorite, UI, loading, handleSize, orientation, activeTab}) => {
   return (
     <section className="banner">
     {!loading ? 
@@ -27,6 +28,18 @@ const Banner = ({ changeTab, user, changeAvatar, triggerClick, id, auth, toggleF
               Verify your email
             </Button>
           )} 
+          {!id && 
+            <React.Fragment>
+              <i className="fas fa-info-circle" id="imageInfo"></i>
+              <CustomTooltip placement="bottom" target="imageInfo">
+                <small>
+                  <strong>Format accepted</strong>: jpg, png<br />
+                  <strong>Maximum width</strong>: 1200px<br />
+                  <strong>Maximum height</strong>: 1200px
+                </small>
+              </CustomTooltip>
+            </React.Fragment>
+          }
           {((id && auth.uid !== user.id) || (id && !auth.uid)) && <Report type="profile" data={user} />}
         </div>
         <div className="right-col">

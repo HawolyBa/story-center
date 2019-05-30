@@ -162,7 +162,7 @@ class EditStory extends Component {
           <StoryBanner story={story} id={match.params.id}/>
           <div className="edit-story add-story">
             <div className="upper-band flex as spb">
-              <Link className="square-btn primary-btn outlined" to={`/story/${match.params.id}`}>Back to story</Link>
+              <Link className="square-btn primary-btn outlined" to={`/story/${match.params.id}`}><i className="fas fa-long-arrow-alt-left"></i> Back to story</Link>
             </div>
             <hr/>  
             <h2 className="text-center">Edit your story</h2>
@@ -212,7 +212,7 @@ class EditStory extends Component {
                 {
                   UI.loading ?
                   <Sentry/>:
-                  <Button onClick={this.onSubmit} type="submit" className="square-btn primary-btn">Edit</Button>
+                  <Button onClick={this.onSubmit} type="submit" className="square-btn primary-btn">Save</Button>
                 }
                 </FormGroup>
                 <FormGroup>

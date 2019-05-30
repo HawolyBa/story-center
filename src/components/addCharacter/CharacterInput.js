@@ -4,7 +4,7 @@ import { FormGroup, Label, FormText } from 'reactstrap'
 const CharacterInput = ({ type, name, onChange, defaultValue, errors }) => {
   return (
     <FormGroup>
-      <Label>{name}</Label>
+      <Label>{name} {name === 'First Name' && <i>(required)</i>}</Label>
       <input defaultValue={defaultValue} type={type} onInput={onChange} name={name.split(' ').join('').toLowerCase()} />
       { name === 'Likes' || name === 'Dislikes'? <FormText>Enter each value separated by a comma</FormText>: null }
       {errors && errors.firstname && name === 'First Name' && <p className="warning">{errors.firstname}</p>}

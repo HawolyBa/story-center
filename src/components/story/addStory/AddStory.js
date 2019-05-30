@@ -40,7 +40,8 @@ export class AddStory extends Component {
     filename: '',
     imagesLoading: false,
     tags: [],
-    summary: ''
+    summary: '',
+    oneShot: false
   }
 
   componentDidMount() {
@@ -73,12 +74,15 @@ export class AddStory extends Component {
     this.setState({ mature: !this.state.mature })
   }
 
+  turnOneShot = e => {
+    this.setState({ oneShot: !this.state.oneShot })
+  }
+
   onSelect = e => {
     this.setState({ [e.target.name]: e.target.value })
   }
 
   addBanner = e => {
-
     const reader = new FileReader();
     const banner = e.target.files[0]
 
@@ -145,7 +149,7 @@ export class AddStory extends Component {
 
   render() {
     const { categories, auth, UI } = this.props
-    const { errors, imagesLoading, checked, mature, thumb, filename, imageCopyright, banners, banner, title, language, category, copyright, summary, tags } = this.state
+    const { errors, imagesLoading, checked, mature, thumb, filename, imageCopyright, banners, banner, title, language, category, copyright, summary, tags, oneShot } = this.state
     return auth ?
     auth.emailVerified ?
       <main className="inner-main inner-main-add-story">
@@ -169,6 +173,9 @@ export class AddStory extends Component {
               copyright={copyright}
               summary={summary}
               tags={tags}
+              turnOneShot={this.turnOneShot}
+              oneShot={oneShot}
+              type="add"
             />
             <ImageForm
               triggerClick={this.triggerClick}

@@ -26,11 +26,11 @@ const ChapterDetails = ({ previous, next, locations, characters, story, chapter,
         <Fragment>
           <div className="upper-band flex as spb">
             <Link className="square-btn primary-btn outlined" to={`/story/${match.params.id}/`}>
-              Back to story
+              <i className="fas fa-long-arrow-alt-left"></i> Back to story
             </Link>
             {auth.uid === chapter.authorId &&
               <Link className="square-btn primary-btn outlined" to={`/story/${story.id}/chapter/${chapter.id}/edit`}>
-                Edit
+                <i className="far fa-edit"></i> Edit
               </Link>
             }
           </div>
@@ -75,11 +75,11 @@ const ChapterDetails = ({ previous, next, locations, characters, story, chapter,
           <Fragment>
             <div className="upper-band flex as spb">
               <Link className="square-btn primary-btn outlined" to={`/story/${match.params.id}/`}>
-                Back to story
+                <i className="fas fa-long-arrow-alt-left"></i> Back to story
             </Link>
               {auth.uid === chapter.authorId &&
                 <Link className="square-btn primary-btn outlined" to={`/story/${story.id}/chapter/${chapter.id}/edit`}>
-                  Edit
+                <i className="far fa-edit"></i> Edit
               </Link>
               }
             </div>

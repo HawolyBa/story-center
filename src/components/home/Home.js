@@ -96,7 +96,7 @@ class Home extends Component {
   }
 
   render() {
-    const { categories, stories, popularStories, popularCharacters, authError, auth, profile, popularUsers, popularTags, loading, featuredStories, errors } = this.props
+    const { categories, stories, popularStories, popularCharacters, auth, profile, popularUsers, popularTags, loading, featuredStories, errors } = this.props
     return (
       <main className="inner-main">
       {!loading ?
@@ -283,7 +283,6 @@ const mapStateToProps = state => {
     popularStories: state.story.popularStories,
     popularCharacters: state.characters.popularCharacters,
     randomUsers: state.list.randomUsers,
-    authError: state.auth.authError,
     auth: state.firebase.auth,
     profile: state.firebase.profile,
     popularUsers: state.list.popularUsers,

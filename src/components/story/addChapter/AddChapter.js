@@ -7,6 +7,7 @@ import { getUserCharacters } from '../../../redux/actions/charactersActions'
 import { setProgressBar } from '../../../redux/actions/profileActions'
 import { arrayOf, string, bool, object, func, shape } from 'prop-types'
 import { replaceAll } from '../../../utils/helpers'
+import { Redirect } from 'react-router-dom'
 
 import StoryBanner from '../StoryBanner'
 import ChapterForm from './ChapterForm';
@@ -137,6 +138,7 @@ class AddChapter extends Component {
         { !this.props.loading ?
           !this.props.notFound ?
           (this.props.auth && this.props.story && this.props.story.authorId === this.props.auth.uid) ? 
+          !this.props.story.oneShot && this.props.storyChapNumbers.length === 0 ? 
         <div className="story add-chapter">
           <StoryBanner story={story} id={this.props.match.params.id}/>
           <ChapterForm
@@ -163,6 +165,7 @@ class AddChapter extends Component {
             body={this.state.body}
           />
         </div>:
+        <Redirect to={`/story/${this.props.story.id}`}/>:
         <Private data={this.props.auth} type="Unauthorized"/>:
         <NotFound/>:
         <Loading/>

@@ -150,7 +150,7 @@ class EditCharacter extends Component {
         <div className="add-story add-character">
           <h2 className="text-center">Add a new character</h2>
           <hr />
-          <Link className="mb-3 square-btn outlined" to={`/character/${this.props.character && this.props.character.id}`}>Back to character</Link>
+          <Link className="mb-3 square-btn outlined" to={`/character/${this.props.character && this.props.character.id}`}><i className="fas fa-long-arrow-alt-left"></i> Back to character</Link>
           <CharacterForm 
             triggerClick={this.triggerClick}
             filename={this.state.filename}

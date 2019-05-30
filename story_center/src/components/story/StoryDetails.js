@@ -56,8 +56,8 @@ const StoryDetails = ({ story, id, auth, deleteChapter, isFavorite, changeRating
               <Link to={`/story/${id}/chapter/${chap.id}`} className="chapter-link primary">Read</Link>
               {auth.uid === story.authorId &&
                 <Fragment>
-                  <Link to={`/story/${id}/chapter/${chap.id}/edit`} className="chapter-link edit">Edit</Link>
-                <span className="chapter-link warning" onClick={deleteChapter.bind(this, chap.id)}>Delete</span>
+                  <Link to={`/story/${id}/chapter/${chap.id}/edit`} className="chapter-link edit"><i className="far fa-edit"></i> Edit</Link>
+                  <span className="chapter-link warning" onClick={deleteChapter.bind(this, chap.id)}>Delete</span>
                 </Fragment>}
             </div>
           ))}
@@ -110,7 +110,7 @@ const StoryDetails = ({ story, id, auth, deleteChapter, isFavorite, changeRating
                 <Link to={`/story/${id}/chapter/${chap.id}`} className="chapter-link primary">Read</Link>
                 {auth.uid === story.authorId &&
                   <Fragment>
-                    <Link to={`/story/${id}/chapter/${chap.id}/edit`} className="chapter-link edit">Edit</Link>
+                    <Link to={`/story/${id}/chapter/${chap.id}/edit`} className="chapter-link edit"><i className="far fa-edit"></i> Edit</Link>
                     <span className="chapter-link warning" onClick={deleteChapter.bind(this, chap.id)}>Delete</span>
                   </Fragment>}
               </div>

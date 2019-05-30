@@ -254,6 +254,53 @@ export const getChapter = (storyId, chapid) => async (dispatch, getState, { getF
   return dispatch({ type: types.GET_CHAPTER, payload: result })
 }
 
+export const getOneShot = storyId => async (dispatch, getState, { getFirebase, getFirestore }) => {
+
+  dispatch({ type: types.CHAPTER_LOADING })
+  const dataDoc = await getFirestore().collection('chapters').where('storyId', '==', storyId).get()
+  const doc = await dataDoc.docs[0]
+  if (!doc.exists) return dispatch({ type: types.CHAPTER_NOT_FOUND })
+
+  let result = doc.data()
+  result.id = doc.id
+
+  let charaPromises = []
+  let locPromises = []
+  result.characters.forEach(chara => {
+    charaPromises.push(getOneFromCollection(getFirestore, 'characters', chara))
+  })
+  result.locations.forEach(loc => {
+    locPromises.push(getOneFromCollection(getFirestore, 'locations', loc))
+  })
+
+  const data = await Promise.all(charaPromises)
+  result.characters = []
+  data.forEach(doc => {
+    result.characters.push({
+      id: doc.id,
+      firstname: doc.data().firstname,
+      lastname: doc.data().lastname,
+      image: doc.data().image,
+      public: doc.data().public,
+      authorId: doc.data().authorId,
+    })
+  })
+
+  const locData = await Promise.all(locPromises)
+  result.locations = []
+  locData.forEach(doc => {
+    result.locations.push({
+      id: doc.id,
+      name: doc.data().name,
+      description: doc.data().description,
+      image: doc.data().image,
+      imageCopyright: doc.data().imageCopyright
+    })
+  })
+
+  return dispatch({ type: types.GET_CHAPTER, payload: result })
+}
+
 export const getUserStories = id => async (dispatch, getState, { getFirebase, getFirestore }) => {
 
   const storiesQuery = await getFirestore().collection('stories').where('authorId', '==', id).get()

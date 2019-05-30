@@ -3,7 +3,7 @@ import { FormGroup, Col, Row, Label, FormText } from 'reactstrap'
 import SwitchButton from '../../shared/SwitchButton'
 import CustomTooltip from '../../hoc/CustomTooltip'
 
-const StoryForm = ({ categories, errors, onSelect, languages, copyrights, tagsChange, checked, switched, mature, turnMature, title, language, category, copyright, summary, tags, status, type, statuses }) => {
+const StoryForm = ({ categories, errors, onSelect, languages, copyrights, tagsChange, checked, switched, mature, turnMature, title, language, category, copyright, summary, tags, status, type, statuses, turnOneShot, oneShot }) => {
   return (
     <React.Fragment>
       <Row>
@@ -46,7 +46,7 @@ const StoryForm = ({ categories, errors, onSelect, languages, copyrights, tagsCh
         </Col>
         <Col md={type === "edit" ? 3: 4}>
           <FormGroup>
-            <Label>Copyright <i className="fas fa-info-circle" id="copyright"></i> <i>(required)</i></Label>
+            <Label>Copyright <i>(required)</i> <i className="fas fa-info-circle" id="copyright"></i></Label>
             <div className="select">
               <select value={copyright} type="select" onChange={onSelect} name="copyright">
                 <option hidden>Choose...</option>
@@ -91,16 +91,22 @@ const StoryForm = ({ categories, errors, onSelect, languages, copyrights, tagsCh
         <FormText color="muted">Add tags separated by commas</FormText>
       </FormGroup>
       <Row>
-        <Col md="6">
+        <Col md="12">
           <FormGroup>
             <SwitchButton text={'Public story ?'} checked={ checked } switched={switched} />
           </FormGroup>
         </Col>
-        <Col md="6">
+        <Col md="12">
           <FormGroup>
             <SwitchButton text={'Mature content ?'} checked={ mature || false } switched={turnMature} />
           </FormGroup>
         </Col>
+        {type === 'add' &&
+        <Col md="6">
+          <FormGroup>
+            <SwitchButton text={'One shot ? (cannot be changed)'} checked={ oneShot || false } switched={turnOneShot} />
+          </FormGroup>
+        </Col>}
       </Row>
     </React.Fragment>
   )

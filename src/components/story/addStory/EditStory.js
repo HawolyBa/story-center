@@ -185,7 +185,7 @@ class EditStory extends Component {
           <SimpleBar style={{ height: '80vh' }}>
             <div className="edit-story add-story">
               <div className="upper-band flex as spb">
-                <Link className="square-btn primary-btn outlined" to={`/story/${match.params.id}`}>Back to story</Link>
+                <Link className="square-btn primary-btn outlined" to={`/story/${match.params.id}`}><i className="fas fa-long-arrow-alt-left"></i> Back to story</Link>
               </div>
               <hr/>  
               <h2 className="text-center">Edit your story</h2>
