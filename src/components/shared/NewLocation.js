@@ -58,7 +58,7 @@ class AddLocation extends Component {
   }
 
   render() {
-    const { stories, currentId } = this.props
+    const { stories, currentId, type } = this.props
     return (
       <Fragment>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
@@ -106,7 +106,10 @@ class AddLocation extends Component {
               </ModalFooter>
             </Form>
         </Modal>
-        <span id="add-location-btn" className="add-location-btn c-pointer" onClick={this.toggle}> Add a new location</span>
+        {type !== 'floating' ? 
+          <span id="add-location-btn" className="add-location-btn c-pointer" onClick={this.toggle}> Add a new location</span>:
+          <i className="fas fa-map-marker-alt" id="add-location-btn" onClick={this.toggle}></i>
+        }
         <FlashMessage flash={this.state.flash} message={this.state.message} alert={this.state.alert}/>
       </Fragment>
     )

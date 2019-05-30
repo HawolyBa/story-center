@@ -81,6 +81,29 @@
       height: 35px;
       line-height: 35px;
     }
+
+    .float{
+      width:40px;
+      height:40px;
+      bottom:30px;
+      right:20px;
+    }
+
+    ul {
+      right:20px;
+      bottom:40px;
+    }
+
+    ul li{
+      width:40px;
+      height:40px;
+      font-size: 1rem;
+    }
+
+    .my-float{
+      font-size:16px;
+      margin-top:12px;
+    }
   }
 
   .character {

@@ -258,8 +258,8 @@ export const getOneShot = storyId => async (dispatch, getState, { getFirebase, g
 
   dispatch({ type: types.CHAPTER_LOADING })
   const dataDoc = await getFirestore().collection('chapters').where('storyId', '==', storyId).get()
+  if (dataDoc.docs.length === 0) return 
   const doc = await dataDoc.docs[0]
-  if (!doc.exists) return dispatch({ type: types.CHAPTER_NOT_FOUND })
 
   let result = doc.data()
   result.id = doc.id

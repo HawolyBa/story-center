@@ -623,6 +623,20 @@
         margin-top: 20px
       }
   }
+
+  .item-card {
+    height: 150px;
+    .image {
+      height: 100px;
+    }
+    figcaption { 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 50px
+    }
+    h4 { font-size: 0.7rem; margin: 0}
+  }
 }
 
 .add-story {

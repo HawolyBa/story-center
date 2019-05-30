@@ -1,31 +1,18 @@
-import React, { Component } from 'react'
-import { Modal, ModalHeader, ModalBody } from 'reactstrap'
-import story from '../../images/story.png'
-import mask from '../../images/mask.png'
-import location from '../../images/location.png'
+import React from 'react'
 import { Link } from 'react-router-dom'
-import NewLocation from './NewLocation'
-import Feedback from './Feedback'
 import { siteName, slogan } from '../../config/keys'
 
-class FloatingButton extends Component {
+import NewLocation from './NewLocation'
+import Feedback from './Feedback'
+import CustomTooltip from '../hoc/CustomTooltip'
 
-  state = {
-    modal:false
-  }
+const FloatingButton = (props) => {
 
-  toggle = () => {
-    this.setState({
-      modal: !this.state.modal,
-      checked: false
-    });
-  }
-
-  triggerClick = () => {
+  const triggerClick = () => {
     document.getElementById('add-location-btn').click()
   }
 
-  getWindowOptions = () => {
+  const getWindowOptions = () => {
     const width = 500;
     const height = 350;
     const left = (window.innerWidth / 2) - (width / 2);
@@ -40,39 +27,63 @@ class FloatingButton extends Component {
     ].join();
   };
 
-  render() {
-    const text = encodeURIComponent(`${siteName} - ${slogan}`);
-    const shareUrl = 'https://twitter.com/intent/tweet?url=' + location.href + '&text=' + text;
-    return (
-      <div className="floating-add">
-        <Modal isOpen={this.state.modal} toggle={this.toggle} className="modal-floating">
-          <ModalHeader toggle={this.toggle}>What do you want to do ?</ModalHeader>
-          <ModalBody>
-            <div className="columns">
-              <Link onClick={this.toggle} className="column" to={'/story/add'}>
-                <img src={story} alt="story-icon"/>
-                Add a story
-              </Link>
-              <Link onClick={this.toggle} className="column" to={'/character/add'}>
-                <img src={mask} alt="mask-icon"/>
-                Add a character
-              </Link>
-              <div className="column" onClick={this.triggerClick}>
-                <img src={location} alt="location-icon" />
-                <NewLocation />
-              </div>
-              <Feedback userId={this.props.userId} />
-            </div>
-          </ModalBody>
-        </Modal>
-        <div className="floating-btn-group">
-          {this.props.userId && <div onClick={this.toggle} className="floating-btn">+</div>}
-          <div onClick={() => window.open(shareUrl, 'ShareOnTwitter', this.getWindowOptions())} className="floating-btn floating-twitter"><i className="fab fa-twitter"></i></div>
-          <div className="floating-btn floating-facebook"><i className="fab fa-facebook"></i></div>
+  const text = encodeURIComponent(`${siteName} - ${slogan}`);
+  const shareUrl = 'https://twitter.com/intent/tweet?url=' + window.location.href + '&text=' + text;
+  return (
+    <div className="floating-add">
+      <div className="floating-btn-group">
+        <div className="float c-pointer" id="menu-share">
+          <i className="fas fa-ellipsis-v my-float"></i>
         </div>
+        <ul>
+          <li id="sharefb" className="floating-facebook">
+            <i className="fab fa-facebook"></i>
+            <CustomTooltip placement="left" target="sharefb">
+              Share this on Facebook
+            </CustomTooltip>
+          </li>
+          <li className="floating-twitter" id="sharetwi" onClick={() => window.open(shareUrl, 'ShareOnTwitter', getWindowOptions())}>
+            <i className="fab fa-twitter"></i>
+            <CustomTooltip placement="left" target="sharetwi">
+              Share this on Twitter
+            </CustomTooltip>
+          </li>
+          {props.userId &&
+          <React.Fragment>
+            <li id="sendfeedback">
+              <Feedback userId={props.userId} type='floating' />
+              <CustomTooltip placement="left" target="sendfeedback">
+                Send feedback
+              </CustomTooltip>
+            </li>
+            <li id="addlocation" onClick={triggerClick}>
+              <NewLocation type="floating" />
+              <CustomTooltip placement="left" target="addlocation">
+                Add a new location
+              </CustomTooltip>
+            </li>
+            <li id="addcharacter">
+              <Link to={'/character/add'}>
+                <i className="fas fa-user-plus"></i>
+              </Link>
+              <CustomTooltip placement="left" target="addcharacter">
+                Add a new character
+              </CustomTooltip>
+            </li>
+            <li id="addstory">
+              <Link to={'/story/add'}>
+                <i className="fas fa-pen-alt"></i>
+              </Link>
+              <CustomTooltip placement="left" target="addstory">
+                Add a new story
+              </CustomTooltip>
+            </li>
+          </React.Fragment>
+          }
+        </ul>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 export default FloatingButton

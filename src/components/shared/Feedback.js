@@ -42,10 +42,13 @@ class Feedback extends Component {
             <button onClick={this.onSubmit} className="custom-btn">Submit</button>
           </ModalBody>
         </Modal>
-        <div className="column" onClick={this.toggle}>
-          <img src={satisfaction} alt="feedback-icon" />
-          <span className="add-location-btn"> Send feedback</span>
-        </div>
+        {this.props.type !== 'floating' ?
+          <div className="column" onClick={this.toggle}>
+            <img src={satisfaction} alt="feedback-icon" />
+            <span className="add-location-btn"> Send feedback</span>
+          </div>:
+          <i onClick={this.toggle} className="fas fa-comment-dots"></i>
+        }
       </div>
     )
   }
