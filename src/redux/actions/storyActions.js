@@ -264,6 +264,8 @@ export const getOneShot = storyId => async (dispatch, getState, { getFirebase, g
   let result = doc.data()
   result.id = doc.id
 
+  if (result.status === 'draft') return dispatch({ type: types.IS_DRAFT, payload: result.id })
+
   let charaPromises = []
   let locPromises = []
   result.characters.forEach(chara => {
@@ -392,11 +394,11 @@ export const getLocationsInChapter = (storyId, chapid) => async (dispatch, getSt
 export const addLocation = (info, image) => async (dispatch, getState, { getFirebase, getFirestore }) => {
 
   dispatch({ type: types.LOADING_UI })
+  if (!info.storyId) return dispatch({ type: types.SET_ERRORS, payload: { storyId: 'Must not be empty' } })
   const userId = getFirebase().auth().currentUser.uid
   const imageName = info.name.toLowerCase().split(' ').map(c => c.replace(/[^a-zA-Z ]/g, "")).join('_')
 
   if (!image) {
-
     getFirestore().collection('locations').add({
       ...info,
       image,
@@ -404,8 +406,14 @@ export const addLocation = (info, image) => async (dispatch, getState, { getFire
       authorName: getState().firebase.profile.username,
       createdAt: new Date().toISOString()
     })
-    .then(() => dispatch({type: types.LOCATION_ADDED, payload: { message: 'Location added successefully', alert: 'success'} }))
-    .catch(err => console.log(err.code))
+    .then(() => {
+      dispatch({type: types.CLEAR_ERRORS })
+      dispatch({type: types.LOCATION_ADDED, payload: { message: 'Location added successefully', alert: 'success'} })
+    })
+    .catch(err => {
+      console.log(err)
+      return dispatch({type: types.LOCATION_ADDED, payload: { message: 'There has been a problem', alert: 'danger'} })
+    })
   } else {
     storage
       .ref(`${userId}/${imageName}`)
@@ -420,8 +428,14 @@ export const addLocation = (info, image) => async (dispatch, getState, { getFire
           createdAt: new Date().toISOString() 
         })
       })
-      .then(() => dispatch({type: types.LOCATION_ADDED, payload: { message: 'Location added successefully', alert: 'success'} }))
-      .catch(err => console.log(err))
+      .then(() => {
+        dispatch({type: types.CLEAR_ERRORS })
+        dispatch({type: types.LOCATION_ADDED, payload: { message: 'Location added successefully', alert: 'success'} })
+      })
+      .catch(err => {
+        console.log(err)
+        return dispatch({type: types.LOCATION_ADDED, payload: { message: 'There has been a problem', alert: 'danger'} })
+      })
   }
 }
 
@@ -792,8 +806,8 @@ export const nextpage = url => dispatch => {
     .catch(err => console.log(err))
 }
 
-export const cleanup = () => dispatch => {
-  return dispatch({ type: types.CLEANUP })
+export const cleanup = (comp) => dispatch => {
+  return dispatch({ type: types.CLEANUP, payload: comp })
 }
 
 export const getFeaturedStories = () => (dispatch, getState, { getFirebase, getFirestore }) => {
@@ -824,10 +838,14 @@ export const getPrivateStories = () => (dispatch, getState, { getFirebase, getFi
           id: doc.id,
           banner: doc.data().banner,
           title: doc.data().title,
+          summary: doc.data().summary,
           likesCount: doc.data().likesCount,
           public: doc.data().public,
           note: doc.data().note,
-          authorId: doc.data().authorId
+          authorId: doc.data().authorId,
+          status: doc.data().status,
+          createdAt: doc.data().createdAt,
+          chaptersCount: doc.data().chaptersCount
         })
       })
       return dispatch({ type: types.GET_STORIES, payload: result })
@@ -846,9 +864,14 @@ export const getPublicStories = (id) => (dispatch, getState, { getFirebase, getF
           id: doc.id,
           banner: doc.data().banner,
           title: doc.data().title,
+          summary: doc.data().summary,
           likesCount: doc.data().likesCount,
           note: doc.data().note,
-          authorId: doc.data().authorId
+          public: doc.data().public,
+          authorId: doc.data().authorId,
+          status: doc.data().status,
+          createdAt: doc.data().createdAt,
+          chaptersCount: doc.data().chaptersCount
         })
       })
       return dispatch({ type: types.GET_STORIES, payload: result })

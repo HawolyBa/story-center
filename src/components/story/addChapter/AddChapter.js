@@ -138,7 +138,7 @@ class AddChapter extends Component {
         { !this.props.loading ?
           !this.props.notFound ?
           (this.props.auth && this.props.story && this.props.story.authorId === this.props.auth.uid) ? 
-          !this.props.story.oneShot && this.props.storyChapNumbers.length === 0 ? 
+          (this.props.story.oneShot && this.props.storyChapNumbers.length === 0) || !this.props.story.oneshot ?
         <div className="story add-chapter">
           <StoryBanner story={story} id={this.props.match.params.id}/>
           <ChapterForm

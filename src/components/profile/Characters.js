@@ -2,6 +2,12 @@ import React, {useState} from 'react'
 import { Link } from 'react-router-dom'
 import CharacterCards from '../shared/CharacterCards'
 import DataByStory from '../shared/DataByStory'
+import styled, { keyframes } from 'styled-components';
+import fadeIn from 'react-animations/lib/fadeIn'
+const animation = keyframes`${fadeIn}`;
+const AnimatedSection = styled.section`
+  animation: 0.6s ${animation}
+`;
 
 const Characters = ({ characters, auth, id }) => {
 
@@ -21,7 +27,7 @@ const Characters = ({ characters, auth, id }) => {
   }
 
   return (
-    <section className="characters">
+    <AnimatedSection className="characters">
       <nav className="profile-nav mb-5 flex ac jc frn">
         <span id="allCharacters" className="mr-3 subTab" onClick={changeTab.bind(this, 'allCharacters')}>All Characters</span>
         <span id="charactersByStory" className="subTab" onClick={changeTab.bind(this, 'charactersByStory')}>Characters by story</span>
@@ -29,11 +35,10 @@ const Characters = ({ characters, auth, id }) => {
       <div className="profile-cards">
       { activeTab === 'allCharacters' ?
       <div id="allCharacters">
-        <div className="flex frw spb ac">
+        <div className="flex frw spb ac mb-4">
           <h5>{characters.allCharacters.length} character{characters.allCharacters.length > 1 ? 's' : ''}</h5>
-          <Link className="custom-btn" to='/character/add'><i className="fas fa-plus-circle"></i> Add a new character</Link>
+          {!id && <Link className="custom-btn" to='/character/add'><i className="fas fa-plus-circle"></i> Add a new character</Link>}
         </div>
-        <hr/>
         { characters.allCharacters.length > 0 ? 
           <CharacterCards lg='2' md='3' xs='6' auth={auth} type='characters' characters={characters.allCharacters}/>:
           <p>No character for the moment</p>
@@ -51,7 +56,7 @@ const Characters = ({ characters, auth, id }) => {
       </div>:
         null}
       </div>
-    </section>
+    </AnimatedSection>
   )
 }
 

@@ -7,21 +7,19 @@ import Report from '../shared/Report';
 import ProfileLoading from './ProfileLoading'
 import CustomTooltip from '../hoc/CustomTooltip'
 
-const Banner = ({ user, changeAvatar, triggerClick, id, auth, toggleFollow, verifyEmail, isFavorite, UI, loading, handleSize, orientation, activeTab}) => {
+const Banner = ({ user, changeAvatar, triggerClick, id, auth, toggleFollow, verifyEmail, isFavorite, UI, loading}) => {
   return (
     <section className="banner">
     {!loading ? 
       <div className="inner-banner flex spb ac frw">
         <div className="left-col flex fc ac jc">
-          {!id ? <div className={`avatar mb-3 flex jc ac fc ${orientation}`} onClick={triggerClick} style={{ background: `url(${user.image ? user.image : defaultAvatar}) no-repeat center / cover` }}>
+          {!id ? <div className="avatar private-avatar mb-3 flex jc ac fc" onClick={triggerClick} style={{ background: `url(${user.image ? user.image : defaultAvatar}) no-repeat center / cover` }}>
             { UI.loading ?
               <Sentry/>:
               <input id="changeAvatar" onChange={changeAvatar} name="banner" hidden type="file" />
             }
           </div>:
-          <div className={`mb-3 flex jc ac fc ${orientation}`}>
-            <img src={user.image ? user.image : defaultAvatar} alt={user.username}/>
-          </div>
+          <div className="mb-3 flex jc ac fc avatar" style={{ background: `url(${user.image ? user.image : defaultAvatar}) no-repeat center / cover` }}/>
           }
           {!id && !auth.emailVerified && (
             <Button outline color="danger" size="sm" onClick={verifyEmail}>

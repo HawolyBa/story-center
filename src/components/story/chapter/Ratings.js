@@ -117,7 +117,7 @@ class Ratings extends Component {
 
   render() {
     return (
-      <div className="chapter-rating">
+      <div className="chapter-rating mb-4">
         {this.checkVote()}
       </div>
     )

@@ -56,6 +56,8 @@ const initialState = {
     photos: []
   },
   featuredStories: [],
+  isDraft: false,
+  chapid: ''
 }
 
 export default function(state = initialState, action) {
@@ -128,6 +130,12 @@ export default function(state = initialState, action) {
       return {
         ...state,
         banners: action.payload
+      }
+    case types.IS_DRAFT:
+      return {
+        ...state,
+        isDraft: true,
+        chapid: action.payload
       }
     case types.CLEANUP:
       return initialState

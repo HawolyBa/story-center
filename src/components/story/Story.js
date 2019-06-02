@@ -100,6 +100,7 @@ class Story extends Component {
             match={this.props.match}
             category={this.props.category}
             comments={this.props.comments}
+            isDraft={this.props.isDraft}
           />
         </div>:
       <Private type="Private story" data={this.props.auth} />:
@@ -164,7 +165,9 @@ const mapStateToProps = (state, ownProps) => {
     notFound: state.story.notFound,
     UI: state.UI,
     chapter,
-    comments: allcomments
+    comments: allcomments,
+    isDraft: state.story.isDraft,
+    chapid: state.story.chapid
   }
 }
 

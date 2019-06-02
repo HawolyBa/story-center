@@ -1,9 +1,16 @@
 import React from 'react'
 import { Form, Button, Label, FormGroup, Row, Col, FormText } from 'reactstrap'
 
+import styled, { keyframes } from 'styled-components';
+import fadeIn from 'react-animations/lib/fadeIn'
+const animation = keyframes`${fadeIn}`;
+const AnimatedSection = styled.section`
+  animation: 0.6s ${animation}
+`;
+
 const Settings = ({ user, onChange, onSubmit, deleteAccount, checked, switched, onChangeBio, charactersLeft, bio }) => {
   return (
-    <section className="settings bg-white">
+    <AnimatedSection className="settings bg-white">
       <h5 className="mb-4">Settings</h5>
       <Form>
         <FormGroup>
@@ -48,7 +55,7 @@ const Settings = ({ user, onChange, onSubmit, deleteAccount, checked, switched, 
           <Button className="custom-btn danger-btn" onClick={deleteAccount}>Delete account</Button>
         </div>
       </Form>
-    </section>
+    </AnimatedSection>
   )
 }
 

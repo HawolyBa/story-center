@@ -8,10 +8,6 @@ import CustomTooltip from '../hoc/CustomTooltip'
 
 const FloatingButton = (props) => {
 
-  const triggerClick = () => {
-    document.getElementById('add-location-btn').click()
-  }
-
   const getWindowOptions = () => {
     const width = 500;
     const height = 350;
@@ -56,12 +52,7 @@ const FloatingButton = (props) => {
                 Send feedback
               </CustomTooltip>
             </li>
-            <li id="addlocation" onClick={triggerClick}>
-              <NewLocation type="floating" />
-              <CustomTooltip placement="left" target="addlocation">
-                Add a new location
-              </CustomTooltip>
-            </li>
+            <NewLocation type="floating"/>
             <li id="addcharacter">
               <Link to={'/character/add'}>
                 <i className="fas fa-user-plus"></i>

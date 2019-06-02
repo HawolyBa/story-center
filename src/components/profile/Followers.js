@@ -2,11 +2,17 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Row, Col } from 'reactstrap'
 
+import styled, { keyframes } from 'styled-components';
+import fadeIn from 'react-animations/lib/fadeIn'
+const animation = keyframes`${fadeIn}`;
+const AnimatedSection = styled.section`
+  animation: 0.6s ${animation}
+`;
+
 const Followers = ({followers}) => {
   return (
-    <section className="followers">
-      <h5>{ followers && followers.length} follower{followers && followers.length > 1 ? 's': ''}</h5>
-      <hr/>
+    <AnimatedSection className="followers">
+      <h5 className="mb-4">{ followers && followers.length} follower{followers && followers.length > 1 ? 's': ''}</h5>
       {followers.length > 0 ? 
       <Row>
         { followers.map(follower => (
@@ -23,7 +29,7 @@ const Followers = ({followers}) => {
         ))}
       </Row>: 
       <p>No follower for the moment</p>}
-    </section>
+    </AnimatedSection>
   )
 }
 

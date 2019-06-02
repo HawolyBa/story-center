@@ -39,18 +39,8 @@ const ChapterDetails = ({ previous, next, locations, characters, story, chapter,
             <h3 className="text-center mb-4">{chapter && chapter.title}</h3>
             <div className="meta">
               <small>
-                Posted on: <Moment format="YYYY-MM-DD, HH:mm">{new Date(chapter.createdAt)}</Moment>
+                Posted <Moment fromNow>{new Date(chapter.createdAt)}</Moment>
               </small>
-              <br/>
-              <ShareButtons title={title} image={story.banner ? story.banner: defaultBanner}/>
-              { innerWidth < 850 && 
-              <small className="meta-responsive">
-                Author: <Link to={`/profile/${story.authorId}`}> {story.authorName}</Link>  / 
-                Status: {story.status} / 
-                Genre: <Link to={`/categories/${category && category.id}`}>{category && category.name}</Link> / 
-                Rating: {story.rating} / 
-                Language: {`${language && language.lang} (${language && language.code})`}
-              </small>}
             </div>
             <hr/>
               <p dangerouslySetInnerHTML={{__html: chapter && chapter.body}} className="body"></p>
@@ -88,7 +78,7 @@ const ChapterDetails = ({ previous, next, locations, characters, story, chapter,
               <h3 className="text-center mb-4">{chapter && chapter.title}</h3>
               <div className="meta">
                 <small>
-                  Posted on: <Moment format="YYYY-MM-DD, HH:mm">{new Date(chapter.createdAt)}</Moment>
+                  Posted <Moment fromNow>{new Date(chapter.createdAt)}</Moment>
                 </small>
                 <br />
                 <small className="meta-responsive">
@@ -102,7 +92,9 @@ const ChapterDetails = ({ previous, next, locations, characters, story, chapter,
               <hr />
               <p dangerouslySetInnerHTML={{ __html: chapter && chapter.body }} className="body"></p>
             </div>
-            <Ratings chapter={chapter} id={params.id} chapid={params.chapid} />
+            {story.public && <Ratings chapter={chapter} id={params.id} chapid={params.chapid} /> }
+            <small>Share this chapter on social media</small>
+            <ShareButtons title={title} image={story.banner ? story.banner: defaultBanner}/>
             <nav className="chapter-nav flex spb ac frn mt-4">
               <Link className={`square-btn primary-btn outlined ${!previous ? 'hidden' : null}`} to={`/story/${story.id}/chapter/${previous && previous.id}`}>Prev</Link>
               <Link className={`square-btn primary-btn outlined ${!next ? 'hidden' : null}`} to={`/story/${story.id}/chapter/${next && next.id}`}>Next</Link>

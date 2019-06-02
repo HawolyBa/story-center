@@ -22,6 +22,8 @@ import Tabs from './Tabs';
 import ProfileLoading from './ProfileLoading'
 
 class PrivateProfile extends Component {
+
+  _isMounted = false
   state = {
     userInfo: {
       biography: ''
@@ -30,11 +32,12 @@ class PrivateProfile extends Component {
     items: [],
     activeTab: 'stories',
     image: '',
-    orientation: '',
-    charactersLeft: 240
+    charactersLeft: 240,
+    activeView: 'grid'
   }
-
+ 
   componentDidMount() {
+    this._isMounted = true
     this.props.getPrivateStories()
     this.props.getPrivateCharacters()
     this.props.getPrivateLocations()
@@ -42,9 +45,6 @@ class PrivateProfile extends Component {
     this.props.getFollowings()
     this.props.getFavoriteStories()
     this.props.getFavoriteCharacters()
-    if (this.props.user.image) {
-      this.handleSize(this.props.user.image)
-    }
 
     if (this.props.user.biography) {
       let letterCount = this.props.user.biography.replace(/\s+/g, '').length;
@@ -56,14 +56,6 @@ class PrivateProfile extends Component {
   }
   
   componentDidUpdate(prevProps) {
-    if (this.props.user.image !== prevProps.user.image) {
-      this.handleSize(this.props.user.image)
-    }
-    if (prevProps.newImage !== this.props.newImage) {
-      const { newImage } = this.props
-      this.setState({ orientation: newImage.imageWidth > newImage.imageHeight ? 'circular--landscape' : newImage.imageWidth < newImage.imageHeight ? 'circular--portrait' : 'circular--square' })
-    }
-
     if (this.props.loading !== prevProps.loading) {
       const open = this.props.loading === false ? '': 'OPEN'
       this.props.setProgressBar(open)
@@ -80,6 +72,7 @@ class PrivateProfile extends Component {
   }
 
   componentWillUnmount() {
+    this._isMounted = false
     this.props.cleanup()
   }
 
@@ -117,46 +110,6 @@ class PrivateProfile extends Component {
   changeTabSelect = e => {
     this.setState({ activeTab: e.target.value })
   };
-
-  handleSize = (image) => {
-    const img = new Image();
-    img.src = image;
-    this.setState({ orientation: img.width > img.height ? 'circular--landscape' : img.width < img.height ? 'circular--portrait' : 'circular--square' })
-  }
-
-  // resizeGridItem = item => {
-  //   const grid = document.getElementById("masonry");
-  //   let rowHeight = parseInt(
-  //     window.getComputedStyle(grid).getPropertyValue("grid-auto-rows")
-  //   );
-  //   let rowGap = parseInt(
-  //     window.getComputedStyle(grid).getPropertyValue("grid-row-gap")
-  //   );
-  //   let rowSpan =
-  //     Math.ceil(
-  //       (item.querySelector(".inner").getBoundingClientRect().height + rowGap) /
-  //         (rowHeight + rowGap)
-  //     ) + 1;
-  //   item.style.gridRowEnd = "span " + rowSpan;
-  // };
-
-  // resizeAllGridItems = () => {
-  //   const allItems = document.getElementsByClassName("grid-item");
-  //   for (let x = 0; x < allItems.length; x++) {
-  //     this.resizeGridItem(allItems[x]);
-  //   }
-  // };
-
-  // resizeInstance = instance => {
-  //   let item = instance.elements[0];
-  //   this.resizeGridItem(item);
-  // };
-
-  // loadItems = () => {
-  //   this.setState({
-  //     items: this.state.items.concat(Array(this.state.perPage).fill())
-  //   });
-  // };
 
   onChange = e => {
     this.setState({ userInfo: {...this.state.userInfo, [e.target.name]: e.target.value.trim().toString()} });
@@ -219,54 +172,57 @@ class PrivateProfile extends Component {
     if (confirm) this.props.deleteLocation(id)
   }
 
+  changeView = view => {
+    this.setState({ activeView: view })
+  }
+
   render() {
-    
-  const { user, auth, loading, UI } = this.props
-  const { activeTab, flash, message, alert, orientation, charactersLeft, userInfo } = this.state
-  const { id } = this.props.match.params
-  return (
-    <main className="inner-main-profile">
-      <Banner 
-        UI={UI}
-        profile={user}
-        user={user}
-        auth={auth}
-        changeAvatar={this.changeAvatar}
-        verifyEmail={this.props.verifyEmail}
-        changeTab={this.changeTab}
-        changeTabSelect={this.changeTabSelect}
-        triggerClick={this.triggerClick}
-        loading={loading}
-        handleSize={this.handleSize}
-        orientation={orientation}
-        toggle={this.toggle}
-        activeTab={this.state.activeTab}
-      />
-        <div className="profile-content">
-        {!loading ?
-          <React.Fragment>
-            <Tabs activeTab={activeTab} changeTab={this.changeTab} changeTabSelect={this.changeTabSelect} id={id} />
-          {
-            activeTab === 'stories' ?
-            <Stories id={id} auth={auth} stories={user.stories}/>:
-            activeTab === 'characters' ?
-            <Characters id={id} auth={auth} characters={user.characters}/>:
-            activeTab === 'locations' ?
-            <Locations type='private' deleteLocation={this.deleteLocation} locations={user.locations} id={id}/>:
-            activeTab === 'followers' ?
-            <Followers followers={user.followers}/>:
-            activeTab === 'favorites' ?
-            <Favorites auth={auth} favorites={user.favorites}/>:
-            activeTab === 'settings' ?
-            <Settings bio={userInfo.biography} charactersLeft={charactersLeft} onChangeBio={this.onChangeBio} deleteAccount={this.deleteAccount} onSubmit={this.onSubmit}  onChange={this.onChange} user={user} />:
-            <div></div>
-          }
-          </React.Fragment>:
-          <ProfileLoading />}
-        </div>
-        <Flash flash={flash} message={message} alert={alert}/>
-    </main>
-    )
+    const { user, auth, loading, UI } = this.props
+    const { activeTab, flash, message, alert, orientation, charactersLeft, userInfo, activeView } = this.state
+    const { id } = this.props.match.params
+    return (
+      <main className="inner-main-profile">
+        <Banner 
+          UI={UI}
+          profile={user}
+          user={user}
+          auth={auth}
+          changeAvatar={this.changeAvatar}
+          verifyEmail={this.props.verifyEmail}
+          changeTab={this.changeTab}
+          changeTabSelect={this.changeTabSelect}
+          triggerClick={this.triggerClick}
+          loading={loading}
+          handleSize={this.handleSize}
+          orientation={orientation}
+          toggle={this.toggle}
+          activeTab={this.state.activeTab}
+        />
+          <div className="profile-content">
+          {!loading ?
+            <React.Fragment>
+              <Tabs activeTab={activeTab} changeTab={this.changeTab} changeTabSelect={this.changeTabSelect} id={id} />
+            {
+              activeTab === 'stories' ?
+              <Stories activeView={activeView} changeView={this.changeView} id={id} auth={auth} stories={user.stories}/>:
+              activeTab === 'characters' ?
+              <Characters id={id} auth={auth} characters={user.characters}/>:
+              activeTab === 'locations' ?
+              <Locations type='private' deleteLocation={this.deleteLocation} locations={user.locations} id={id}/>:
+              activeTab === 'followers' ?
+              <Followers followers={user.followers}/>:
+              activeTab === 'favorites' ?
+              <Favorites auth={auth} favorites={user.favorites}/>:
+              activeTab === 'settings' ?
+              <Settings bio={userInfo.biography} charactersLeft={charactersLeft} onChangeBio={this.onChangeBio} deleteAccount={this.deleteAccount} onSubmit={this.onSubmit}  onChange={this.onChange} user={user} />:
+              <div></div>
+            }
+            </React.Fragment>:
+            <ProfileLoading />}
+          </div>
+          <Flash flash={flash} message={message} alert={alert}/>
+        </main>
+      )
   }
 }
 
@@ -301,8 +257,24 @@ const mapStateToProps = state => ({
   user: {...state.profile.user, ...state.firebase.profile},
   loading: state.profile.loading,
   UI: state.UI,
-  usernames: state.firestore.ordered.users && state.firestore.ordered.users.map(user => user.username.toLowerCase()),
-  newImage: state.profile.newImage
+  usernames: state.firestore.ordered.users && state.firestore.ordered.users.map(user => user.username.toLowerCase())
 });
 
-export default compose(connect(mapStateToProps, { getFavoriteCharacters, getFavoriteStories, getFollowings, changeImage, updateUserProfile, deleteAccount, verifyEmail, deleteLocation, cleanup, getPrivateCharacters, getPrivateLocations, getFollowers, getPrivateStories, setProgressBar }), firestoreConnect([{collection: 'users'}]))(PrivateProfile);
+const mapDispatchToProps = {
+  getFavoriteCharacters,
+  getFavoriteStories, 
+  getFollowings, 
+  changeImage, 
+  updateUserProfile, 
+  deleteAccount, 
+  verifyEmail, 
+  deleteLocation, 
+  cleanup, 
+  getPrivateCharacters, 
+  getPrivateLocations,
+  getFollowers, 
+  getPrivateStories, 
+  setProgressBar
+}
+
+export default compose(connect(mapStateToProps, mapDispatchToProps), firestoreConnect([{collection: 'users'}]))(PrivateProfile);

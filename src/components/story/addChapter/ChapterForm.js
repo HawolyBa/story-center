@@ -79,13 +79,13 @@ const ChapterForm = ({ body, onSubmit, onChange, handleEditorChange, onSelect, c
               <table className="chosen">
                 <tbody>
                   {charactersSelected && charactersSelected.map(chara => (
-                    <tr key={chara.id}>
-                      <td>
-                        <Link to={`/character/${chara.id}`}>{`${chara.firstname} ${chara.lastname ? chara.lastname : ''}`}</Link>
-                      </td>
-                      <td><span className="circle delete" onClick={removeFromCharacters.bind(this, chara.id)}>&times;</span>
-                      </td>
-                    </tr>
+                      <tr>
+                        <td>
+                          <Link to={`/character/${chara.id}`}>{`${chara.firstname} ${chara.lastname ? chara.lastname : ''}`}</Link>
+                        </td>
+                        <td><span className="circle delete" onClick={removeFromCharacters.bind(this, chara.id)}>&times;</span>
+                        </td>
+                      </tr>
                   ))}
                 </tbody>
               </table>

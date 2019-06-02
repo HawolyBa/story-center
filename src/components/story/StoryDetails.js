@@ -17,10 +17,11 @@ import ShareButtons from '../shared/ShareButtons'
 import Moment from 'react-moment'
 
 
-const StoryDetails = ({ story, id, auth, deleteChapter, isFavorite, changeRating, UI, innerWidth, innerHeight, chapter, match, comments, category}) => {
+const StoryDetails = ({ story, id, auth, deleteChapter, isFavorite, changeRating, UI, innerWidth, innerHeight, chapter, match, comments, category, isDraft, chapid}) => {
   const chapters = story.chapters.filter(chap => auth.uid !== story.authorId ? chap.status === "published" : chap)
   const height = innerHeight <= 720 ? 'calc(100vh - 90px)': '80vh'
   const language = languages.find(l => l.code === story.language)
+  const title = `Read: ${story.title} - ${chapter.title} on ${siteName}`
   return innerWidth >= 850 ?
     <SimpleBar style={{ height: height }}>
       <section className="story-details p-4">
@@ -49,21 +50,31 @@ const StoryDetails = ({ story, id, auth, deleteChapter, isFavorite, changeRating
       </div>
       <hr/>
       <p className="summary"><span>Summary:</span> {story && story.summary}</p>
-        <small className="storyTags">Tags: {story.tags.map((tag, i) => <Link key={i} to={`/tags/${tag}`}>{`#${tag} `}</Link>)}</small>
+        <small className="storyTags">Tags: {story.tags.map((tag, i) => <Link key={i} to={`/tags/${tag}`}>{`#${decodeURIComponent(tag)} `}</Link>)}</small>
       <ShareButtons title={`Read: ${story.title} on ${siteName}`} image={story.banner ? story.banner: defaultBanner}/>
       <hr/>
       <div className="story-details-chapter">
       { auth.uid === story.authorId && 
         <div className="add-btn-group mb-3">
-          {(story.oneShot || !chapter.title) && 
+          {(story.oneShot && !chapter.title && !isDraft) && 
           <React.Fragment>
-            <i className="fas fa-plus-circle"></i> <Link to={`/story/${id}/add`}>{story.oneShot && !chapter.title ? 'Star writing': 'Add a new chapter'}</Link><br/>
+            <i className="fas fa-plus-circle"></i> <Link to={`/story/${id}/add`}>{story.oneShot && !chapter.title ? 'Start writing': 'Add a new chapter'}</Link><br/>
           </React.Fragment>
           }
-          {story.oneShot && chapter.title &&
+          {(!story.oneShot) && 
+          <React.Fragment>
+            <i className="fas fa-plus-circle"></i> <Link to={`/story/${id}/add`}>Add a new chapter</Link><br/>
+          </React.Fragment>
+          }
+          {(story.oneShot && chapter.title) || (isDraft) ?
+            !chapid ?
             <React.Fragment>
               <i className="far fa-edit"></i> <Link to={`/story/${id}/chapter/${chapter.id}/edit`}>Edit chapter</Link><br />
-            </React.Fragment>
+            </React.Fragment>:
+            <React.Fragment>
+              <i className="far fa-edit"></i> <Link to={`/story/${id}/chapter/${chapid}/edit`}>Edit chapter</Link><br />
+            </React.Fragment>:
+            null
           }
           <i className="fas fa-plus-circle"></i> <Link to={`/character/add`}>Add a new character</Link><br />
           <i className="fas fa-plus-circle"></i> <AddLocation currentId={id}/>
@@ -92,6 +103,7 @@ const StoryDetails = ({ story, id, auth, deleteChapter, isFavorite, changeRating
             <Squares />
           }
         </React.Fragment>:
+        !isDraft ?
         <div className="chapter">
           <div className="chapter-content one-shot">
             <h3 className="text-center mb-4 title">{chapter && chapter.title}</h3>
@@ -109,7 +121,8 @@ const StoryDetails = ({ story, id, auth, deleteChapter, isFavorite, changeRating
             <hr />
             {story.public && <Comments story={story} chapter={chapter} params={match.params} comments={comments} />}
           </div>
-        </div>
+        </div>:
+        <p>No chapter for the moment...</p>
         }
         </div>
       </section>
@@ -200,6 +213,8 @@ const StoryDetails = ({ story, id, auth, deleteChapter, isFavorite, changeRating
             <hr />
             <p dangerouslySetInnerHTML={{ __html: chapter && chapter.body }} className="body"></p>
             {chapter.id && <Ratings chapter={chapter} id={match.params.id} chapid={chapter.id} />}
+            <small>Share this chapter on social media</small>
+            <ShareButtons title={title} image={story.banner ? story.banner: defaultBanner}/>
             <hr />
             <CharactersAndLocationsInChapter locations={chapter.locations} auth={auth} characters={chapter.characters} />
             <hr />

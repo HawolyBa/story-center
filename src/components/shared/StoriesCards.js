@@ -4,11 +4,11 @@ import StoryCard from './StoryCard'
 
 const StoriesCards = ({ auth, stories, type }) => {
   return (
-    <Row>
+      <Row>
       { stories.map(story => (
         <StoryCard auth={auth} type={type} key={story.id || story.storyId} story={story}/>
       ))}
-    </Row>
+      </Row>
   )
 }
 

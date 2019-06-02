@@ -5,6 +5,13 @@ import LocationCards from '../shared/LocationCards'
 import DataByStory from '../shared/DataByStory'
 import NewLocation from '../shared/NewLocation'
 
+import styled, { keyframes } from 'styled-components';
+import fadeIn from 'react-animations/lib/fadeIn'
+const animation = keyframes`${fadeIn}`;
+const AnimatedSection = styled.section`
+  animation: 0.6s ${animation}
+`;
+
 const Locations = ({ id, locations, deleteLocation, type }) => {
 
   const [locationState, setLocationState] = useState({modal: false, currentLocation: '' })
@@ -39,7 +46,7 @@ const Locations = ({ id, locations, deleteLocation, type }) => {
   }
 
   return (
-    <section className="locations">
+    <AnimatedSection className="locations">
       <nav className="profile-nav mb-5 flex frn ac jc">
         <span id="allLocations" className="mr-3 locSubTab" onClick={changeLocSubTab.bind(this, 'allLocations')}>
           All Locations
@@ -51,11 +58,10 @@ const Locations = ({ id, locations, deleteLocation, type }) => {
       <LocationModal deleteLocation={deleteLoc} currentLocation={locationState.currentLocation} toggle={toggle} modal={locationState.modal} id={id} />
       { activeTab === 'allLocations' ? 
       <div id ="allLocations">
-        <div className="flex frw spb ac">
+        <div className="flex frw spb ac mb-4">
           <h5>{locations.allLocations ? locations.allLocations.length : 0} location{locations && locations.allLocations.length > 1 ? 's': ''}</h5>
-          <button className="custom-btn"><i className="fas fa-plus-circle"></i> <NewLocation /></button>
+          {!id && <button className="custom-btn"><i className="fas fa-plus-circle"></i> <NewLocation /></button>}
         </div>
-        <hr/>
         {locations.allLocations.length > 0 ? 
           <LocationCards type={type} deleteLocation={deleteLocation} id={id} lg="2" md="3" xs="6" locations={locations.allLocations} toggle={toggle} />:
           <p>No location for the moment</p>
@@ -70,7 +76,7 @@ const Locations = ({ id, locations, deleteLocation, type }) => {
       }
       </Fragment>
       }
-    </section>
+    </AnimatedSection>
   )
 }
 

@@ -26,7 +26,7 @@ class Profile extends Component {
     perPage: 4,
     items: [],
     activeTab: 'stories',
-    orientation: 'circular--square'
+    activeView: 'grid'
   }
 
   componentDidMount() {
@@ -37,14 +37,9 @@ class Profile extends Component {
     this.props.getFollowings(this.props.match.params.id)
     this.props.getFavoriteStories(this.props.match.params.id)
     this.props.getFavoriteCharacters(this.props.match.params.id)
-    if (this.props.user.image) {
-      this.handleSize(this.props.user.image)
-    }
-    //window.addEventListener("resize", this.resizeAllGridItems);
   }
   
   componentDidUpdate(prevProps) {
-    //this.resizeAllGridItems();
     if (prevProps.match.params.id !== this.props.match.params.id) {
       this.props.getPublicStories(this.props.match.params.id)
       this.props.getPublicCharacters(this.props.match.params.id)
@@ -53,8 +48,7 @@ class Profile extends Component {
       this.props.getFollowings(this.props.match.params.id)
       this.props.getFavoriteStories(this.props.match.params.id)
       this.props.getFavoriteCharacters(this.props.match.params.id)
-      // window.addEventListener("resize", this.resizeAllGridItems);
-      this.setState({ activeTab: 'stories' })
+      this.setState({ activeTab: 'stories', activeView: 'grid' })
     }
     if (this.props.loading !== prevProps.loading) {
       const open = this.props.loading === false ? '' : 'OPEN'
@@ -73,11 +67,6 @@ class Profile extends Component {
         nightMode: this.props.profile.nightMode
       })
     }
-    if (this.props.user.image !== nextProps.user.image) {
-      const img = new Image();
-      img.src = nextProps.user.image;
-      this.setState({ orientation: img.width > img.height ? 'circular--landscape' : img.width < img.height ? 'circular--portrait' : 'circular--square' })
-    }
   }
 
   componentWillUnmount() {
@@ -92,46 +81,6 @@ class Profile extends Component {
     this.setState({ activeTab: e.target.value })
   };
 
-  handleSize = (image) => {
-    const img = new Image();
-    img.src = image;
-    this.setState({ orientation: img.width > img.height ? 'circular--landscape' : img.width < img.height ? 'circular--portrait' : 'circular--square' })
-  }
-
-  // resizeGridItem = item => {
-  //   const grid = document.getElementById("masonry");
-  //   let rowHeight = parseInt(
-  //     window.getComputedStyle(grid).getPropertyValue("grid-auto-rows")
-  //   );
-  //   let rowGap = parseInt(
-  //     window.getComputedStyle(grid).getPropertyValue("grid-row-gap")
-  //   );
-  //   let rowSpan =
-  //     Math.ceil(
-  //       (item.querySelector(".inner").getBoundingClientRect().height + rowGap) /
-  //         (rowHeight + rowGap)
-  //     ) + 1;
-  //   item.style.gridRowEnd = "span " + rowSpan;
-  // };
-
-  // resizeAllGridItems = () => {
-  //   const allItems = document.getElementsByClassName("grid-item");
-  //   for (let x = 0; x < allItems.length; x++) {
-  //     this.resizeGridItem(allItems[x]);
-  //   }
-  // };
-
-  // resizeInstance = instance => {
-  //   let item = instance.elements[0];
-  //   this.resizeGridItem(item);
-  // };
-
-  // loadItems = () => {
-  //   this.setState({
-  //     items: this.state.items.concat(Array(this.state.perPage).fill())
-  //   });
-  // };
-
   toggleFollow = () => {
     if (!this.props.isFavorite) {
       const newFollower = { id: this.props.auth.uid, image: this.props.profile.image, username: this.props.profile.username }
@@ -141,10 +90,13 @@ class Profile extends Component {
     }
   }
   
+  changeView = view => {
+    this.setState({ activeView: view })
+  }
 
   render() {
   const { user, auth, loading, UI, isFavorite } = this.props
-  const { activeTab, orientation } = this.state
+  const { activeTab, orientation, activeView } = this.state
   const { id } = this.props.match.params
   return (
     <main className="inner-main-profile">
@@ -170,9 +122,9 @@ class Profile extends Component {
           <Tabs activeTab={activeTab} changeTab={this.changeTab} changeTabSelect={this.changeTabSelect} id={id} />
         {
           activeTab === 'stories' ?
-          <Stories auth={auth} stories={user.stories}/>:
+          <Stories activeView={activeView} changeView={this.changeView} id={id} auth={auth} stories={user.stories}/>:
           activeTab === 'characters' ?
-          <Characters characters={user.characters}/>:
+          <Characters id={id} characters={user.characters}/>:
           activeTab === 'locations' ?
           <Locations type='public' deleteLocation={this.props.deleteLocation} locations={user.locations} id={id}/>:
           activeTab === 'followers' ?

@@ -88,7 +88,8 @@ const StoryForm = ({ categories, errors, onSelect, languages, copyrights, tagsCh
       <FormGroup>
         <Label>Tags <i>(optional)</i></Label>
         <input defaultValue={tags ? decodeURIComponent(tags.join(', ')): ''} type="text" name="tags" onInput={tagsChange}/>
-        <FormText color="muted">Add tags separated by commas</FormText>
+        <FormText color="muted">Add tags separated by commas. Example: dragons, magic, witch</FormText>
+        <FormText color="muted">{tags.map((tag, i) => `#${tag} `)}</FormText>
       </FormGroup>
       <Row>
         <Col md="12">

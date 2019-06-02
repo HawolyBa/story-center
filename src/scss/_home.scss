@@ -248,6 +248,17 @@
 
   aside#left-col {
     .select { display: none }
+
+    .trendings {
+      
+
+      li {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+    }
+
   }
 
   aside.right-col {

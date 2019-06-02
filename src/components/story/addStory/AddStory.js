@@ -110,7 +110,7 @@ export class AddStory extends Component {
 
   tagsChange = e => {
     const tags = formatTags(e.target.value.split(',').map(c => c.trim()))
-    this.setState({ tags})
+    this.setState({ tags })
   }
 
   searchImages = e => {

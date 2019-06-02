@@ -6,6 +6,7 @@ import { firestoreConnect } from 'react-redux-firebase'
 import { addLocation } from '../../redux/actions/storyActions'
 
 import FlashMessage from './FlashMessage'
+import CustomTooltip from '../hoc/CustomTooltip'
 
 class AddLocation extends Component {
 
@@ -17,7 +18,7 @@ class AddLocation extends Component {
       storyId: this.props.currentId ? this.props.currentId: '',
       name: '',
       description: ''
-    }
+    },
   }
 
   toggle = () => {
@@ -30,13 +31,15 @@ class AddLocation extends Component {
   onSubmit = e => {
     e.preventDefault()
     this.props.addLocation(this.state.info, this.state.image)
-    this.setState({
-      modal: false,
-      info: {
-        storyId: this.props.currentId ? this.props.currentId: ''
-      },
-      image: ''
-    });
+    if (this.state.info.storyId) {
+      this.setState({
+        modal: false,
+        info: {
+          storyId: this.props.currentId ? this.props.currentId: ''
+        },
+        image: ''
+      });
+    }
   }
 
   handleImageChange = e => {
@@ -58,7 +61,8 @@ class AddLocation extends Component {
   }
 
   render() {
-    const { stories, currentId, type } = this.props
+    
+    const { stories, currentId, type, errors } = this.props
     return (
       <Fragment>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
@@ -74,6 +78,7 @@ class AddLocation extends Component {
                       ))}
                     </select>
                   </div>
+                  { errors.storyId && <p className="warning">{errors.storyId}</p> }
                 </FormGroup>
                 <FormGroup>
                   <Label>Location Name</Label>
@@ -108,7 +113,12 @@ class AddLocation extends Component {
         </Modal>
         {type !== 'floating' ? 
           <span id="add-location-btn" className="add-location-btn c-pointer" onClick={this.toggle}> Add a new location</span>:
-          <i className="fas fa-map-marker-alt" id="add-location-btn" onClick={this.toggle}></i>
+          <li id="addlocation" onClick={this.toggle}>
+            <i className="fas fa-map-marker-alt" id="add-location-btn"></i>
+            <CustomTooltip placement="left" target="addlocation">
+              Add a new location
+            </CustomTooltip>
+          </li>
         }
         <FlashMessage flash={this.state.flash} message={this.state.message} alert={this.state.alert}/>
       </Fragment>
@@ -122,7 +132,8 @@ const mapStateToProps = state => {
   const userStories = stories && stories.filter(story => story.authorId === userId)
   return {
     stories: userStories,
-    loading: state.UI.loading
+    loading: state.UI.loading,
+    errors: state.UI.errors
   }
 }
 

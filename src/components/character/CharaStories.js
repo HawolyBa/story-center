@@ -9,7 +9,7 @@ const CharaStories = ({ charaStories }) => {
         <div className="rel-story" key={story.id}>
           <div className="story-details">
             <div className="story-title">
-              <h4><span className='circle' style={{ backgroundColor: story.status ? story.status === 'Complete' ? 'red' : 'yellow' : 'black' }}></span>{story.title}</h4>
+              <h4><span className='circle' style={{ backgroundColor: story.status ? story.status === 'Complete' ? 'red' : 'yellow' : 'black' }}></span><Link to={`/story/${story.id}`}>{story.title}</Link></h4>
               <span className="story-status">{story.status}</span>
             </div>
             <Link className="button" to={`/story/${story.id}`}>Go to story</Link>
@@ -18,7 +18,7 @@ const CharaStories = ({ charaStories }) => {
           <ul>
             { story.chapters.map((chap, i) => (
               <li key={i} className="chapter">
-                <span>{chap.title}</span>
+                <span><Link to={`/story/${story.id}/chapter/${chap.id}`}>{chap.title}</Link></span>
                 <hr/>
                 <Link to={`/story/${story.id}/chapter/${chap.id}`} className="button button-read">Read</Link>
               </li>

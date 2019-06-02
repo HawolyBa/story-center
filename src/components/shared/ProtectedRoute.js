@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 
 const AuthRoute = ({component: Component, auth, ...rest}) => {
   return (
-    <Route {...rest} render={(props) => !auth.uid ? <Redirect to='/auth'/>: <Component {...props}/>}/> 
+    <Route {...rest} render={(props) => !auth.uid ?  <Redirect to='/auth'/>:<Component {...props}/>}/> 
   )
 }
 const mapStateToProps = state => ({

@@ -47,6 +47,9 @@ class Layout extends Component {
     const { flash, message, alert } = this.state
     return (
       <div className='main-content'>
+        {/* <div className="mainBox">
+          <div className="curveSection"></div>
+        </div> */}
         <Header history={this.props.history}/>
         {this.props.children}
         <FloatingButton userId={this.props.auth.uid} />

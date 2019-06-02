@@ -4,10 +4,17 @@ import { Row, Col } from 'reactstrap'
 import CharacterCards from '../shared/CharacterCards'
 import UsersCards from '../shared/UsersCards'
 
+import styled, { keyframes } from 'styled-components';
+import fadeIn from 'react-animations/lib/fadeIn'
+const animation = keyframes`${fadeIn}`;
+const AnimatedSection = styled.section`
+  animation: 0.6s ${animation}
+`;
+
 const Favorites = ({ favorites, auth, id }) => {
   const characters = id ? favorites.characters.filter(char => char.public) : favorites.characters
   return (
-    <section className="favorites">
+    <AnimatedSection className="favorites">
       <Row>
         <Col md="9">
           <div className="fav-characters">
@@ -44,7 +51,7 @@ const Favorites = ({ favorites, auth, id }) => {
           </table>
         </div>
       </Row>
-    </section>
+    </AnimatedSection>
   )
 }
 

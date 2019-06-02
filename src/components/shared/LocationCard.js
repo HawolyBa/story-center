@@ -2,6 +2,13 @@ import React, { Component } from 'react'
 import { Col, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { defaultLocationImage } from '../default/defaultImages'
 import { Link } from 'react-router-dom'
+
+import styled, { keyframes } from 'styled-components';
+import zoomIn from 'react-animations/lib/zoomIn'
+const animation = keyframes`${zoomIn}`;
+const AnimatedDiv = styled.figure`
+  animation: 0.6s ${animation}
+`;
 class LocationCard extends Component {
 
   state = {
@@ -39,14 +46,14 @@ class LocationCard extends Component {
           }
         </Modal>
         <Col lg={lg} md={md} xs={xs} onClick={this.toggle}>
-          <figure className="item-card location-card">
+          <AnimatedDiv className="item-card location-card">
             <div className="image" >
               <div className="inner-image" style={{ background: `url(${location.image ? location.image : defaultLocationImage}) no-repeat center / cover` }} id={location.id} />
             </div>
             <figcaption>
               <h4>{location.name}</h4>
             </figcaption>
-          </figure>
+          </AnimatedDiv>
         </Col>
       </React.Fragment>
     )
