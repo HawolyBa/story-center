@@ -11,7 +11,6 @@ const BouncyDiv = styled.div`
 `;
 
 const StoryCard = ({ story, type, auth }) => {
-  console.log(story.public)
   return (
     <Col lg="2" md="4" xs="6">
         <Link to={`/story/${story.id}`}>
